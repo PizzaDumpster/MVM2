@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Space) && jumpCounter == 0 && isGrounded && (groundTimer > 0 || airTimer < 0.5f)) 
         {
+            anim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpCounter++;
         }

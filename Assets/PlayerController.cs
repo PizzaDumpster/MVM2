@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     Rigidbody2D rb;
     [SerializeField] float speed;
+    [SerializeField] Vector2 jumpForce;
     bool movingLeft;
     // Start is called before the first frame update
     void Start()
@@ -17,7 +18,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (Input.GetKey(KeyCode.D))
         {
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
         {
             if (movingLeft)
             {
-                rb.velocity = new Vector2(0f, 0f);
+                rb.velocity += new Vector2(0f, 0f);
                 anim.SetTrigger("idle");
             }
         }
@@ -45,10 +46,14 @@ public class PlayerController : MonoBehaviour
         {
             if (!movingLeft)
             {
-                rb.velocity = new Vector2(0f, 0f);
+                rb.velocity += new Vector2(0f, 0f);
                 anim.SetTrigger("idle");
             }
 
+        }
+        if(Input.GetKeyDown(KeyCode.Space)) 
+        {
+            rb.AddForce(jumpForce, ForceMode2D.Impulse);
         }
     }
 }

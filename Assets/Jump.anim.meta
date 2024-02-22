@@ -1,22 +1,8 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream:Assets/Jump.anim.meta
-<<<<<<< Updated upstream:Assets/Jump.anim.meta
 guid: b3f5705bc0485a441900a5d1a228c801
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000
-=======
-guid: efe075d7a8469d044be19279e16017bb
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 0
->>>>>>> Stashed changes:Assets/_Animations/Jump.anim.meta
-=======
-guid: efe075d7a8469d044be19279e16017bb
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 7400000
->>>>>>> Stashed changes:Assets/_Animations/Jump.anim.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

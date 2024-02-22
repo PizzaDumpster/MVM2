@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
     Animator anim;
     Rigidbody2D rb;
     [SerializeField] float speed;
-    [SerializeField] Vector2 jumpForce;
+    [SerializeField] float jumpForce;
     [SerializeField] bool movingRight;
     [SerializeField] bool isGrounded; 
     [SerializeField] Transform groundCheck;
     [SerializeField] PhysicsMaterial2D noStick;
+    [SerializeField] float groundTimer;
+    [SerializeField] float airTimer;
+    [SerializeField] int jumpCounter;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,9 +27,20 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(rb.velocity.x);
-
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down,0.05f); 
+        
+        if(isGrounded)
+        {
+            groundTimer += Time.deltaTime;
+            airTimer = 0;
+            jumpCounter = 0;
+        }
+        else
+        {
+            airTimer += Time.deltaTime;
+            groundTimer = 0;
+        }
+
         if (Input.GetKey(KeyCode.D))
         {
             movingRight = true;
@@ -57,9 +72,10 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded) 
+        if(Input.GetKeyDown(KeyCode.Space) && jumpCounter == 0 && groundTimer > 0 &&  (isGrounded || airTimer < 0.5f)) 
         {
-            rb.AddForce(jumpForce, ForceMode2D.Impulse);
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            jumpCounter++;
         }
     }
 }

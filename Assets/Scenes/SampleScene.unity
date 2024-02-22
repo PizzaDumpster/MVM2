@@ -3918,7 +3918,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 724698497}
-  - component: {fileID: 724698499}
+  - component: {fileID: 724698501}
   - component: {fileID: 724698496}
   - component: {fileID: 724698495}
   - component: {fileID: 724698500}
@@ -4047,28 +4047,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &724698499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 724698493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58938473a784e9440812c212f89e4fae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  jumpForce: 14
-  movingRight: 0
-  isGrounded: 0
-  groundCheck: {fileID: 1029060117}
-  attackPoint: {fileID: 693094772}
-  noStick: {fileID: 6200000, guid: 89ae4ed359ebda148977305f81dcc3b1, type: 2}
-  groundTimer: 0
-  airTimer: 0
-  jumpCounter: 0
 --- !u!70 &724698500
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -4104,6 +4082,28 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.8125, y: 1.25}
   m_Direction: 0
+--- !u!114 &724698501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 724698493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40ea0d587a9f15943b0bb7c7c530494f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  jumpForce: 14
+  movingRight: 0
+  isGrounded: 0
+  groundCheck: {fileID: 1029060117}
+  attackPoint: {fileID: 693094772}
+  noStick: {fileID: 6200000, guid: 89ae4ed359ebda148977305f81dcc3b1, type: 2}
+  groundTimer: 0
+  airTimer: 0
+  jumpCounter: 0
 --- !u!1 &738217132
 GameObject:
   m_ObjectHideFlags: 3

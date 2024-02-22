@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        if(Input.GetKeyDown(KeyCode.Space) && jumpCounter == 0 && groundTimer > 0 &&  (isGrounded || airTimer < 0.5f)) 
+        if(Input.GetKeyDown(KeyCode.Space) && jumpCounter == 0 && isGrounded && (groundTimer > 0|| airTimer < 0.5f)) 
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpCounter++;

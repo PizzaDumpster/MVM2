@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] Vector2 jumpForce;
     bool movingLeft;
+    bool isGrounded; 
+    [SerializeField] Transform groundCheck; 
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down,0.05f); 
         if (Input.GetKey(KeyCode.D))
         {
             movingLeft = true;
@@ -51,7 +54,7 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        if(Input.GetKeyDown(KeyCode.Space)) 
+        if(Input.GetKeyDown(KeyCode.Space) && isGrounded) 
         {
             rb.AddForce(jumpForce, ForceMode2D.Impulse);
         }

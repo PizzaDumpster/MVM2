@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Vector2 jumpForce;
     [SerializeField] bool movingRight;
     [SerializeField] bool isGrounded; 
-    [SerializeField] Transform groundCheck; 
+    [SerializeField] Transform groundCheck;
+    [SerializeField] PhysicsMaterial2D noStick;
     // Start is called before the first frame update
     void Start()
     {

@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool movingRight;
     [SerializeField] bool isGrounded; 
     [SerializeField] Transform groundCheck;
+    [SerializeField] Transform attackPoint; 
     [SerializeField] PhysicsMaterial2D noStick;
     [SerializeField] float groundTimer;
     [SerializeField] float airTimer;
@@ -80,6 +81,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             anim.SetTrigger("attack");
+            RaycastHit2D[] enemyHits = Physics2D.CircleCastAll(attackPoint.position, 3f, Vector2.right);
+            foreach (RaycastHit2D hit in enemyHits)
+            {
+                Debug.Log("Hit");
+            }
         }
     }
 }

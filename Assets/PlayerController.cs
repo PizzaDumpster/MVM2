@@ -22,12 +22,14 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(rb.velocity.x);
+
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down,0.05f); 
         if (Input.GetKey(KeyCode.D))
         {
             movingRight = true;
             transform.localScale = new Vector3(1, 1, 1);
-            rb.velocity = rb.velocity + new Vector2(speed, 0);
+            rb.velocity = new Vector2(speed,rb.velocity.y + 0);
             anim.SetTrigger("walk");
         }
         else
@@ -42,7 +44,7 @@ public class PlayerController : MonoBehaviour
         {
             movingRight = false;
             transform.localScale = new Vector3(-1, 1, 1);
-            rb.velocity = rb.velocity + new Vector2(-speed, 0);
+            rb.velocity = new Vector2(-speed, rb.velocity.y + 0);
             anim.SetTrigger("walk");
         }
         else

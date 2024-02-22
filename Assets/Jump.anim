@@ -17,6 +17,7 @@ AnimationClip:
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
+<<<<<<< Updated upstream:Assets/Jump.anim
   m_PPtrCurves:
   - serializedVersion: 2
     curve:
@@ -41,12 +42,16 @@ AnimationClip:
     classID: 212
     script: {fileID: 0}
     flags: 2
+=======
+  m_PPtrCurves: []
+>>>>>>> Stashed changes:Assets/_Animations/Jump.anim
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
+<<<<<<< Updated upstream:Assets/Jump.anim
     genericBindings:
     - serializedVersion: 2
       path: 0
@@ -66,17 +71,29 @@ AnimationClip:
     - {fileID: -1408205047, guid: 661fee7896f02ba42809d1f446b127df, type: 3}
     - {fileID: 1905032342, guid: 661fee7896f02ba42809d1f446b127df, type: 3}
     - {fileID: 444755507, guid: 661fee7896f02ba42809d1f446b127df, type: 3}
+=======
+    genericBindings: []
+    pptrCurveMapping: []
+>>>>>>> Stashed changes:Assets/_Animations/Jump.anim
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
+<<<<<<< Updated upstream:Assets/Jump.anim
     m_StopTime: 0.51666665
+=======
+    m_StopTime: 1
+>>>>>>> Stashed changes:Assets/_Animations/Jump.anim
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
+<<<<<<< Updated upstream:Assets/Jump.anim
     m_LoopTime: 0
+=======
+    m_LoopTime: 1
+>>>>>>> Stashed changes:Assets/_Animations/Jump.anim
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0

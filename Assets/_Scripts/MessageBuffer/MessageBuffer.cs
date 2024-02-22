@@ -1,6 +1,6 @@
 using System;
 
-public static class MessageBuffer<T> where T: BaseMessage, new()
+public static class MessageBuffer<T>
 {
     public static event Action<T> MessageReceived;
 
@@ -19,7 +19,7 @@ public static class MessageBuffer<T> where T: BaseMessage, new()
         MessageReceived -= callback;
     }
 
-    public static void Dispatch(T message)
+    public static void Dispatch(T message = default)
     {
         SendMessage(message);
     }

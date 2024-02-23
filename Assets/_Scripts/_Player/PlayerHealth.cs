@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class PlayerDeath : BaseMessage { }
 public class PlayerHealth : Health , IDamageable
 {
     public void Damage(int damage)
@@ -17,6 +18,7 @@ public class PlayerHealth : Health , IDamageable
     public void Die()
     {
         OnDeath?.Invoke();
+        MessageBuffer<PlayerDeath>.Dispatch();
     }
 
 }

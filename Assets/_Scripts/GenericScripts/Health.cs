@@ -9,7 +9,7 @@ public class Health : MonoBehaviour
 
     public UnityEvent OnDeath;
 
-    public int HealthAmount { get; set; }
+    public int HealthAmount { get { return health; } set { health = value; } }
 
 
 }

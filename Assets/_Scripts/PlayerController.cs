@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             anim.SetTrigger("attack");
-            RaycastHit2D[] enemyHits = Physics2D.CircleCastAll(attackPoint.position, 3f, Vector2.right);
+            RaycastHit2D[] enemyHits = Physics2D.CircleCastAll(attackPoint.position, 1f, Vector2.right);
             foreach (RaycastHit2D hit in enemyHits)
             {
                 Debug.Log(hit);

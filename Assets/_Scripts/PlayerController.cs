@@ -56,7 +56,11 @@ public class PlayerController : MonoBehaviour
             if (movingRight)
             {
                 rb.velocity += new Vector2(0f, 0f);
-                anim.SetTrigger("idle");
+                if(isGrounded)
+                {
+                    anim.SetTrigger("idle");
+                }
+                    
             }
         }
         if (Input.GetKey(KeyCode.A))
@@ -71,12 +75,17 @@ public class PlayerController : MonoBehaviour
             if (!movingRight)
             {
                 rb.velocity += new Vector2(0f, 0f);
-                anim.SetTrigger("idle");
+                if (isGrounded)
+                {
+                    anim.SetTrigger("idle");
+                }
+                
             }
 
         }
         if(Input.GetKeyDown(KeyCode.Space) && jumpCounter == 0 && isGrounded && (groundTimer > 0 || airTimer < 0.5f)) 
         {
+            anim.SetTrigger("jump"); 
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpCounter++;
         }

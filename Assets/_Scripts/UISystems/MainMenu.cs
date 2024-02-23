@@ -7,11 +7,9 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public SceneReference startScene;
-    string fullPath;
 
     public void StartScene()
     {
-        fullPath = ("Scenes/" + startScene.sceneName);
         StartCoroutine(TransitionToScene(startScene.name));
     }
 
@@ -26,7 +24,7 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator TransitionToScene(string sceneName)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(fullPath);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(startScene.sceneName);
         asyncLoad.allowSceneActivation = false;
 
         while (!asyncLoad.isDone)

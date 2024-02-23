@@ -12,9 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
   m_Name: WaterFallBase
   m_EditorClassIdentifier: 
-  m_AnimatedSprites: []
-  m_MinSpeed: 1
-  m_MaxSpeed: 1
+  m_AnimatedSprites:
+  - {fileID: 1944626663, guid: d5ecf6eea442d6742b7c468ee95dc099, type: 3}
+  - {fileID: 2082036156, guid: d5ecf6eea442d6742b7c468ee95dc099, type: 3}
+  - {fileID: -289604406, guid: d5ecf6eea442d6742b7c468ee95dc099, type: 3}
+  - {fileID: 1973333929, guid: d5ecf6eea442d6742b7c468ee95dc099, type: 3}
+  - {fileID: -1916924875, guid: d5ecf6eea442d6742b7c468ee95dc099, type: 3}
+  - {fileID: 1782746116, guid: d5ecf6eea442d6742b7c468ee95dc099, type: 3}
+  m_MinSpeed: 2
+  m_MaxSpeed: 2
   m_AnimationStartTime: 0
   m_AnimationStartFrame: 0
   m_TileColliderType: 0

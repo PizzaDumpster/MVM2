@@ -32,12 +32,14 @@ public class PlayerController : MonoBehaviour
         
         if(isGrounded)
         {
+            rb.sharedMaterial = null;
             groundTimer += Time.deltaTime;
             airTimer = 0;
             jumpCounter = 0;
         }
         else
         {
+            rb.sharedMaterial = noStick;
             airTimer += Time.deltaTime;
             groundTimer = 0;
         }

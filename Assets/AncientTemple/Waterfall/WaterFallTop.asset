@@ -12,9 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
   m_Name: WaterFallTop
   m_EditorClassIdentifier: 
-  m_AnimatedSprites: []
-  m_MinSpeed: 1
-  m_MaxSpeed: 1
+  m_AnimatedSprites:
+  - {fileID: 842278004, guid: 2f02d15a0af9fe04e811cdae312faa0c, type: 3}
+  - {fileID: -1873363910, guid: 2f02d15a0af9fe04e811cdae312faa0c, type: 3}
+  - {fileID: -1941986993, guid: 2f02d15a0af9fe04e811cdae312faa0c, type: 3}
+  - {fileID: 692111655, guid: 2f02d15a0af9fe04e811cdae312faa0c, type: 3}
+  - {fileID: 1824266987, guid: 2f02d15a0af9fe04e811cdae312faa0c, type: 3}
+  - {fileID: 1641568203, guid: 2f02d15a0af9fe04e811cdae312faa0c, type: 3}
+  m_MinSpeed: 2
+  m_MaxSpeed: 2
   m_AnimationStartTime: 0
   m_AnimationStartFrame: 0
   m_TileColliderType: 0

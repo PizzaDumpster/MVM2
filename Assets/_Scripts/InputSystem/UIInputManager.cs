@@ -14,7 +14,7 @@ public class UIInputManager : MonoBehaviour
             if (_UIInput == null)
                 _UIInput = GetComponent<IUIInput>();
             
-            print(_UIInput.IsTogglePauseDown());
+            
             if (_UIInput != null)
             {
                 if (_UIInput.IsTogglePauseDown())

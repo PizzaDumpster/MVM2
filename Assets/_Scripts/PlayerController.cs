@@ -17,8 +17,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float groundTimer;
     [SerializeField] float airTimer;
     [SerializeField] int jumpCounter;
+
     [SerializeField] float coyoteTime = 0.2f;
     [SerializeField] float coyoteTimeCounter;
+
+    [SerializeField] float jumpBufferTime = 0.2f;
+    [SerializeField] float jumpBufferCounter; 
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +35,16 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down,0.05f); 
+        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down,0.05f);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            jumpBufferCounter = jumpBufferTime;
+        }
+        else
+        {
+            jumpBufferCounter -= Time.deltaTime;
+        }
         
         if(isGrounded)
         {
@@ -88,10 +101,11 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        if(Input.GetKeyDown(KeyCode.Space) && jumpCounter == 0 && coyoteTimeCounter > 0f) 
+        if(jumpBufferCounter > 0 && jumpCounter == 0 && coyoteTimeCounter > 0f) 
         {
             anim.SetTrigger("jump"); 
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            jumpBufferCounter = 0f; 
             jumpCounter++;
         }
         if (Input.GetKeyUp(KeyCode.Space))

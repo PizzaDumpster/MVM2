@@ -17,8 +17,9 @@ public class PlayerHealth : Health , IDamageable
 
     public void Die()
     {
-        OnDeath?.Invoke();
         MessageBuffer<PlayerDeath>.Dispatch();
+        OnDeath?.Invoke();
+        
     }
 
 }

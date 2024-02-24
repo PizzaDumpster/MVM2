@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDamageTrigger : MonoBehaviour
+public class EnemyDamageTrigger : DamageTrigger
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Collider2D enemyCollider;
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        enemyCollider = GetComponentInChildren<Collider2D>();
     }
 }

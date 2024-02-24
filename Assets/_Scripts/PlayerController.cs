@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -22,7 +22,37 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float coyoteTimeCounter;
 
     [SerializeField] float jumpBufferTime = 0.2f;
-    [SerializeField] float jumpBufferCounter; 
+    [SerializeField] float jumpBufferCounter;
+
+    private PlayerInputs playerControls;
+
+    public float valueX;
+    public bool tryToJump;
+    public bool tryToAttack;
+
+
+    private void Awake()
+    {
+        playerControls = new PlayerInputs();
+    }
+
+    private void OnEnable()
+    {
+        playerControls.Player.Jump.performed += Jump;
+        playerControls.Player.Jump.canceled += JumpStop;
+        playerControls.Player.Attack.performed += Attack;
+        playerControls.Player.Attack.canceled += AttackStop;
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
+        playerControls.Player.Jump.performed -= Jump;
+        playerControls.Player.Jump.canceled -= JumpStop;
+        playerControls.Player.Attack.performed -= Attack;
+        playerControls.Player.Attack.canceled -= AttackStop;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -36,8 +66,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down,0.05f);
+        valueX = playerControls.Player.HorizontalMove.ReadValue<float>();
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (playerControls.Player.Jump.triggered)
         {
             jumpBufferCounter = jumpBufferTime;
         }
@@ -62,7 +93,7 @@ public class PlayerController : MonoBehaviour
             groundTimer = 0;
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (valueX > 0)
         {
             movingRight = true;
             transform.localScale = new Vector3(1, 1, 1);
@@ -81,7 +112,7 @@ public class PlayerController : MonoBehaviour
                     
             }
         }
-        if (Input.GetKey(KeyCode.A))
+        if (valueX < 0)
         {
             movingRight = false;
             transform.localScale = new Vector3(-1, 1, 1);
@@ -108,11 +139,11 @@ public class PlayerController : MonoBehaviour
             jumpBufferCounter = 0f; 
             jumpCounter++;
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (playerControls.Player.Jump.WasReleasedThisFrame())
         {
             coyoteTimeCounter = 0f; 
         }
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (playerControls.Player.Attack.triggered)
         {
             anim.SetTrigger("attack");
             RaycastHit2D[] enemyHits = Physics2D.CircleCastAll(attackPoint.position, 1f, Vector2.right);
@@ -121,5 +152,30 @@ public class PlayerController : MonoBehaviour
                 Debug.Log(hit);
             }
         }
+    }
+
+    private void Jump(InputAction.CallbackContext value)
+    {
+        if (value.performed)
+        {
+            tryToJump = true;
+        }
+
+    }
+    private void JumpStop(InputAction.CallbackContext value)
+    {
+        tryToJump = false;
+    }
+    private void Attack(InputAction.CallbackContext value)
+    {
+        if (value.performed)
+        {
+            tryToAttack = true;
+        }
+
+    }
+    private void AttackStop(InputAction.CallbackContext value)
+    {
+        tryToAttack = false;
     }
 }

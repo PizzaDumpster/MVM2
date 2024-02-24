@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6801036368723282513}
   - component: {fileID: 8611084550985635873}
   - component: {fileID: 6909444161839062644}
+  - component: {fileID: 4550229881886733568}
   m_Layer: 0
   m_Name: Blob
   m_TagString: Enemy
@@ -164,12 +165,25 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.56, y: 0.64}
   m_Direction: 0
+--- !u!114 &4550229881886733568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 711294687240551135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7372bc5faf0b70f4bb85512e6f370cf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageInflicted: 10
 --- !u!1 &1830088180148570421
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,6 +231,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 1
   moveSpeed: 0.5
-  rotateAngle: -90
   raycastDistance: 0.1
   raycastOffset: 0

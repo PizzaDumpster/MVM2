@@ -11,29 +11,26 @@ public class PlatformEnemySetAngle : MonoBehaviour
 {
     public Direction direction;
     public float moveSpeed = 2f;
-    public float rotateAngle = 90f; // Angle to rotate when not grounded
-    public float raycastDistance = 0.1f;
-    public float raycastOffset = 0.05f; // Offset to prevent raycast from hitting own collider
+    private float rotateAngle;
 
-    private bool hasRotated = false; // Flag to track if rotation has occurred
+    public float raycastDistance = 0.1f;
+    public float raycastOffset = 0.05f;
+
+    private bool hasRotated = false;
 
     private void Start()
     {
-        if (direction == Direction.Right) rotateAngle = -90;
-        else rotateAngle = 90;
+        rotateAngle = (direction == Direction.Right) ? -90f : 90f;
     }
+
     void Update()
     {
-
-
         RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.up * raycastOffset, -transform.up, raycastDistance);
         Debug.DrawRay(transform.position + transform.up * raycastOffset, -transform.up * raycastDistance, Color.green);
 
         if (hit.collider != null)
         {
-
             hasRotated = false;
-
             MoveEnemy();
         }
         else
@@ -43,14 +40,12 @@ public class PlatformEnemySetAngle : MonoBehaviour
                 transform.Rotate(Vector3.forward * rotateAngle);
                 hasRotated = true;
             }
-
             MoveEnemy();
         }
     }
 
     private void MoveEnemy()
     {
-        if (direction == Direction.Right)transform.Translate(Vector2.right * moveSpeed * Time.deltaTime);
-        if (direction == Direction.Left) transform.Translate(Vector2.left * moveSpeed * Time.deltaTime);
+        transform.Translate((direction == Direction.Right) ? Vector2.right * moveSpeed * Time.deltaTime : Vector2.left * moveSpeed * Time.deltaTime);
     }
 }

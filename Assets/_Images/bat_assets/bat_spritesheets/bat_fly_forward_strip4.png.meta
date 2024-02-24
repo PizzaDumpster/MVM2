@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 13ebccb03131d654aba3121d5849bbf0
+guid: f95403cb9591c544d9cca1d1701e4612
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walk_0
+      name: bat_fly_forward_strip4_0
       rect:
         serializedVersion: 2
-        x: 60
-        y: 49
-        width: 45
-        height: 51
+        x: 7
+        y: 7
+        width: 17
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46ce02df179d2d14989d982acfb94128
-      internalID: -1297869068
+      spriteID: a137353bf7999984c9e87ff8b5635ff9
+      internalID: -2084803958
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk_1
+      name: bat_fly_forward_strip4_1
       rect:
         serializedVersion: 2
-        x: 210
-        y: 49
-        width: 45
-        height: 50
+        x: 41
+        y: 8
+        width: 14
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f67e834cea3ff374c90a7ab022b5b639
-      internalID: 1673126675
+      spriteID: b7a8a4b20acf7314db12861c193de94e
+      internalID: 187225415
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk_2
+      name: bat_fly_forward_strip4_2
       rect:
         serializedVersion: 2
-        x: 360
-        y: 49
-        width: 45
-        height: 50
+        x: 75
+        y: 5
+        width: 11
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dbeb28338e9de764fac7934ebc793b15
-      internalID: 1874392353
+      spriteID: b5e66e08923866348bee24248de6c186
+      internalID: -1135285098
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk_3
+      name: bat_fly_forward_strip4_3
       rect:
         serializedVersion: 2
-        x: 510
-        y: 49
-        width: 45
-        height: 51
+        x: 100
+        y: 7
+        width: 23
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad417aa77f5b8374ea82aecccf228b9c
-      internalID: -2038885057
+      spriteID: fe8a3f99511cbf04b9684b8ff6cd57b5
+      internalID: -254947698
       vertices: []
       indices: 
       edges: []
@@ -204,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Walk_0: -1297869068
-      Walk_1: 1673126675
-      Walk_2: 1874392353
-      Walk_3: -2038885057
+      bat_fly_forward_strip4_0: -2084803958
+      bat_fly_forward_strip4_1: 187225415
+      bat_fly_forward_strip4_2: -1135285098
+      bat_fly_forward_strip4_3: -254947698
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

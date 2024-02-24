@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 13ebccb03131d654aba3121d5849bbf0
+guid: 52a9c6afee27f9f48b45e14dc504733f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -45,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 25
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Walk_0
+      name: Mini Blob Idle Spritesheet_0
       rect:
         serializedVersion: 2
-        x: 60
-        y: 49
-        width: 45
-        height: 51
+        x: 9
+        y: 2
+        width: 14
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46ce02df179d2d14989d982acfb94128
-      internalID: -1297869068
+      spriteID: a231215aa2b6dee4983d349eca6749fb
+      internalID: 953604673
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk_1
+      name: Mini Blob Idle Spritesheet_1
       rect:
         serializedVersion: 2
-        x: 210
-        y: 49
-        width: 45
-        height: 50
+        x: 39
+        y: 2
+        width: 18
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f67e834cea3ff374c90a7ab022b5b639
-      internalID: 1673126675
+      spriteID: b1648447a95512e46ad6e9d34c9ba38b
+      internalID: 1795838783
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk_2
+      name: Mini Blob Idle Spritesheet_2
       rect:
         serializedVersion: 2
-        x: 360
-        y: 49
-        width: 45
-        height: 50
+        x: 71
+        y: 2
+        width: 18
+        height: 13
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dbeb28338e9de764fac7934ebc793b15
-      internalID: 1874392353
+      spriteID: 4275863863cc60d43a51f13305b0e170
+      internalID: -1955481899
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Walk_3
+      name: Mini Blob Idle Spritesheet_3
       rect:
         serializedVersion: 2
-        x: 510
-        y: 49
-        width: 45
-        height: 51
+        x: 105
+        y: 2
+        width: 14
+        height: 12
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ad417aa77f5b8374ea82aecccf228b9c
-      internalID: -2038885057
+      spriteID: b5199a3736385b54095112f568604351
+      internalID: -2038082646
       vertices: []
       indices: 
       edges: []
@@ -204,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Walk_0: -1297869068
-      Walk_1: 1673126675
-      Walk_2: 1874392353
-      Walk_3: -2038885057
+      Mini Blob Idle Spritesheet_0: 953604673
+      Mini Blob Idle Spritesheet_1: 1795838783
+      Mini Blob Idle Spritesheet_2: -1955481899
+      Mini Blob Idle Spritesheet_3: -2038082646
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

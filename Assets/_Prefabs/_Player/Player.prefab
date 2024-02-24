@@ -40,7 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7028258957920198225}
-  - component: {fileID: 8856433849447699956}
   - component: {fileID: 1423543906855090405}
   - component: {fileID: 3514343458974145630}
   - component: {fileID: 759722886728864148}
@@ -71,21 +70,6 @@ Transform:
   - {fileID: 8190116055694505914}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8856433849447699956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5252729496669648702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a9c787fe935b0f4c92c972b55d2686a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  valueX: 0
-  tryToJump: 0
-  tryToAttack: 0
 --- !u!114 &1423543906855090405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,7 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58938473a784e9440812c212f89e4fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  getPlayerInput: {fileID: 8856433849447699956}
   speed: 5
   jumpForce: 14
   movingRight: 0
@@ -136,11 +119,14 @@ MonoBehaviour:
   noStick: {fileID: 6200000, guid: 89ae4ed359ebda148977305f81dcc3b1, type: 2}
   groundTimer: 0
   airTimer: 0
-  jumpCounter: 0
+  availableJumps: 0
   coyoteTime: 0.2
   coyoteTimeCounter: 0
   jumpBufferTime: 0.2
   jumpBufferCounter: 0
+  valueX: 0
+  tryToJump: 0
+  tryToAttack: 0
 --- !u!212 &759722886728864148
 SpriteRenderer:
   m_ObjectHideFlags: 0

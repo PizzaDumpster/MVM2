@@ -34304,13 +34304,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2002616065}
     m_Modifications:
+    - target: {fileID: 1199487744134688751, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
+      propertyPath: objectToInstantiate
+      value: 
+      objectReference: {fileID: 912754947457033638, guid: 2dd1ba2d30d167545ba72742e97d6240, type: 3}
     - target: {fileID: 1830088180148570421, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
       propertyPath: m_Name
       value: Blob
-      objectReference: {fileID: 0}
-    - target: {fileID: 5211439186246012448, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
-      propertyPath: DamageDealt
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7712622536001876147, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
       propertyPath: m_LocalPosition.x
@@ -35035,14 +35035,6 @@ PrefabInstance:
     - target: {fileID: 2285975448196802238, guid: 7a05ff6ead48da742ae697fa87b3d5c0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5269536720809038400, guid: 7a05ff6ead48da742ae697fa87b3d5c0, type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 64
-      objectReference: {fileID: 0}
-    - target: {fileID: 6198937745712298135, guid: 7a05ff6ead48da742ae697fa87b3d5c0, type: 3}
-      propertyPath: DamageDealt
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

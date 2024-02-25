@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5269536720809038400}
   - component: {fileID: 3248074609016853108}
   - component: {fileID: 6198937745712298135}
+  - component: {fileID: 4860007596821556101}
   m_Layer: 0
   m_Name: Bat
   m_TagString: Untagged
@@ -89,7 +90,7 @@ MonoBehaviour:
   childSpriteRenderer: {fileID: 2027834832168888679}
   layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
 --- !u!114 &3248074609016853108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +119,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  enemyHit: {fileID: 912754947457033638, guid: 2dd1ba2d30d167545ba72742e97d6240, type: 3}
+  onHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4860007596821556101}
+        m_TargetAssemblyTypeName: ParticleHit, Assembly-CSharp
+        m_MethodName: SpawnObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &6198937745712298135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +146,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16b78b79ae12e74bba66dc9ae5459a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageDealt: 0
+  DamageDealt: 10
+--- !u!114 &4860007596821556101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 600492642518281312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0979d904dab18804e9f64582561c1966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToInstantiate: {fileID: 912754947457033638, guid: 2dd1ba2d30d167545ba72742e97d6240, type: 3}
 --- !u!1 &6375350360204744348
 GameObject:
   m_ObjectHideFlags: 0

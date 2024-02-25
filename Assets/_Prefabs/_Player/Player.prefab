@@ -40,12 +40,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7028258957920198225}
-  - component: {fileID: 1423543906855090405}
-  - component: {fileID: 3514343458974145630}
   - component: {fileID: 759722886728864148}
   - component: {fileID: 3192305360280657140}
   - component: {fileID: 1503080035105917354}
   - component: {fileID: 5707718150890076996}
+  - component: {fileID: 3514343458974145630}
+  - component: {fileID: 1423543906855090405}
+  - component: {fileID: -4649165196833554598}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -70,64 +71,6 @@ Transform:
   - {fileID: 8190116055694505914}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1423543906855090405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5252729496669648702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f05ddfe40f1980c439838468e073af1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5252729496669648702}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3514343458974145630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5252729496669648702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58938473a784e9440812c212f89e4fae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  jumpForce: 14
-  movingRight: 0
-  isGrounded: 0
-  groundCheck: {fileID: 169145697224156681}
-  attackPoint: {fileID: 8190116055694505914}
-  noStick: {fileID: 6200000, guid: 89ae4ed359ebda148977305f81dcc3b1, type: 2}
-  groundTimer: 0
-  airTimer: 0
-  availableJumps: 2
-  maxJumps: 2
-  coyoteTime: 0.2
-  coyoteTimeCounter: 0
-  jumpBufferTime: 0.2
-  jumpBufferCounter: 0
-  valueX: 0
-  tryToJump: 0
-  tryToAttack: 0
 --- !u!212 &759722886728864148
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -263,6 +206,78 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3514343458974145630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252729496669648702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58938473a784e9440812c212f89e4fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: -4649165196833554598}
+  speed: 5
+  jumpForce: 14
+  movingRight: 0
+  isGrounded: 0
+  groundCheck: {fileID: 169145697224156681}
+  attackPoint: {fileID: 8190116055694505914}
+  noStick: {fileID: 6200000, guid: 89ae4ed359ebda148977305f81dcc3b1, type: 2}
+  groundTimer: 0
+  airTimer: 0
+  availableJumps: 2
+  maxJumps: 2
+  coyoteTime: 0.2
+  coyoteTimeCounter: 0
+  jumpBufferTime: 0.2
+  jumpBufferCounter: 0
+  valueX: 0
+  tryToJump: 0
+  tryToAttack: 0
+--- !u!114 &1423543906855090405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252729496669648702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05ddfe40f1980c439838468e073af1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5252729496669648702}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-4649165196833554598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252729496669648702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2000b1cf0049924c921da4f412eddee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeapon: {fileID: 11400000, guid: 9d2384aebe81ac046ae9730670834553, type: 2}
 --- !u!1 &7349648980270907563
 GameObject:
   m_ObjectHideFlags: 0

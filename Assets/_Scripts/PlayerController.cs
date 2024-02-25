@@ -5,32 +5,57 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    //Components
     Animator anim;
     Rigidbody2D rb;
+    public WeaponEquiped weapon;
+
+    // Movement Parameters
+    [Header("Movement Parameters")]
     [SerializeField] float speed;
     [SerializeField] float jumpForce;
     [SerializeField] bool movingRight;
-    [SerializeField] bool isGrounded; 
+
+    // Ground Detection
+    [Header("Ground Detection")]
+    [SerializeField] bool isGrounded;
     [SerializeField] Transform groundCheck;
-    [SerializeField] Transform attackPoint; 
+
+    // Attack Parameters
+    [Header("Attack Parameters")]
+    [SerializeField] Transform attackPoint;
+
+    // Physics Material
+    [Header("Physics Material")]
     [SerializeField] PhysicsMaterial2D noStick;
+
+    // Jump Timers
+    [Header("Jump Timers")]
     [SerializeField] float groundTimer;
     [SerializeField] float airTimer;
-    [SerializeField] int availableJumps;
-    public int maxJumps; 
 
+    // Jump Counters
+    [Header("Jump Counters")]
+    [SerializeField] int availableJumps;
+    public int maxJumps;
+
+    // Coyote Time
+    [Header("Coyote Time")]
     [SerializeField] float coyoteTime = 0.2f;
     [SerializeField] float coyoteTimeCounter;
 
+    // Jump Buffer
+    [Header("Jump Buffer")]
     [SerializeField] float jumpBufferTime = 0.2f;
     [SerializeField] float jumpBufferCounter;
 
+    // Player Input
     private PlayerInputs playerControls;
 
+    // Movement Input
     public float valueX;
     public bool tryToJump;
     public bool tryToAttack;
-
 
     private void Awake()
     {
@@ -88,8 +113,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (availableJumps > 0)
         {
+            rb.sharedMaterial = noStick;
             coyoteTimeCounter = coyoteTime;
-            rb.sharedMaterial = null;
         }
         else
         {
@@ -150,15 +175,34 @@ public class PlayerController : MonoBehaviour
             coyoteTimeCounter = 0f;
             availableJumps--;
         }
+
         if (playerControls.Player.Attack.triggered)
         {
+            AudioPlayer.Instance.PlayAudioClip(weapon.currentWeapon.WeaponSFX);
             anim.SetTrigger("attack");
+
+            Debug.DrawRay(attackPoint.position, Vector2.right * 1f, Color.red, 0.5f);
+
             RaycastHit2D[] enemyHits = Physics2D.CircleCastAll(attackPoint.position, 1f, Vector2.right);
             foreach (RaycastHit2D hit in enemyHits)
             {
-                Debug.Log(hit);
+                if (hit.collider.CompareTag("Player"))
+                {
+                    continue;
+                }
+
+                IDamageable damageable = hit.collider.GetComponent<IDamageable>();
+                if (damageable != null)
+                {
+                    damageable.Damage(weapon.currentWeapon.WeaponDamage);
+                    Debug.Log("Damageable object hit: " + hit.collider.gameObject.name);
+                }
             }
         }
+
+
+
+
     }
 
     private void Jump(InputAction.CallbackContext value)

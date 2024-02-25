@@ -58,6 +58,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool tryToDash;
     [SerializeField] bool isDashing;
     [SerializeField] Vector2 direction = new Vector2(1, 0);
+    private TrailRenderer tr; 
+
+    //Gravity Modifiers
+    [Header("Gravity Modifiers")]
+    [SerializeField] float initialGravityMultiplier;
+    [SerializeField] const float noGravityMultiplier = 0f; 
 
     // Coyote Time
     [Header("Coyote Time")]
@@ -68,6 +74,8 @@ public class PlayerController : MonoBehaviour
     [Header("Jump Buffer")]
     [SerializeField] float jumpBufferTime = 0.2f;
     [SerializeField] float jumpBufferCounter;
+
+    
 
     // Player Input
     private PlayerInputs playerControls;
@@ -109,7 +117,9 @@ public class PlayerController : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        tr = GetComponent<TrailRenderer>();
         canDash = true;
+        initialGravityMultiplier = rb.gravityScale;
 
     }
 
@@ -226,7 +236,7 @@ public class PlayerController : MonoBehaviour
                 {
                     continue;
                 }
-
+                
                 IDamageable damageable = collider.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
@@ -237,7 +247,7 @@ public class PlayerController : MonoBehaviour
         }
         if (unlockedDash)
         {
-            if (playerControls.Player.Dash.triggered)
+            if (playerControls.Player.Dash.triggered && canDash)
             {
                 StartCoroutine(Dash());
             }
@@ -289,12 +299,16 @@ public class PlayerController : MonoBehaviour
     public IEnumerator Dash()
     {
         isDashing = true;
+        rb.gravityScale = noGravityMultiplier;
         canDash = false;
         availableDash--;
 
         rb.velocity = new Vector2(direction.x * dashSpeed, rb.velocity.y);
+        tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
+        tr.emitting = false; 
         rb.velocity = new Vector2(0, rb.velocity.y);
+        rb.gravityScale = initialGravityMultiplier; 
         isDashing = false;
         StartCoroutine(WaitForNextDash());
     }

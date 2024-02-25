@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WorldDamage : DamageTrigger
 {
+ 
     public int damageInflicted = 100;
 
     private void OnTriggerEnter2D(Collider2D other)

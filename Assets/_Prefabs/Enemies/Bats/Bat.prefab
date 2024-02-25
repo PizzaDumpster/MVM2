@@ -87,6 +87,9 @@ MonoBehaviour:
   raycastDistance: 0.01
   speed: 2
   childSpriteRenderer: {fileID: 2027834832168888679}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &3248074609016853108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,6 +118,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  enemyHit: {fileID: 912754947457033638, guid: 2dd1ba2d30d167545ba72742e97d6240, type: 3}
 --- !u!114 &6198937745712298135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16b78b79ae12e74bba66dc9ae5459a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DamageDealt: 0
 --- !u!1 &6375350360204744348
 GameObject:
   m_ObjectHideFlags: 0

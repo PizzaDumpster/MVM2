@@ -277,6 +277,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  enemyHit: {fileID: 912754947457033638, guid: 2dd1ba2d30d167545ba72742e97d6240, type: 3}
 --- !u!114 &5211439186246012448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,3 +290,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16b78b79ae12e74bba66dc9ae5459a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DamageDealt: 0

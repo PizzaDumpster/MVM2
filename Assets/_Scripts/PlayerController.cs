@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float groundTimer;
     [SerializeField] float airTimer;
     [SerializeField] int availableJumps;
-    [SerializeField] int maxJumps; 
+    public int maxJumps; 
 
     [SerializeField] float coyoteTime = 0.2f;
     [SerializeField] float coyoteTimeCounter;

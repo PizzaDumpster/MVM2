@@ -43,7 +43,6 @@ public class ArrowItemShooter : MonoBehaviour
 
         if (arrow != null)
         {
-            Debug.Log("Shooting arrow...");
             arrow.transform.position = shootPoint.position;
 
             // Set arrow's rotation to match shootPoint's rotation

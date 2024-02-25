@@ -14,6 +14,9 @@ public class FlyingEnemy : MonoBehaviour
     private Vector2 startPosition;
     private bool movingRight = true;
 
+    public SpriteRenderer childSpriteRenderer;
+
+
     private void Start()
     {
         startPosition = transform.position;
@@ -36,6 +39,7 @@ public class FlyingEnemy : MonoBehaviour
         if (hit.collider == null)
         {
             transform.position = newPosition;
+            childSpriteRenderer.flipX = movingRight;
         }
         else
         {

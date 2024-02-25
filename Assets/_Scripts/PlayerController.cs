@@ -181,21 +181,22 @@ public class PlayerController : MonoBehaviour
             AudioPlayer.Instance.PlayAudioClip(weapon.currentWeapon.WeaponSFX);
             anim.SetTrigger("attack");
 
+            // Draw a debug circle
             Debug.DrawRay(attackPoint.position, Vector2.right * 1f, Color.red, 0.5f);
 
-            RaycastHit2D[] enemyHits = Physics2D.CircleCastAll(attackPoint.position, 1f, Vector2.right);
-            foreach (RaycastHit2D hit in enemyHits)
+            Collider2D[] hitColliders = Physics2D.OverlapCircleAll(attackPoint.position, 1f);
+            foreach (Collider2D collider in hitColliders)
             {
-                if (hit.collider.CompareTag("Player"))
+                if (collider.CompareTag("Player"))
                 {
                     continue;
                 }
 
-                IDamageable damageable = hit.collider.GetComponent<IDamageable>();
+                IDamageable damageable = collider.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
                     damageable.Damage(weapon.currentWeapon.WeaponDamage);
-                    Debug.Log("Damageable object hit: " + hit.collider.gameObject.name);
+                    Debug.Log("Damageable object hit: " + collider.gameObject.name);
                 }
             }
         }
@@ -203,8 +204,14 @@ public class PlayerController : MonoBehaviour
 
 
 
+
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPoint.position, 1f);
+    }
     private void Jump(InputAction.CallbackContext value)
     {
         if (value.performed)

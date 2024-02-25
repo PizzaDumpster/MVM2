@@ -3,6 +3,7 @@ using UnityEngine;
 public class DamageTrigger : MonoBehaviour
 {
     public Collider2D Collider { get; set; }
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         Collider = other;

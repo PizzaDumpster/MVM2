@@ -50,6 +50,7 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  enemyHit: {fileID: 912754947457033638, guid: 2dd1ba2d30d167545ba72742e97d6240, type: 3}
 --- !u!114 &2017621581258399811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16b78b79ae12e74bba66dc9ae5459a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DamageDealt: 0
 --- !u!114 &2711512321217702088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,3 +242,4 @@ MonoBehaviour:
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
+  enemyHit: {fileID: 0}

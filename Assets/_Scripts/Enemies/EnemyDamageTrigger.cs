@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyDamageTrigger : DamageTrigger
 {
     public int DamageDealt;
+     
     public override void TriggerDamage(Collider2D other)
     {
         if (other.CompareTag("Player"))

@@ -4,7 +4,8 @@ using UnityEngine.Tilemaps;
 public class Arrow : MonoBehaviour
 {
     public float shootForce = 10f;
-    public int damageAmount = 10; 
+    public int damageAmount = 10;
+    
 
     public Rigidbody2D rb;
 

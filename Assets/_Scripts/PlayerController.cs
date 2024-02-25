@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float jumpForce;
     [SerializeField] bool movingRight;
+
+    //Unlocks
+    [Header("Unlockables")]
+    [SerializeField] public bool unlockedDoubleJump = false;
+    [SerializeField] public bool unlockedDash = false;
+    [SerializeField] public bool wallClimbUnlocked = false;
 
     // Ground Detection
     [Header("Ground Detection")]
@@ -37,7 +44,20 @@ public class PlayerController : MonoBehaviour
     // Jump Counters
     [Header("Jump Counters")]
     [SerializeField] int availableJumps;
-    public int maxJumps;
+    [SerializeField] const int singleJump = 1;
+    [SerializeField] const int doubleJump = 2;
+
+    // Dash
+    [Header("Dash")]
+    [SerializeField] public bool canDash;
+    [SerializeField] int availableDash = 1;
+    [SerializeField] const int singleDash = 1;
+    [SerializeField] float waitForNextDash = 1;
+    [SerializeField] float dashSpeed = 30;
+    [SerializeField] float dashTime = 0.1f;
+    [SerializeField] bool tryToDash;
+    [SerializeField] bool isDashing;
+    [SerializeField] Vector2 direction = new Vector2(1, 0);
 
     // Coyote Time
     [Header("Coyote Time")]
@@ -68,6 +88,8 @@ public class PlayerController : MonoBehaviour
         playerControls.Player.Jump.canceled += JumpStop;
         playerControls.Player.Attack.performed += Attack;
         playerControls.Player.Attack.canceled += AttackStop;
+        playerControls.Player.Dash.performed += Dash;
+        playerControls.Player.Dash.canceled += DashStop;
         playerControls.Enable();
     }
 
@@ -78,6 +100,8 @@ public class PlayerController : MonoBehaviour
         playerControls.Player.Jump.canceled -= JumpStop;
         playerControls.Player.Attack.performed -= Attack;
         playerControls.Player.Attack.canceled -= AttackStop;
+        playerControls.Player.Dash.performed -= Dash;
+        playerControls.Player.Dash.canceled -= DashStop;
     }
 
     // Start is called before the first frame update
@@ -85,13 +109,14 @@ public class PlayerController : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        canDash = true;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down,0.05f);
+        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.05f);
         valueX = playerControls.Player.HorizontalMove.ReadValue<float>();
 
         if (playerControls.Player.Jump.triggered)
@@ -109,7 +134,10 @@ public class PlayerController : MonoBehaviour
             rb.sharedMaterial = null;
             groundTimer += Time.deltaTime;
             airTimer = 0;
-            availableJumps = maxJumps;
+            if (unlockedDoubleJump)
+                availableJumps = doubleJump;
+            else
+                availableJumps = singleJump; 
         }
         else if (availableJumps > 0)
         {
@@ -123,52 +151,59 @@ public class PlayerController : MonoBehaviour
             airTimer += Time.deltaTime;
             groundTimer = 0;
         }
-
-        if (valueX > 0)
+        if (!isDashing)
         {
-            movingRight = true;
-            transform.localScale = new Vector3(1, 1, 1);
-            rb.velocity = new Vector2(speed,rb.velocity.y + 0);
-            anim.SetTrigger("walk");
-        }
-        else
-        {
-            if (movingRight)
+            if (valueX > 0)
             {
-                rb.velocity += new Vector2(0f, 0f);
-                if(isGrounded)
+                movingRight = true;
+                transform.localScale = new Vector3(1, 1, 1);
+                rb.velocity = new Vector2(speed, rb.velocity.y + 0);
+                direction.x = 1;
+                anim.SetTrigger("walk");
+            }
+            else
+            {
+                if (movingRight)
                 {
-                    anim.SetTrigger("idle");
+                    rb.velocity += new Vector2(0f, 0f);
+
+                    if (isGrounded)
+                    {
+                        anim.SetTrigger("idle");
+                    }
+
                 }
-                    
+            }
+            if (valueX < 0)
+            {
+                movingRight = false;
+                transform.localScale = new Vector3(-1, 1, 1);
+                rb.velocity = new Vector2(-speed, rb.velocity.y + 0);
+                direction.x = -1;
+                anim.SetTrigger("walk");
+            }
+            else
+            {
+                if (!movingRight)
+                {
+                    rb.velocity += new Vector2(0f, 0f);
+
+                    if (isGrounded)
+                    {
+                        anim.SetTrigger("idle");
+                    }
+
+                }
+
             }
         }
-        if (valueX < 0)
-        {
-            movingRight = false;
-            transform.localScale = new Vector3(-1, 1, 1);
-            rb.velocity = new Vector2(-speed, rb.velocity.y + 0);
-            anim.SetTrigger("walk");
-        }
-        else
-        {
-            if (!movingRight)
-            {
-                rb.velocity += new Vector2(0f, 0f);
-                if (isGrounded)
-                {
-                    anim.SetTrigger("idle");
-                }
-                
-            }
 
-        }
-        if(jumpBufferCounter > 0 && coyoteTimeCounter > 0f) 
+        if (jumpBufferCounter > 0 && coyoteTimeCounter > 0f)
         {
-            anim.SetTrigger("jump"); 
+            anim.SetTrigger("jump");
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            jumpBufferCounter = 0f; 
-            
+            jumpBufferCounter = 0f;
+
         }
         if (playerControls.Player.Jump.WasReleasedThisFrame())
         {
@@ -200,11 +235,13 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-
-
-
-
-
+        if (unlockedDash)
+        {
+            if (playerControls.Player.Dash.triggered)
+            {
+                StartCoroutine(Dash());
+            }
+        }
     }
 
     private void OnDrawGizmos()
@@ -235,5 +272,36 @@ public class PlayerController : MonoBehaviour
     private void AttackStop(InputAction.CallbackContext value)
     {
         tryToAttack = false;
+    }
+    private void Dash(InputAction.CallbackContext value)
+    {
+        if (value.performed)
+        {
+            tryToDash = true;
+        }
+
+    }
+    private void DashStop(InputAction.CallbackContext value)
+    {
+        tryToDash = false;
+    }
+
+    public IEnumerator Dash()
+    {
+        isDashing = true;
+        canDash = false;
+        availableDash--;
+
+        rb.velocity = new Vector2(direction.x * dashSpeed, rb.velocity.y);
+        yield return new WaitForSeconds(dashTime);
+        rb.velocity = new Vector2(0, rb.velocity.y);
+        isDashing = false;
+        StartCoroutine(WaitForNextDash());
+    }
+    public IEnumerator WaitForNextDash()
+    {
+        yield return new WaitForSeconds(waitForNextDash);
+        canDash = true;
+        availableDash = singleDash;
     }
 }

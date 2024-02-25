@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class FlyingEnemy : MonoBehaviour
+public class ArcEnemy : MonoBehaviour
 {
     public float moveSpeed = 2f;
-    public float amplitude = 1f; // Amplitude of the sine wave
-    public float frequency = 1f; // Frequency of the sine wave
+    public float amplitude = 1f; // Amplitude of the cosine wave
+    public float frequency = 1f; // Frequency of the cosine wave
 
     [Header("")]
     [Space()]
@@ -13,6 +13,7 @@ public class FlyingEnemy : MonoBehaviour
 
     private Vector2 startPosition;
     private bool movingRight = true;
+    private bool movingUpward = true;
 
     private void Start()
     {
@@ -29,8 +30,11 @@ public class FlyingEnemy : MonoBehaviour
         float horizontalMovement = moveSpeed * Time.deltaTime * (movingRight ? 1f : -1f);
         startPosition.x += horizontalMovement;
 
-        float verticalOffset = amplitude * Mathf.Sin(Time.time * frequency);
-
+        float verticalOffset = amplitude * Mathf.Cos(Time.time * frequency);
+        if (!movingUpward)
+        {
+            verticalOffset *= -1; // Invert the vertical offset for downward movement
+        }
         Vector2 newPosition = new Vector2(startPosition.x, startPosition.y + verticalOffset);
 
         if (hit.collider == null)
@@ -39,7 +43,15 @@ public class FlyingEnemy : MonoBehaviour
         }
         else
         {
-            movingRight = !movingRight;
+            if (movingUpward)
+            {
+                movingUpward = false; // Change direction to downward
+            }
+            else
+            {
+                movingRight = !movingRight; // Switch horizontal direction
+                movingUpward = true; // Change direction to upward
+            }
         }
     }
 }

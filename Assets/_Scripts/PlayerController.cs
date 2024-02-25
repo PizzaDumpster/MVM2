@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float jumpForce;
     [SerializeField] bool movingRight;
+    [SerializeField] bool isWalking = false;
+    [SerializeField] bool isIdle = true;
 
     //Unlocks
     [Header("Unlockables")]
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
     // Attack Parameters
     [Header("Attack Parameters")]
     [SerializeField] Transform attackPoint;
+    public bool isAttacking = false;
 
     // Physics Material
     [Header("Physics Material")]
@@ -46,6 +49,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int availableJumps;
     [SerializeField] const int singleJump = 1;
     [SerializeField] const int doubleJump = 2;
+    public bool isJumping = false;
 
     // Dash
     [Header("Dash")]
@@ -58,12 +62,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] bool tryToDash;
     [SerializeField] bool isDashing;
     [SerializeField] Vector2 direction = new Vector2(1, 0);
-    private TrailRenderer tr; 
+    private TrailRenderer tr;
 
     //Gravity Modifiers
     [Header("Gravity Modifiers")]
     [SerializeField] float initialGravityMultiplier;
-    [SerializeField] const float noGravityMultiplier = 0f; 
+    [SerializeField] const float noGravityMultiplier = 0f;
 
     // Coyote Time
     [Header("Coyote Time")]
@@ -75,7 +79,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float jumpBufferTime = 0.2f;
     [SerializeField] float jumpBufferCounter;
 
-    
+    private string currentState;
 
     // Player Input
     private PlayerInputs playerControls;
@@ -140,6 +144,7 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded)
         {
+            isJumping = false;
             coyoteTimeCounter = coyoteTime;
             rb.sharedMaterial = null;
             groundTimer += Time.deltaTime;
@@ -147,7 +152,7 @@ public class PlayerController : MonoBehaviour
             if (unlockedDoubleJump)
                 availableJumps = doubleJump;
             else
-                availableJumps = singleJump; 
+                availableJumps = singleJump;
         }
         else if (availableJumps > 0)
         {
@@ -161,56 +166,56 @@ public class PlayerController : MonoBehaviour
             airTimer += Time.deltaTime;
             groundTimer = 0;
         }
+
         if (!isDashing)
         {
             if (valueX > 0)
             {
+                isWalking = true;
                 movingRight = true;
                 transform.localScale = new Vector3(1, 1, 1);
                 rb.velocity = new Vector2(speed, rb.velocity.y + 0);
                 direction.x = 1;
-                anim.SetTrigger("walk");
-            }
-            else
-            {
-                if (movingRight)
-                {
-                    rb.velocity += new Vector2(0f, 0f);
 
-                    if (isGrounded)
-                    {
-                        anim.SetTrigger("idle");
-                    }
-
-                }
             }
-            if (valueX < 0)
+            else if (valueX < 0)
             {
+                isWalking = true;
                 movingRight = false;
                 transform.localScale = new Vector3(-1, 1, 1);
                 rb.velocity = new Vector2(-speed, rb.velocity.y + 0);
                 direction.x = -1;
-                anim.SetTrigger("walk");
+
             }
             else
             {
-                if (!movingRight)
-                {
-                    rb.velocity += new Vector2(0f, 0f);
-
-                    if (isGrounded)
-                    {
-                        anim.SetTrigger("idle");
-                    }
-
-                }
-
+                isIdle = true; 
+                isWalking = false; 
             }
         }
 
+        if (isAttacking)
+        {
+            ChangeAnimationState("Attack");
+        }
+        else if (isJumping)
+        {
+            ChangeAnimationState("Jump");
+        }
+        else if (isWalking)
+        {
+            ChangeAnimationState("Walk");
+        }
+        else if (isIdle)
+        {
+            ChangeAnimationState("Idle");
+        }
+
+
         if (jumpBufferCounter > 0 && coyoteTimeCounter > 0f)
         {
-            anim.SetTrigger("jump");
+            isIdle = false;
+            isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpBufferCounter = 0f;
 
@@ -223,8 +228,10 @@ public class PlayerController : MonoBehaviour
 
         if (playerControls.Player.Attack.triggered)
         {
+            isIdle = false;
+            isAttacking = true;
             AudioPlayer.Instance.PlayAudioClip(weapon.currentWeapon.WeaponSFX);
-            anim.SetTrigger("attack");
+
 
             // Draw a debug circle
             Debug.DrawRay(attackPoint.position, Vector2.right * 1f, Color.red, 0.5f);
@@ -236,7 +243,7 @@ public class PlayerController : MonoBehaviour
                 {
                     continue;
                 }
-                
+
                 IDamageable damageable = collider.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
@@ -306,9 +313,9 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(direction.x * dashSpeed, rb.velocity.y);
         tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
-        tr.emitting = false; 
+        tr.emitting = false;
         rb.velocity = new Vector2(0, rb.velocity.y);
-        rb.gravityScale = initialGravityMultiplier; 
+        rb.gravityScale = initialGravityMultiplier;
         isDashing = false;
         StartCoroutine(WaitForNextDash());
     }
@@ -317,5 +324,18 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(waitForNextDash);
         canDash = true;
         availableDash = singleDash;
+    }
+    private void ChangeAnimationState(String newState)
+    {
+        if (currentState != newState)
+        {
+            anim.Play(newState);
+            currentState = newState;
+        }
+    }
+
+    public void SetAttackFalse()
+    {
+        isAttacking = false;
     }
 }

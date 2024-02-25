@@ -265,6 +265,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  maxHealth: 100
+  trigger: {fileID: 11400000, guid: 5acc0d73984440c4a82dcdef2ce27eb5, type: 2}
 --- !u!114 &-4649165196833554598
 MonoBehaviour:
   m_ObjectHideFlags: 0

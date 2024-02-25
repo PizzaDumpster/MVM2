@@ -17,11 +17,17 @@ public class PlayerCurrentHealth : BaseMessage
 public class PlayerHealth : Health , IDamageable
 {
     public int maxHealth;
+
+    public TriggerStringSO trigger;
+
     PlayerCurrentHealth currentHealth = new PlayerCurrentHealth();
     Animator anim;
     private void Start()
     {
-        currentHealth.healthData.currentMaxHealth = 100;
+        currentHealth.healthData.currentMaxHealth = maxHealth;
+        currentHealth.healthData.currentHealth = HealthAmount;
+        MessageBuffer<PlayerCurrentHealth>.Dispatch(currentHealth);
+
         anim = GetComponent<Animator>();
     }
     public void Damage(int damage)
@@ -39,7 +45,7 @@ public class PlayerHealth : Health , IDamageable
 
     public IEnumerator Die()
     {
-        anim.SetTrigger("death");
+        anim.SetTrigger(trigger.triggerString);
         yield return null;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         yield return null;

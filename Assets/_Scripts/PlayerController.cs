@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float groundTimer;
     [SerializeField] float airTimer;
     [SerializeField] int availableJumps;
+    [SerializeField] int maxJumps; 
 
     [SerializeField] float coyoteTime = 0.2f;
     [SerializeField] float coyoteTimeCounter;
@@ -76,18 +77,23 @@ public class PlayerController : MonoBehaviour
         {
             jumpBufferCounter -= Time.deltaTime;
         }
-        
-        if(isGrounded)
+
+        if (isGrounded)
         {
             coyoteTimeCounter = coyoteTime;
             rb.sharedMaterial = null;
             groundTimer += Time.deltaTime;
             airTimer = 0;
-            availableJumps = 2;
+            availableJumps = maxJumps;
+        }
+        else if (availableJumps > 0)
+        {
+            coyoteTimeCounter = coyoteTime;
+            rb.sharedMaterial = null;
         }
         else
         {
-            coyoteTimeCounter -= Time.deltaTime; 
+            coyoteTimeCounter -= Time.deltaTime;
             rb.sharedMaterial = noStick;
             airTimer += Time.deltaTime;
             groundTimer = 0;
@@ -132,16 +138,17 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-        if(jumpBufferCounter > 0 && availableJumps > 0 && coyoteTimeCounter > 0f) 
+        if(jumpBufferCounter > 0 && coyoteTimeCounter > 0f) 
         {
             anim.SetTrigger("jump"); 
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpBufferCounter = 0f; 
-            availableJumps--;
+            
         }
         if (playerControls.Player.Jump.WasReleasedThisFrame())
         {
-            coyoteTimeCounter = 0f; 
+            coyoteTimeCounter = 0f;
+            availableJumps--;
         }
         if (playerControls.Player.Attack.triggered)
         {

@@ -119,7 +119,8 @@ MonoBehaviour:
   noStick: {fileID: 6200000, guid: 89ae4ed359ebda148977305f81dcc3b1, type: 2}
   groundTimer: 0
   airTimer: 0
-  availableJumps: 0
+  availableJumps: 2
+  maxJumps: 2
   coyoteTime: 0.2
   coyoteTimeCounter: 0
   jumpBufferTime: 0.2

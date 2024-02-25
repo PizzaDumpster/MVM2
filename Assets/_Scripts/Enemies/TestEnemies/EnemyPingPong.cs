@@ -8,6 +8,7 @@ public class EnemyPingPong : MonoBehaviour
     private Vector2 initialPosition;
     private bool movingRight = true;
     public SpriteRenderer childSpriteRenderer;
+    public LayerMask layerMask;
 
     private void Start()
     {
@@ -17,7 +18,7 @@ public class EnemyPingPong : MonoBehaviour
     private void Update()
     {
         Vector2 direction = movingRight ? Vector2.right : Vector2.left;
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + direction * raycastOffset, direction, raycastDistance);
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + direction * raycastOffset, direction, raycastDistance, layerMask);
 
         Debug.DrawRay((Vector2)transform.position + direction * raycastOffset, direction * raycastDistance, Color.green);
 

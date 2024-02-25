@@ -16,8 +16,11 @@ public class TileDestroyer : MonoBehaviour
             // Get the position of the collision in world space
             Vector3 collisionPosition = collision.transform.position;
 
-            // Draw a debug line at the collision position
-            Debug.DrawLine(collisionPosition + Vector3.left * 0.5f, collisionPosition + Vector3.right * 0.5f, Color.red, 1f);
+            // Draw a debug sphere at the collision position
+            Debug.DrawRay(collisionPosition, Vector3.up * 0.5f, Color.red, 1f);
+            Debug.DrawRay(collisionPosition, Vector3.down * 0.5f, Color.red, 1f);
+            Debug.DrawRay(collisionPosition, Vector3.left * 0.5f, Color.red, 1f);
+            Debug.DrawRay(collisionPosition, Vector3.right * 0.5f, Color.red, 1f);
 
             // Get the position of the collision in tile coordinates
             Vector3Int cellPosition = tilemap.WorldToCell(collisionPosition);

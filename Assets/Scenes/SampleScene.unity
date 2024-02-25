@@ -168,7 +168,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 39114448}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -227,7 +227,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 20
+  m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -347,16 +347,60 @@ CompositeCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_GeometryType: 0
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 39114456}
+    m_ColliderPaths:
+    - - X: 0
+        Y: -26250000
+      - X: -2500000
+        Y: -23750000
+      - X: -4375000
+        Y: -23125000
+      - X: -8750000
+        Y: -23125000
+      - X: -10000000
+        Y: -25000000
+      - X: -10000000
+        Y: -30000000
+      - X: 0
+        Y: -30000000
+    - - X: 20000000
+        Y: -26250000
+      - X: 17500000
+        Y: -23750000
+      - X: 15625000
+        Y: -23125000
+      - X: 11250000
+        Y: -23125000
+      - X: 10000000
+        Y: -25000000
+      - X: 10000000
+        Y: -30000000
+      - X: 20000000
+        Y: -30000000
   m_CompositePaths:
-    m_Paths: []
+    m_Paths:
+    - - {x: 1.9999708, y: -3}
+      - {x: 1.9999924, y: -2.6249924}
+      - {x: 1.7499944, y: -2.3749983}
+      - {x: 1.5624958, y: -2.3125}
+      - {x: 1.1249923, y: -2.312512}
+      - {x: 1, y: -2.5000079}
+      - {x: 1.0000293, y: -3}
+    - - {x: -0.000029300001, y: -3}
+      - {x: -0.0000076, y: -2.6249924}
+      - {x: -0.2500057, y: -2.3749983}
+      - {x: -0.4375042, y: -2.3125}
+      - {x: -0.8750078, y: -2.312512}
+      - {x: -1, y: -2.5000079}
+      - {x: -0.99997073, y: -3}
   m_VertexDistance: 0.0005
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
@@ -392,7 +436,7 @@ TilemapCollider2D:
     m_Bits: 4294967295
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
@@ -23382,7 +23426,7 @@ GameObject:
   - component: {fileID: 857828498}
   - component: {fileID: 857828497}
   - component: {fileID: 857828496}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Tilemap Forground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32287,6 +32331,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blob
       objectReference: {fileID: 0}
+    - target: {fileID: 5211439186246012448, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
+      propertyPath: DamageDealt
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7712622536001876147, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
       propertyPath: m_LocalPosition.x
       value: 27.538723
@@ -34120,6 +34168,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blob
       objectReference: {fileID: 0}
+    - target: {fileID: 5211439186246012448, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
+      propertyPath: DamageDealt
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7712622536001876147, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
       propertyPath: m_LocalPosition.x
       value: 36.34233
@@ -34434,6 +34486,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blob (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5211439186246012448, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
+      propertyPath: DamageDealt
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7712622536001876147, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
       propertyPath: m_LocalPosition.x
       value: 47.83
@@ -34577,6 +34633,14 @@ PrefabInstance:
     - target: {fileID: 2285975448196802238, guid: 7a05ff6ead48da742ae697fa87b3d5c0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269536720809038400, guid: 7a05ff6ead48da742ae697fa87b3d5c0, type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 6198937745712298135, guid: 7a05ff6ead48da742ae697fa87b3d5c0, type: 3}
+      propertyPath: DamageDealt
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34728,6 +34792,10 @@ PrefabInstance:
     - target: {fileID: 1830088180148570421, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
       propertyPath: m_Name
       value: Blob
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211439186246012448, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
+      propertyPath: DamageDealt
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7421620844382909725, guid: e8a8e2e29725b7e42bb22da5122acc52, type: 3}
       propertyPath: m_Enabled

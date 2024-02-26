@@ -45,7 +45,7 @@ public class PlayerHealth : Health , IDamageable
 
     public IEnumerator Die()
     {
-        anim.SetTrigger(trigger.triggerString);
+        anim.Play("Death");
         yield return null;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         yield return null;

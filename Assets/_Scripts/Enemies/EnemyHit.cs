@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyHit : MonoBehaviour
@@ -14,26 +13,27 @@ public class EnemyHit : MonoBehaviour
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-
         lineRenderer.positionCount = pointsCount + 1;
-
         StartCoroutine(Blast());
     }
 
     private IEnumerator Blast()
     {
         float currentRadius = 0f;
+        Transform blastCenter = transform; // Use the position of this object as the center of the blast
 
         while (currentRadius < maxRadius)
         {
             currentRadius += Time.deltaTime * speed;
-            Draw(currentRadius);
+            Draw(blastCenter.position, currentRadius);
             yield return null;
         }
 
+        // Disable the object by returning it to the pool
+        Destroy(this.gameObject);
     }
 
-    private void Draw(float currentRadius)
+    private void Draw(Vector3 blastCenter, float currentRadius)
     {
         float angleBetweenPoints = 360f / pointsCount;
 
@@ -41,7 +41,7 @@ public class EnemyHit : MonoBehaviour
         {
             float angle = i * angleBetweenPoints * Mathf.Deg2Rad;
             Vector3 direction = new Vector3(Mathf.Sin(angle), Mathf.Cos(angle), 0f);
-            Vector3 position = direction * currentRadius;
+            Vector3 position = blastCenter + direction * currentRadius; // Use blast center position
 
             lineRenderer.SetPosition(i, position);
         }

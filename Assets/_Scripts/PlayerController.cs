@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public bool unlockedDoubleJump = false;
     [SerializeField] public bool unlockedDash = false;
     [SerializeField] public bool wallClimbUnlocked = false;
+    [SerializeField] public bool wallSlidingUnlocked = false;
+    [SerializeField] public bool wallJumpingUnlocked = false; 
 
     // Ground Detection
     [Header("Ground Detection")]
@@ -64,10 +66,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Vector2 direction = new Vector2(1, 0);
     private TrailRenderer tr;
 
+    //Wall Slide and Jump
+    [Header("WallSlide and WallJump")]
+    private bool isWallSliding;
+    private float wallSlidingSpeed = 2f; 
+    [SerializeField] Transform wallCheck; 
+    [SerializeField] LayerMask wallLayer;
+    private bool isWallJumping;
+    private float wallJumpingDirection;
+    private float wallJumpingTime = 0.2f;
+    private float wallJumpingCounter;
+    private float wallJumpingDuration = 0.4f;
+    private Vector2 wallJumpingPower = new Vector2(8, 16);
+
+
+
     //Gravity Modifiers
     [Header("Gravity Modifiers")]
     [SerializeField] float initialGravityMultiplier;
     [SerializeField] const float noGravityMultiplier = 0f;
+    [SerializeField] const float wallSlideGravityMultiplier = 1f; 
 
     // Coyote Time
     [Header("Coyote Time")]
@@ -133,6 +151,16 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.05f);
         valueX = playerControls.Player.HorizontalMove.ReadValue<float>();
 
+        if (wallSlidingUnlocked)
+        {
+            WallSlide(); 
+        }
+        if (wallJumpingUnlocked)
+        {
+            WallJump();
+        }
+        
+
         if (playerControls.Player.Jump.triggered)
         {
             jumpBufferCounter = jumpBufferTime;
@@ -173,8 +201,12 @@ public class PlayerController : MonoBehaviour
             {
                 isWalking = true;
                 movingRight = true;
-                transform.localScale = new Vector3(1, 1, 1);
-                rb.velocity = new Vector2(speed, rb.velocity.y + 0);
+                if (!isWallJumping)
+                {
+                    transform.localScale = new Vector3(1, 1, 1);
+                    rb.velocity = new Vector2(speed, rb.velocity.y + 0);
+                }
+                    
                 direction.x = 1;
 
             }
@@ -182,8 +214,12 @@ public class PlayerController : MonoBehaviour
             {
                 isWalking = true;
                 movingRight = false;
-                transform.localScale = new Vector3(-1, 1, 1);
-                rb.velocity = new Vector2(-speed, rb.velocity.y + 0);
+                if (!isWallJumping)
+                {
+                    transform.localScale = new Vector3(-1, 1, 1);
+                    rb.velocity = new Vector2(-speed, rb.velocity.y + 0);
+                }
+                   
                 direction.x = -1;
 
             }
@@ -272,7 +308,6 @@ public class PlayerController : MonoBehaviour
         {
             tryToJump = true;
         }
-
     }
     private void JumpStop(InputAction.CallbackContext value)
     {
@@ -284,7 +319,6 @@ public class PlayerController : MonoBehaviour
         {
             tryToAttack = true;
         }
-
     }
     private void AttackStop(InputAction.CallbackContext value)
     {
@@ -296,11 +330,62 @@ public class PlayerController : MonoBehaviour
         {
             tryToDash = true;
         }
-
     }
     private void DashStop(InputAction.CallbackContext value)
     {
         tryToDash = false;
+    }
+
+    private bool IsWalled()
+    {
+        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer); 
+    }
+    private void WallSlide()
+    {
+        if(IsWalled() && !isGrounded && valueX != 0)
+        {
+            isWallSliding = true;
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Clamp(rb.velocity.y, -wallSlidingSpeed, float.MaxValue));
+        }
+        else
+        {
+            isWallSliding = false; 
+        }
+    }
+
+    private void WallJump()
+    {
+        if (isWallSliding)
+        {
+            isWallJumping = false;
+            wallJumpingDirection = -transform.localScale.x;
+            wallJumpingCounter = wallJumpingTime;
+
+            CancelInvoke(nameof(StopWallJumping));
+        }
+        else
+        {
+            wallJumpingCounter -= Time.deltaTime; 
+        }
+        if(playerControls.Player.Jump.triggered && wallJumpingCounter > 0f)
+        {
+            isWallJumping = true;
+            rb.velocity = new Vector2(wallJumpingDirection * wallJumpingPower.x, wallJumpingPower.y);
+            wallJumpingCounter = 0f;
+            if(transform.localScale.x != wallJumpingDirection)
+            {
+                movingRight = !movingRight;
+                Vector3 localScale = transform.localScale;
+                localScale.x *= -1;
+                transform.localScale = localScale;
+            }
+            Invoke(nameof(StopWallJumping), wallJumpingDuration);
+        }
+    }
+
+    private void StopWallJumping()
+    {
+        isWallJumping = false; 
     }
 
     public IEnumerator Dash()

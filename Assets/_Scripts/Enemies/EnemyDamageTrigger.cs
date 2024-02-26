@@ -10,7 +10,6 @@ public class EnemyDamageTrigger : DamageTrigger
     {
         if (other.CompareTag("Player"))
         {
-            print("Trigger " + DamageDealt);
 
             IDamageable damageable = Collider.GetComponent<IDamageable>();
             if (damageable != null)

@@ -148,6 +148,7 @@ GameObject:
   - component: {fileID: 7421620844382909725}
   - component: {fileID: 3744267187571997907}
   - component: {fileID: 5211439186246012448}
+  - component: {fileID: 1199487744134688751}
   m_Layer: 0
   m_Name: Blob
   m_TagString: Enemy
@@ -277,7 +278,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  enemyHit: {fileID: 912754947457033638, guid: 2dd1ba2d30d167545ba72742e97d6240, type: 3}
+  onHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1199487744134688751}
+        m_TargetAssemblyTypeName: ParticleHit, Assembly-CSharp
+        m_MethodName: SpawnObject
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5211439186246012448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,4 +305,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16b78b79ae12e74bba66dc9ae5459a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamageDealt: 0
+  DamageDealt: 10
+--- !u!114 &1199487744134688751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830088180148570421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0979d904dab18804e9f64582561c1966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToInstantiate: {fileID: 912754947457033638, guid: 2dd1ba2d30d167545ba72742e97d6240, type: 3}

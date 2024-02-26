@@ -150,6 +150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointsCount: 50
-  maxRadius: 5
-  speed: 5
-  startWidth: 2
+  maxRadius: 0.5
+  speed: 3
+  startWidth: 0.1

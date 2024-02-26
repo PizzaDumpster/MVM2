@@ -13,7 +13,7 @@ public class MiniMapCamera : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
-        offset.z = -10; 
+        offset.z = -25; 
     }
 
     // Update is called once per frame

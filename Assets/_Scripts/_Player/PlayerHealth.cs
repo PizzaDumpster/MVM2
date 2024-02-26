@@ -20,7 +20,7 @@ public class PlayerHealth : Health , IDamageable
 
     public TriggerStringSO trigger;
 
-    PlayerCurrentHealth currentHealth = new PlayerCurrentHealth();
+    public PlayerCurrentHealth currentHealth = new PlayerCurrentHealth();
     Animator anim;
     private void Start()
     {
@@ -39,19 +39,14 @@ public class PlayerHealth : Health , IDamageable
         
         if(HealthAmount <= 0)
         {
-            StartCoroutine(Die());
+            Die();
         }
     }
 
-    public IEnumerator Die()
+    public void Die()
     {
-        anim.Play("Death");
-        yield return null;
-        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-        yield return null;
         MessageBuffer<PlayerDeath>.Dispatch();
-        OnDeath?.Invoke();
-        
+        OnDeath?.Invoke(); 
     }
 
 }

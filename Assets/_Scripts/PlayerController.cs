@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     //Components
     Animator anim;
     Rigidbody2D rb;
+    PlayerHealth playerHealth; 
     public WeaponEquiped weapon;
 
     // Movement Parameters
@@ -140,6 +141,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         tr = GetComponent<TrailRenderer>();
+        playerHealth = GetComponent<PlayerHealth>();
         canDash = true;
         initialGravityMultiplier = rb.gravityScale;
 
@@ -230,7 +232,11 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (isAttacking)
+        if(playerHealth.currentHealth.healthData.currentHealth <= 0)
+        {
+            ChangeAnimationState("Death");
+        }
+        else if (isAttacking)
         {
             ChangeAnimationState("Attack");
         }

@@ -436,5 +436,6 @@ public class PlayerController : MonoBehaviour
     {
         canDash = true;
         availableDash = 1;
+        isAttacking = false; 
     }
 }

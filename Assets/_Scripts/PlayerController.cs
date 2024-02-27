@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(playerHealth.currentHealth.healthData.currentHealth <= 0)
+        if(playerHealth.HealthAmount <= 0)
         {
             ChangeAnimationState("Death");
         }

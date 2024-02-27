@@ -30,6 +30,11 @@ public class PlayerHealth : Health , IDamageable
 
         anim = GetComponent<Animator>();
     }
+
+    public void OnEnable()
+    {
+        HealthAmount = maxHealth;
+    }
     public void Damage(int damage)
     {
         HealthAmount = HealthAmount - damage;

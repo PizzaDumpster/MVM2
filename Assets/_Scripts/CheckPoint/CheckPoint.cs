@@ -9,6 +9,10 @@ public class CheckPoint : MonoBehaviour
     public ObjectStringSO playerObject;
     public SetCheckMark checkMark = new SetCheckMark();
 
+    private bool checkpointActivated;
+
+    public AudioClip checkpointActivatedAudio;
+
     private void Start()
     {
         checkMark.checkPoint = this.transform;
@@ -21,6 +25,12 @@ public class CheckPoint : MonoBehaviour
         {
             ChangeAnimationState(activaterTrigger.triggerString);
             MessageBuffer<SetCheckMark>.Dispatch(checkMark);
+            if (!checkpointActivated)
+            {
+                AudioPlayer.Instance.PlayAudioClip(checkpointActivatedAudio);
+                checkpointActivated = true;
+            }
+            
         }
     }
 

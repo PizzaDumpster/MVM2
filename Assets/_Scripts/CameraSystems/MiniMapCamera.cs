@@ -21,8 +21,9 @@ public class MiniMapCamera : MonoBehaviour
     {
         if(player == null)
             player = GameObject.Find("Player(Clone)");
-        if(player.GetComponent<PlayerHealth>().HealthAmount <= 0)
-            player = null; 
+        if(player!=null)
+            if(player.GetComponent<PlayerHealth>().HealthAmount <= 0)
+                player = null; 
         if(player != null )cam.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, offset.z);
     }
 }

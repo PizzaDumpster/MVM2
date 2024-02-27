@@ -122,6 +122,8 @@ public class PlayerController : MonoBehaviour
         playerControls.Player.Dash.performed += Dash;
         playerControls.Player.Dash.canceled += DashStop;
         playerControls.Enable();
+
+        ResetPlayer(); 
     }
 
     private void OnDisable()
@@ -428,5 +430,11 @@ public class PlayerController : MonoBehaviour
     public void SetAttackFalse()
     {
         isAttacking = false;
+    }
+
+    private void ResetPlayer()
+    {
+        canDash = true;
+        availableDash = 1;
     }
 }

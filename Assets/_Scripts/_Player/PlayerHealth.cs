@@ -34,6 +34,7 @@ public class PlayerHealth : Health , IDamageable
     public void OnEnable()
     {
         HealthAmount = maxHealth;
+        currentHealth.healthData.currentHealth = HealthAmount;
         MessageBuffer<PlayerCurrentHealth>.Dispatch(currentHealth);
     }
     public void Damage(int damage)

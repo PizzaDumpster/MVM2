@@ -21,30 +21,30 @@ public class PlayerHealth : Health , IDamageable
     public TriggerStringSO trigger;
 
     public PlayerCurrentHealth currentHealth = new PlayerCurrentHealth();
-    Animator anim;
     private void Start()
     {
-        currentHealth.healthData.currentMaxHealth = maxHealth;
-        currentHealth.healthData.currentHealth = HealthAmount;
-        MessageBuffer<PlayerCurrentHealth>.Dispatch(currentHealth);
-
-        anim = GetComponent<Animator>();
+        currentHealth.healthData.currentMaxHealth = maxHealth;;
+        DispatchHealthMessage();
     }
 
     public void OnEnable()
     {
-        HealthAmount = maxHealth;
+        HealthAmount = maxHealth;    
+        DispatchHealthMessage();
+    }
+
+    private void DispatchHealthMessage()
+    {   
         currentHealth.healthData.currentHealth = HealthAmount;
         MessageBuffer<PlayerCurrentHealth>.Dispatch(currentHealth);
     }
     public void Damage(int damage)
     {
         HealthAmount = HealthAmount - damage;
-        currentHealth.healthData.currentHealth = HealthAmount;
-        
-        MessageBuffer<PlayerCurrentHealth>.Dispatch(currentHealth);
-        
-        if(HealthAmount <= 0)
+
+        DispatchHealthMessage();
+
+        if (HealthAmount <= 0)
         {
             Die();
         }

@@ -9,21 +9,27 @@ public class MiniMapCamera : MonoBehaviour
     GameObject player;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         cam = GetComponent<Camera>();
         offset.z = -25; 
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(player == null)
+        if (player == null)
             player = GameObject.Find("Player(Clone)");
-        if(player!=null)
-            if(player.GetComponent<PlayerHealth>().HealthAmount <= 0)
-                player = null; 
-        if(player != null )cam.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, offset.z);
+
+
+        if (player != null && player.GetComponent<PlayerHealth>() != null)
+        {
+            if (player.GetComponent<PlayerHealth>().HealthAmount <= 0)
+                player = null;
+        }
+
+        if (player != null)
+            cam.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, offset.z);
+
     }
+
 }

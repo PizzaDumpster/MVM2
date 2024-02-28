@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 358917845936623091}
   m_Layer: 0
   m_Name: DownwardAttack
-  m_TagString: Untagged
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -643,7 +643,7 @@ GameObject:
   - component: {fileID: 69808368673289509}
   m_Layer: 0
   m_Name: Attack Point
-  m_TagString: Untagged
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

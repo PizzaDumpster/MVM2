@@ -25,22 +25,23 @@ public class PlayerHealth : Health , IDamageable
     private void Start()
     {
         currentHealth.healthData.currentMaxHealth = maxHealth;
-        currentHealth.healthData.currentHealth = HealthAmount;
-        MessageBuffer<PlayerCurrentHealth>.Dispatch(currentHealth);
-
+        HealthDispatch();
         anim = GetComponent<Animator>();
     }
 
     public void OnEnable()
     {
         HealthAmount = maxHealth;
+        HealthDispatch();
     }
+
+
+
     public void Damage(int damage)
     {
         HealthAmount = HealthAmount - damage;
-        currentHealth.healthData.currentHealth = HealthAmount;
-        
-        MessageBuffer<PlayerCurrentHealth>.Dispatch(currentHealth);
+
+        HealthDispatch();
         
         if(HealthAmount <= 0)
         {
@@ -53,5 +54,9 @@ public class PlayerHealth : Health , IDamageable
         MessageBuffer<PlayerDeath>.Dispatch();
         OnDeath?.Invoke(); 
     }
-
+    private void HealthDispatch()
+    {
+        currentHealth.healthData.currentHealth = HealthAmount;
+        MessageBuffer<PlayerCurrentHealth>.Dispatch(currentHealth);
+    }
 }

@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] const int singleDash = 1;
     [SerializeField] float waitForNextDash = 1;
     [SerializeField] float dashSpeed = 30;
-    [SerializeField] float dashTime = 0.1f;
+    [SerializeField] float dashTime = 0.2f;
     [SerializeField] bool tryToDash;
     [SerializeField] bool isDashing;
     [SerializeField] Vector2 direction = new Vector2(1, 0);
@@ -105,6 +105,7 @@ public class PlayerController : MonoBehaviour
 
     // Movement Input
     public float valueX;
+    public float valueY; 
     public bool tryToJump;
     public bool tryToAttack;
 
@@ -154,6 +155,7 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.05f);
         valueX = playerControls.Player.HorizontalMove.ReadValue<float>();
+        valueY = playerControls.Player.VerticalMove.ReadValue<float>();
 
         if (wallSlidingUnlocked)
         {
@@ -230,7 +232,20 @@ public class PlayerController : MonoBehaviour
             else
             {
                 isIdle = true; 
-                isWalking = false; 
+                isWalking = false;
+                direction.x = 0; 
+            }
+            if(valueY > 0)
+            {
+                direction.y = 1; 
+            }
+            else if (valueY < 0)
+            {
+                direction.y = -1;
+            }
+            else
+            {
+                direction.y = 0; 
             }
         }
 
@@ -403,11 +418,11 @@ public class PlayerController : MonoBehaviour
         canDash = false;
         availableDash--;
 
-        rb.velocity = new Vector2(direction.x * dashSpeed, rb.velocity.y);
+        rb.velocity = new Vector2(direction.x, direction.y).normalized * dashSpeed;
         tr.emitting = true;
         yield return new WaitForSeconds(dashTime);
         tr.emitting = false;
-        rb.velocity = new Vector2(0, rb.velocity.y);
+        rb.velocity = new Vector2(0, 0);
         rb.gravityScale = initialGravityMultiplier;
         isDashing = false;
         StartCoroutine(WaitForNextDash());
@@ -437,5 +452,9 @@ public class PlayerController : MonoBehaviour
         canDash = true;
         availableDash = 1;
         isAttacking = false; 
+    }
+    private void SetYDircetion()
+    {
+        
     }
 }

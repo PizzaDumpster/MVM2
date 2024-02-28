@@ -276,7 +276,7 @@ MonoBehaviour:
   availableDash: 1
   waitForNextDash: 1
   dashSpeed: 30
-  dashTime: 0.1
+  dashTime: 0.15
   tryToDash: 0
   isDashing: 0
   direction: {x: 1, y: 0}
@@ -290,6 +290,7 @@ MonoBehaviour:
   jumpBufferTime: 0.2
   jumpBufferCounter: 0
   valueX: 0
+  valueY: 0
   tryToJump: 0
   tryToAttack: 0
 --- !u!114 &1423543906855090405

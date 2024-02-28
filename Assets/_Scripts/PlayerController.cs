@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     // Jump Timers
     [Header("Jump Timers")]
     [SerializeField] float groundTimer;
-    [SerializeField] float airTimer;
+    public float airTimer;
 
     // Jump Counters
     [Header("Jump Counters")]
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float dashTime = 0.15f;
     [SerializeField] bool tryToDash;
     [SerializeField] bool isDashing;
-    [SerializeField] Vector2 direction = new Vector2(1, 0);
+    public Vector2 direction = new Vector2(0, 0);
     private TrailRenderer tr;
 
     //Wall Slide and Jump

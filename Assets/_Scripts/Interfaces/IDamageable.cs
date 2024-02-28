@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public interface IDamageable 
+public interface IDamageable
 {
-    public void Damage(int damage = 0);
+    void Damage(int damage = 0);
 }

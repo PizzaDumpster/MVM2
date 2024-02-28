@@ -61,7 +61,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] const int singleDash = 1;
     [SerializeField] float waitForNextDash = 1;
     [SerializeField] float dashSpeed = 30;
-    [SerializeField] float dashTime = 0.2f;
+    [SerializeField] float dashTime = 0.15f;
     [SerializeField] bool tryToDash;
     [SerializeField] bool isDashing;
     [SerializeField] Vector2 direction = new Vector2(1, 0);

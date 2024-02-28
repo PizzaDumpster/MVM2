@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     [Header("Attack Parameters")]
     [SerializeField] Transform attackPoint;
     public bool isAttacking = false;
+    public bool isDownwardAttacking = false; 
 
     // Physics Material
     [Header("Physics Material")]
@@ -155,7 +156,8 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.05f);
         valueX = playerControls.Player.HorizontalMove.ReadValue<float>();
-        valueY = playerControls.Player.VerticalMove.ReadValue<float>();
+        SetYDircetion();
+        DownwardAttack();
 
         if (wallSlidingUnlocked)
         {
@@ -183,6 +185,7 @@ public class PlayerController : MonoBehaviour
             rb.sharedMaterial = null;
             groundTimer += Time.deltaTime;
             airTimer = 0;
+            isDownwardAttacking = false;
             if (unlockedDoubleJump)
                 availableJumps = doubleJump;
             else
@@ -253,6 +256,10 @@ public class PlayerController : MonoBehaviour
         {
             ChangeAnimationState("Death");
         }
+        else if (isDownwardAttacking)
+        {
+            ChangeAnimationState("DownwardAttack");
+        }
         else if (isAttacking)
         {
             ChangeAnimationState("Attack");
@@ -285,7 +292,7 @@ public class PlayerController : MonoBehaviour
             availableJumps--;
         }
 
-        if (playerControls.Player.Attack.triggered)
+        if (playerControls.Player.Attack.triggered && !isDownwardAttacking)
         {
             isIdle = false;
             isAttacking = true;
@@ -320,11 +327,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, 1f);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireSphere(attackPoint.position, 1f);
+    //}
     private void Jump(InputAction.CallbackContext value)
     {
         if (value.performed)
@@ -455,6 +462,13 @@ public class PlayerController : MonoBehaviour
     }
     private void SetYDircetion()
     {
-        
+        valueY = playerControls.Player.VerticalMove.ReadValue<float>();
+    }
+    private void DownwardAttack()
+    {
+        if(!isGrounded && direction.y == -1 && playerControls.Player.Attack.triggered)
+        {
+            isDownwardAttacking = true;
+        }
     }
 }

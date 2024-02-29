@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 3514343458974145630}
   - component: {fileID: 1423543906855090405}
   - component: {fileID: -4649165196833554598}
+  - component: {fileID: -4534679745111877200}
   - component: {fileID: 7029036092508543791}
   m_Layer: 0
   m_Name: Player
@@ -259,11 +260,11 @@ MonoBehaviour:
   movingRight: 0
   isWalking: 0
   isIdle: 1
-  unlockedDoubleJump: 1
-  unlockedDash: 1
-  wallClimbUnlocked: 1
-  wallSlidingUnlocked: 1
-  wallJumpingUnlocked: 1
+  unlockedDoubleJump: 0
+  unlockedDash: 0
+  wallClimbUnlocked: 0
+  wallSlidingUnlocked: 0
+  wallJumpingUnlocked: 0
   isGrounded: 0
   groundCheck: {fileID: 169145697224156681}
   attackPoint: {fileID: 8190116055694505914}
@@ -308,6 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  maxHealth: 100
   OnDeath:
     m_PersistentCalls:
       m_Calls:
@@ -323,7 +325,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  maxHealth: 100
   trigger: {fileID: 11400000, guid: 5acc0d73984440c4a82dcdef2ce27eb5, type: 2}
 --- !u!114 &-4649165196833554598
 MonoBehaviour:
@@ -338,6 +339,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 11400000, guid: 9d2384aebe81ac046ae9730670834553, type: 2}
+--- !u!114 &-4534679745111877200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252729496669648702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4354f4e58a87fa24e85953f40c9cb23b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!96 &7029036092508543791
 TrailRenderer:
   serializedVersion: 3

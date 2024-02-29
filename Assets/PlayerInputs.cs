@@ -35,6 +35,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""f7de74c1-6a8b-459b-b98c-fd4abf7fae2a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -57,6 +66,28 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""GamePad"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a9d7f476-1e49-4dff-96dc-b212978a77b8"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cca09750-8d74-41a3-a62f-c93c097b8d47"",
+                    ""path"": ""<Gamepad>/{Submit}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -413,6 +444,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
+        m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
@@ -482,11 +514,13 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_Pause;
+    private readonly InputAction m_UI_Submit;
     public struct UIActions
     {
         private @PlayerInputs m_Wrapper;
         public UIActions(@PlayerInputs wrapper) { m_Wrapper = wrapper; }
         public InputAction @Pause => m_Wrapper.m_UI_Pause;
+        public InputAction @Submit => m_Wrapper.m_UI_Submit;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -499,6 +533,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Submit.started += instance.OnSubmit;
+            @Submit.performed += instance.OnSubmit;
+            @Submit.canceled += instance.OnSubmit;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -506,6 +543,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Submit.started -= instance.OnSubmit;
+            @Submit.performed -= instance.OnSubmit;
+            @Submit.canceled -= instance.OnSubmit;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -622,6 +662,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     public interface IUIActions
     {
         void OnPause(InputAction.CallbackContext context);
+        void OnSubmit(InputAction.CallbackContext context);
     }
     public interface IPlayerActions
     {

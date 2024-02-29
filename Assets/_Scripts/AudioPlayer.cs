@@ -63,6 +63,12 @@ public class AudioPlayer : MonoBehaviour
         }
     }
 
+    public void PitchAdjust(float pitch)
+    {
+        audioSource.pitch = pitch;
+    }
+
+
     // Additional methods to control audio can be added here
     // e.g., StopAudio, PauseAudio, ChangeVolume, etc.
 }

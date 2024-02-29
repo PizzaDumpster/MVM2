@@ -3,9 +3,10 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ResidentEvilClone
-{
-    public class UITextComplete : BaseMessage { }
+
+  public class UITextComplete : BaseMessage { }
+
+
 
     public class UIText : MonoBehaviour
     {
@@ -28,7 +29,9 @@ namespace ResidentEvilClone
         private bool requestTextDisplay = false;
         private bool isTyping;
 
-        IPlayerInput m_PlayerInput;
+
+        IUIInput m_PlayerInput;
+
 
         private void Awake()
         {
@@ -41,7 +44,9 @@ namespace ResidentEvilClone
             if (Instance == null)
             {
                 Instance = this;
-                m_PlayerInput = GetComponentInParent<IPlayerInput>();
+
+                m_PlayerInput = GetComponentInParent<IUIInput>();
+
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -226,19 +231,23 @@ namespace ResidentEvilClone
         {
             if (currentTextData.typingSound)
             {
-                SoundManagement.Instance.PitchAdjust(Random.Range(minPitch, maxPitch));
-                SoundManagement.Instance.PlaySound(currentTextData.typingSound);
+
+            AudioPlayer.Instance.PitchAdjust(Random.Range(minPitch, maxPitch));
+            AudioPlayer.Instance.PlayAudioClip(currentTextData.typingSound);
             }
             else
             {
-                SoundManagement.Instance.PitchAdjust(Random.Range(minPitch, maxPitch));
-                SoundManagement.Instance.PlaySound(typingSound);
+            AudioPlayer.Instance.PitchAdjust(Random.Range(minPitch, maxPitch));
+            AudioPlayer.Instance.PlayAudioClip(typingSound);
+
             }
         }
 
         public void HideText()
         {
-            SoundManagement.Instance.PitchAdjust(1f);
+
+            AudioPlayer.Instance.PitchAdjust(1f);
+
             StopAllCoroutines();
             uiText.text = "";
             PauseController.Instance.Resume();
@@ -269,7 +278,9 @@ namespace ResidentEvilClone
 
         private void Update()
         {
-            if (m_PlayerInput.IsAttackDown())
+
+            if (m_PlayerInput.IsSubmitDown())
+
             {
                 if (isTextBeingDisplayed)
                 {
@@ -296,4 +307,6 @@ namespace ResidentEvilClone
 
 
     }
-}
+
+
+

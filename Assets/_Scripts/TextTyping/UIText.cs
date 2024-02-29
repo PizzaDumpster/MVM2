@@ -3,7 +3,10 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
+
   public class UITextComplete : BaseMessage { }
+
+
 
     public class UIText : MonoBehaviour
     {
@@ -26,7 +29,9 @@ using System.Collections.Generic;
         private bool requestTextDisplay = false;
         private bool isTyping;
 
+
         IUIInput m_PlayerInput;
+
 
         private void Awake()
         {
@@ -39,7 +44,9 @@ using System.Collections.Generic;
             if (Instance == null)
             {
                 Instance = this;
+
                 m_PlayerInput = GetComponentInParent<IUIInput>();
+
                 DontDestroyOnLoad(gameObject);
             }
             else
@@ -224,6 +231,7 @@ using System.Collections.Generic;
         {
             if (currentTextData.typingSound)
             {
+
             AudioPlayer.Instance.PitchAdjust(Random.Range(minPitch, maxPitch));
             AudioPlayer.Instance.PlayAudioClip(currentTextData.typingSound);
             }
@@ -231,12 +239,15 @@ using System.Collections.Generic;
             {
             AudioPlayer.Instance.PitchAdjust(Random.Range(minPitch, maxPitch));
             AudioPlayer.Instance.PlayAudioClip(typingSound);
+
             }
         }
 
         public void HideText()
         {
+
             AudioPlayer.Instance.PitchAdjust(1f);
+
             StopAllCoroutines();
             uiText.text = "";
             PauseController.Instance.Resume();
@@ -267,7 +278,9 @@ using System.Collections.Generic;
 
         private void Update()
         {
+
             if (m_PlayerInput.IsSubmitDown())
+
             {
                 if (isTextBeingDisplayed)
                 {
@@ -294,3 +307,6 @@ using System.Collections.Generic;
 
 
     }
+
+
+

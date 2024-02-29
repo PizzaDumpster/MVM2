@@ -10,20 +10,19 @@ public struct HealthData
 
 public class PlayerDeath : BaseMessage { }
 
-public class PlayerCurrentHealth : BaseMessage 
-{ 
-    public HealthData healthData; 
-}
+public class PlayerCurrentHealth : BaseMessage { public HealthData healthData; }
+
+public class PlayerRestoreHealth : BaseMessage { public int restoreAmount; }
+
 public class PlayerHealth : Health , IDamageable
 {
-    public int maxHealth;
-
     public TriggerStringSO trigger;
 
     public PlayerCurrentHealth currentHealth = new PlayerCurrentHealth();
     Animator anim;
     private void Start()
     {
+        MessageBuffer<PlayerRestoreHealth>.Subscribe(RestoreHealth);
         currentHealth.healthData.currentMaxHealth = maxHealth;
         HealthDispatch();
         anim = GetComponent<Animator>();
@@ -35,8 +34,6 @@ public class PlayerHealth : Health , IDamageable
         HealthDispatch();
     }
 
-
-
     public void Damage(int damage)
     {
         HealthAmount = HealthAmount - damage;
@@ -47,6 +44,12 @@ public class PlayerHealth : Health , IDamageable
         {
             Die();
         }
+    }
+
+    public void RestoreHealth(PlayerRestoreHealth msg)
+    {
+        HealthAmount = HealthAmount + msg.restoreAmount;
+        HealthDispatch();
     }
 
     public void Die()

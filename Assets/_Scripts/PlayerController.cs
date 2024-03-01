@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.05f);
+        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.025f);
         valueX = playerControls.Player.HorizontalMove.ReadValue<float>();
         SetYDircetion();
         DownwardAttack();
@@ -195,10 +195,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (availableJumps > 0)
         {
-            isJumping = true;
+           
             rb.sharedMaterial = noStick;
             coyoteTimeCounter = coyoteTime;
             airTimer += Time.deltaTime;
+
         }
         else
         {
@@ -256,6 +257,7 @@ public class PlayerController : MonoBehaviour
                 direction.y = 0;
             }
         }
+        JumpBugFix(); 
         FireDoubleJumpAnimation();
         FireAnimations();
         
@@ -321,15 +323,15 @@ public class PlayerController : MonoBehaviour
         else if (isAttacking)
         {
             StartCoroutine(ChangeAnimationState("Attack"));
+        }else if (isDoubleJumping)
+        {
+            StartCoroutine(ChangeAnimationState("Jump2"));
         }
         else if (isJumping && !isDoubleJumping)
         {
             StartCoroutine(ChangeAnimationState("Jump"));
         }
-        else if (isDoubleJumping)
-        {
-            StartCoroutine(ChangeAnimationState("Jump2"));
-        }
+       
         else if (isWalking)
         {
             StartCoroutine(ChangeAnimationState("Walk"));
@@ -490,9 +492,19 @@ public class PlayerController : MonoBehaviour
     
     private void FireDoubleJumpAnimation()
     {
-        if(airTimer > 0 && availableJumps > 0 && playerControls.Player.Jump.triggered)
+        if(unlockedDoubleJump && airTimer > 0 && availableJumps > 0 && playerControls.Player.Jump.triggered)
         {
             isDoubleJumping = true;
         }
+    }
+    void JumpBugFix()
+    {
+        if(airTimer > 0 || !isGrounded)
+        {
+            isIdle = false;
+            isWalking = false;
+        }
+
+       
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public struct HealthData
 {
@@ -18,8 +19,11 @@ public class PlayerHealth : Health , IDamageable
 {
     public TriggerStringSO trigger;
 
+    [Header("")]
+    public UnityEvent onHit;
+
     public PlayerCurrentHealth currentHealth = new PlayerCurrentHealth();
-    Animator anim;
+    private Animator anim;
     private void Start()
     {
         MessageBuffer<PlayerRestoreHealth>.Subscribe(RestoreHealth);
@@ -43,7 +47,11 @@ public class PlayerHealth : Health , IDamageable
         if(HealthAmount <= 0)
         {
             Die();
+            return;
         }
+
+        onHit?.Invoke();
+        print("Hit");
     }
 
     public void RestoreHealth(PlayerRestoreHealth msg)

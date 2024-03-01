@@ -296,7 +296,6 @@ public class PlayerController : MonoBehaviour
         {
             isIdle = false;
             isAttacking = true;
-            AudioPlayer.Instance.PlayAudioClip(weapon.currentWeapon.WeaponSFX);
 
 
             // Draw a debug circle

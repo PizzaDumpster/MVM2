@@ -71,15 +71,17 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7028258957920198225}
+  - component: {fileID: -8349436425676798852}
   - component: {fileID: 759722886728864148}
   - component: {fileID: 3192305360280657140}
   - component: {fileID: 1503080035105917354}
   - component: {fileID: 5707718150890076996}
+  - component: {fileID: 7029036092508543791}
   - component: {fileID: 3514343458974145630}
   - component: {fileID: 1423543906855090405}
   - component: {fileID: -4649165196833554598}
   - component: {fileID: -4534679745111877200}
-  - component: {fileID: 7029036092508543791}
+  - component: {fileID: -820472187427327139}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -107,6 +109,102 @@ Transform:
   - {fileID: 8694978728784437203}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &-8349436425676798852
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252729496669648702}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 4572404987224364980, guid: 12b153cc9e5864a448dacd28ce2e7a9d, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!212 &759722886728864148
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -242,115 +340,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3514343458974145630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5252729496669648702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58938473a784e9440812c212f89e4fae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: {fileID: -4649165196833554598}
-  speed: 5
-  jumpForce: 14
-  movingRight: 0
-  isWalking: 0
-  isIdle: 1
-  unlockedDoubleJump: 0
-  unlockedDash: 0
-  wallClimbUnlocked: 0
-  wallSlidingUnlocked: 0
-  wallJumpingUnlocked: 0
-  isGrounded: 0
-  groundCheck: {fileID: 169145697224156681}
-  attackPoint: {fileID: 8190116055694505914}
-  isAttacking: 0
-  isDownwardAttacking: 0
-  noStick: {fileID: 6200000, guid: 89ae4ed359ebda148977305f81dcc3b1, type: 2}
-  groundTimer: 0
-  airTimer: 0
-  availableJumps: 2
-  isJumping: 0
-  canDash: 0
-  availableDash: 1
-  waitForNextDash: 1
-  dashSpeed: 30
-  dashTime: 0.15
-  tryToDash: 0
-  isDashing: 0
-  direction: {x: 1, y: 0}
-  wallCheck: {fileID: 8420679390204028224}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  initialGravityMultiplier: 0
-  coyoteTime: 0.2
-  coyoteTimeCounter: 0
-  jumpBufferTime: 0.2
-  jumpBufferCounter: 0
-  valueX: 0
-  valueY: 0
-  tryToJump: 0
-  tryToAttack: 0
---- !u!114 &1423543906855090405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5252729496669648702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f05ddfe40f1980c439838468e073af1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
-  OnDeath:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5252729496669648702}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  trigger: {fileID: 11400000, guid: 5acc0d73984440c4a82dcdef2ce27eb5, type: 2}
---- !u!114 &-4649165196833554598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5252729496669648702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2000b1cf0049924c921da4f412eddee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentWeapon: {fileID: 11400000, guid: 9d2384aebe81ac046ae9730670834553, type: 2}
---- !u!114 &-4534679745111877200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5252729496669648702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4354f4e58a87fa24e85953f40c9cb23b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!96 &7029036092508543791
 TrailRenderer:
   serializedVersion: 3
@@ -464,6 +453,159 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 0
+--- !u!114 &3514343458974145630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252729496669648702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58938473a784e9440812c212f89e4fae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: -4649165196833554598}
+  speed: 5
+  jumpForce: 14
+  movingRight: 0
+  isWalking: 0
+  isIdle: 1
+  unlockedDoubleJump: 0
+  unlockedDash: 0
+  wallClimbUnlocked: 0
+  wallSlidingUnlocked: 0
+  wallJumpingUnlocked: 0
+  isGrounded: 0
+  groundCheck: {fileID: 169145697224156681}
+  attackPoint: {fileID: 8190116055694505914}
+  isAttacking: 0
+  isDownwardAttacking: 0
+  noStick: {fileID: 6200000, guid: 89ae4ed359ebda148977305f81dcc3b1, type: 2}
+  groundTimer: 0
+  airTimer: 0
+  availableJumps: 2
+  isJumping: 0
+  canDash: 0
+  availableDash: 1
+  waitForNextDash: 1
+  dashSpeed: 30
+  dashTime: 0.15
+  tryToDash: 0
+  isDashing: 0
+  direction: {x: 1, y: 0}
+  wallCheck: {fileID: 8420679390204028224}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  initialGravityMultiplier: 0
+  coyoteTime: 0.2
+  coyoteTimeCounter: 0
+  jumpBufferTime: 0.2
+  jumpBufferCounter: 0
+  valueX: 0
+  valueY: 0
+  tryToJump: 0
+  tryToAttack: 0
+--- !u!114 &1423543906855090405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252729496669648702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f05ddfe40f1980c439838468e073af1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5252729496669648702}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  trigger: {fileID: 11400000, guid: 5acc0d73984440c4a82dcdef2ce27eb5, type: 2}
+  onHit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: -8349436425676798852}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: bc5092bcb59cea247a9894966bb461bb, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &-4649165196833554598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252729496669648702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2000b1cf0049924c921da4f412eddee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeapon: {fileID: 11400000, guid: 9d2384aebe81ac046ae9730670834553, type: 2}
+--- !u!114 &-4534679745111877200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252729496669648702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4354f4e58a87fa24e85953f40c9cb23b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-820472187427327139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252729496669648702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1317b7f4c0ed13b4388eaca1d4e4e220, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  taggedEvents:
+  - eventName: {fileID: 11400000, guid: 7b419d2be8c63824b9d7c22be3b77eb5, type: 2}
+    eventTrigger:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: -8349436425676798852}
+          m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+          m_MethodName: PlayOneShot
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 8300000, guid: d0808579569bcfb40861389cd085a502, type: 3}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
 --- !u!1 &5372175001349308956
 GameObject:
   m_ObjectHideFlags: 0

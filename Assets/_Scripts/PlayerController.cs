@@ -198,6 +198,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            isJumping = true; 
             coyoteTimeCounter -= Time.deltaTime;
             rb.sharedMaterial = noStick;
             airTimer += Time.deltaTime;

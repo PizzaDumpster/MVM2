@@ -51,8 +51,8 @@ public class PlayerController : MonoBehaviour
     // Jump Counters
     [Header("Jump Counters")]
     [SerializeField] int availableJumps;
-    [SerializeField] const int singleJump = 1;
-    [SerializeField] const int doubleJump = 2;
+    const int singleJump = 1;
+    const int doubleJump = 2;
     public bool isJumping = false;
     public bool isDoubleJumping = false; 
 

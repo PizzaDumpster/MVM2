@@ -326,31 +326,31 @@ public class PlayerController : MonoBehaviour
     {
         if (playerHealth.HealthAmount <= 0)
         {
-            StartCoroutine(ChangeAnimationState("Death"));
+            ChangeAnimationState("Death");
         }
         else if (isDownwardAttacking)
         {
-            StartCoroutine(ChangeAnimationState("DownwardAttack"));
+            ChangeAnimationState("DownwardAttack");
         }
         else if (isAttacking)
         {
-            StartCoroutine(ChangeAnimationState("Attack"));
+            ChangeAnimationState("Attack");
         }
         else if (isDoubleJumping)
         {
-            StartCoroutine(ChangeAnimationState("Jump2"));
+            ChangeAnimationState("Jump2");
         }
         else if (isJumping && !isDoubleJumping)
         {
-            StartCoroutine(ChangeAnimationState("Jump"));
+            ChangeAnimationState("Jump");
         }
         else if (isWalking)
         {
-            StartCoroutine(ChangeAnimationState("Walk"));
+            ChangeAnimationState("Walk");
         }
         else if (isIdle)
         {
-            StartCoroutine(ChangeAnimationState("Idle"));
+            ChangeAnimationState("Idle");
         }
     }
 
@@ -467,19 +467,16 @@ public class PlayerController : MonoBehaviour
         canDash = true;
         availableDash = singleDash;
     }
-    private IEnumerator ChangeAnimationState(String newState)
+    private void ChangeAnimationState(String newState)
     {
         Debug.Log(newState);
-        if(currentState == newState) { StopCoroutine(ChangeAnimationState(newState)); }
+        if(currentState == newState) { return; }
         if (currentState != newState)
         {
             
-            anim.Play(newState, -1, 0f);
+            anim.CrossFade(newState, 0.5f, 0);
             currentState = newState;
-            yield return null;
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorClipInfo(0)[0].clip.length);
-            yield return null; 
-            Debug.Log("animation Complete, currentState: " + currentState );
+
         }
     }
 

@@ -486,6 +486,7 @@ MonoBehaviour:
   airTimer: 0
   availableJumps: 2
   isJumping: 0
+  isDoubleJumping: 0
   canDash: 0
   availableDash: 1
   waitForNextDash: 1

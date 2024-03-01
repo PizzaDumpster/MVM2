@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -143,12 +144,14 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         tr = GetComponent<TrailRenderer>();
         playerHealth = GetComponent<PlayerHealth>();
         canDash = true;
         initialGravityMultiplier = rb.gravityScale;
+        
 
     }
 
@@ -158,6 +161,8 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.025f);
         valueX = playerControls.Player.HorizontalMove.ReadValue<float>();
         SetYDircetion();
+
+        FireIdelAnimation();
         DownwardAttack();
 
         if (wallSlidingUnlocked)
@@ -195,7 +200,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (availableJumps > 0)
         {
-           
+
             rb.sharedMaterial = noStick;
             coyoteTimeCounter = coyoteTime;
             airTimer += Time.deltaTime;
@@ -214,7 +219,8 @@ public class PlayerController : MonoBehaviour
         {
             if (valueX > 0)
             {
-                isWalking = true;
+                if(!isJumping)
+                    isWalking = true;
                 movingRight = true;
                 if (!isWallJumping)
                 {
@@ -227,7 +233,8 @@ public class PlayerController : MonoBehaviour
             }
             else if (valueX < 0)
             {
-                isWalking = true;
+                if(!isJumping)
+                    isWalking = true;
                 movingRight = false;
                 if (!isWallJumping)
                 {
@@ -240,7 +247,6 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                isIdle = true;
                 isWalking = false;
                 direction.x = 0;
             }
@@ -257,14 +263,16 @@ public class PlayerController : MonoBehaviour
                 direction.y = 0;
             }
         }
-        JumpBugFix(); 
+        
+        JumpBugFix();
         FireDoubleJumpAnimation();
+        FireAttackAnimation();
         FireAnimations();
         
 
+
         if (jumpBufferCounter > 0 && coyoteTimeCounter > 0f)
         {
-            isIdle = false;
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpBufferCounter = 0f;
@@ -276,9 +284,20 @@ public class PlayerController : MonoBehaviour
             availableJumps--;
         }
 
+        
+        if (unlockedDash)
+        {
+            if (playerControls.Player.Dash.triggered && canDash)
+            {
+                StartCoroutine(Dash());
+            }
+        }
+    }
+
+    private void FireAttackAnimation()
+    {
         if (playerControls.Player.Attack.triggered && !isDownwardAttacking)
         {
-            isIdle = false;
             isAttacking = true;
 
 
@@ -301,13 +320,6 @@ public class PlayerController : MonoBehaviour
             //    }
             //}
         }
-        if (unlockedDash)
-        {
-            if (playerControls.Player.Dash.triggered && canDash)
-            {
-                StartCoroutine(Dash());
-            }
-        }
     }
 
     private void FireAnimations()
@@ -323,7 +335,8 @@ public class PlayerController : MonoBehaviour
         else if (isAttacking)
         {
             StartCoroutine(ChangeAnimationState("Attack"));
-        }else if (isDoubleJumping)
+        }
+        else if (isDoubleJumping)
         {
             StartCoroutine(ChangeAnimationState("Jump2"));
         }
@@ -331,7 +344,6 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(ChangeAnimationState("Jump"));
         }
-       
         else if (isWalking)
         {
             StartCoroutine(ChangeAnimationState("Walk"));
@@ -458,12 +470,16 @@ public class PlayerController : MonoBehaviour
     private IEnumerator ChangeAnimationState(String newState)
     {
         Debug.Log(newState);
+        if(currentState == newState) { StopCoroutine(ChangeAnimationState(newState)); }
         if (currentState != newState)
         {
+            
             anim.Play(newState, -1, 0f);
             currentState = newState;
-            yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
-            Debug.Log("animation Complete");
+            yield return null;
+            yield return new WaitForSeconds(anim.GetCurrentAnimatorClipInfo(0)[0].clip.length);
+            yield return null; 
+            Debug.Log("animation Complete, currentState: " + currentState );
         }
     }
 
@@ -501,10 +517,26 @@ public class PlayerController : MonoBehaviour
     {
         if(airTimer > 0 || !isGrounded)
         {
-            isIdle = false;
             isWalking = false;
         }
-
-       
+    }
+    void FireIdelAnimation()
+    {
+        if(rb.velocity.x <= 0.1f && rb.velocity.x >= -0.1f && !isAttacking && !isJumping)
+        {
+            isIdle = true;
+        }
+        else if (rb.velocity.x <= 0.1f && rb.velocity.x >= -0.1f && !isJumping)
+        {
+            isIdle = true;
+        }
+        else if (rb.velocity.x <= 0.1f && rb.velocity.x >= -0.1f && !isAttacking)
+        {
+            isIdle= true;
+        }
+        else
+        {
+            isIdle = false;
+        }
     }
 }

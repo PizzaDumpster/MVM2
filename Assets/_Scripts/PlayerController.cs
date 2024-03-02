@@ -470,14 +470,31 @@ public class PlayerController : MonoBehaviour
     private void ChangeAnimationState(String newState)
     {
         Debug.Log(newState);
-        if(currentState == newState) { return; }
-        if (currentState != newState)
+        if(newState == "Idle" && isPlaying(anim, "Attack")) { return; }
+        else if (newState == "Idle" && isPlaying(anim, "Jump")) { return; }
+        else if (newState == "Walk" && isPlaying(anim, "Jump")) { return; }
+        else if (newState == "Jump" && isPlaying(anim, "Walk"))
         {
-            
-            anim.CrossFade(newState, 0.5f, 0);
+            anim.Play(newState, -1, 0);
             currentState = newState;
-
         }
+        else if (newState == "Jump" && isPlaying(anim, "Idle"))
+        {
+            anim.Play(newState, -1, 0);
+            currentState = newState;
+        }
+        else if(currentState == newState) { return; }
+        else if (currentState == null)
+        {
+            anim.Play(newState, -1, 0);
+            currentState = newState;
+        }
+        else
+        {
+            anim.Play(newState, -1, 0);
+            currentState = newState;
+        }
+              
     }
 
     public void SetAttackFalse()
@@ -535,5 +552,13 @@ public class PlayerController : MonoBehaviour
         {
             isIdle = false;
         }
+    }
+    bool isPlaying(Animator anim, string stateName)
+    {
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName(stateName) &&
+                anim.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f)
+            return true;
+        else
+            return false;
     }
 }

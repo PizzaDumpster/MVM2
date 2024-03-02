@@ -1386,7 +1386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a6403e5e1a1956448c997220ac7db59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characterPrefab: {fileID: 5252729496669648702, guid: 3de8790f2506f9245842e6d500d4a5a0, type: 3}
+  characterPrefab: {fileID: 5252729496669648702, guid: 11483e2549a49d44c8ae001de4c4aa4a, type: 3}
   spawnLocation: {fileID: 1183533586}
 --- !u!1 &229755885
 GameObject:

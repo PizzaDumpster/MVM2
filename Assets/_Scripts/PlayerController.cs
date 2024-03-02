@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -51,9 +52,10 @@ public class PlayerController : MonoBehaviour
     // Jump Counters
     [Header("Jump Counters")]
     [SerializeField] int availableJumps;
-    [SerializeField] const int singleJump = 1;
-    [SerializeField] const int doubleJump = 2;
+    const int singleJump = 1;
+    const int doubleJump = 2;
     public bool isJumping = false;
+    public bool isDoubleJumping = false; 
 
     // Dash
     [Header("Dash")]
@@ -142,32 +144,36 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         tr = GetComponent<TrailRenderer>();
         playerHealth = GetComponent<PlayerHealth>();
         canDash = true;
         initialGravityMultiplier = rb.gravityScale;
+        
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.05f);
+        isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, 0.025f);
         valueX = playerControls.Player.HorizontalMove.ReadValue<float>();
         SetYDircetion();
+
+        FireIdelAnimation();
         DownwardAttack();
 
         if (wallSlidingUnlocked)
         {
-            WallSlide(); 
+            WallSlide();
         }
         if (wallJumpingUnlocked)
         {
             WallJump();
         }
-        
+
 
         if (playerControls.Player.Jump.triggered)
         {
@@ -181,6 +187,7 @@ public class PlayerController : MonoBehaviour
         if (isGrounded)
         {
             isJumping = false;
+            isDoubleJumping = false;
             coyoteTimeCounter = coyoteTime;
             rb.sharedMaterial = null;
             groundTimer += Time.deltaTime;
@@ -193,11 +200,15 @@ public class PlayerController : MonoBehaviour
         }
         else if (availableJumps > 0)
         {
+
             rb.sharedMaterial = noStick;
             coyoteTimeCounter = coyoteTime;
+            airTimer += Time.deltaTime;
+
         }
         else
         {
+            isJumping = true;
             coyoteTimeCounter -= Time.deltaTime;
             rb.sharedMaterial = noStick;
             airTimer += Time.deltaTime;
@@ -208,39 +219,40 @@ public class PlayerController : MonoBehaviour
         {
             if (valueX > 0)
             {
-                isWalking = true;
+                if(!isJumping)
+                    isWalking = true;
                 movingRight = true;
                 if (!isWallJumping)
                 {
                     transform.localScale = new Vector3(1, 1, 1);
                     rb.velocity = new Vector2(speed, rb.velocity.y + 0);
                 }
-                    
+
                 direction.x = 1;
 
             }
             else if (valueX < 0)
             {
-                isWalking = true;
+                if(!isJumping)
+                    isWalking = true;
                 movingRight = false;
                 if (!isWallJumping)
                 {
                     transform.localScale = new Vector3(-1, 1, 1);
                     rb.velocity = new Vector2(-speed, rb.velocity.y + 0);
                 }
-                   
+
                 direction.x = -1;
 
             }
             else
             {
-                isIdle = true; 
                 isWalking = false;
-                direction.x = 0; 
+                direction.x = 0;
             }
-            if(valueY > 0)
+            if (valueY > 0)
             {
-                direction.y = 1; 
+                direction.y = 1;
             }
             else if (valueY < 0)
             {
@@ -248,39 +260,19 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                direction.y = 0; 
+                direction.y = 0;
             }
         }
-
-        if(playerHealth.HealthAmount <= 0)
-        {
-            ChangeAnimationState("Death");
-        }
-        else if (isDownwardAttacking)
-        {
-            ChangeAnimationState("DownwardAttack");
-        }
-        else if (isAttacking)
-        {
-            ChangeAnimationState("Attack");
-        }
-        else if (isJumping)
-        {
-            ChangeAnimationState("Jump");
-        }
-        else if (isWalking)
-        {
-            ChangeAnimationState("Walk");
-        }
-        else if (isIdle)
-        {
-            ChangeAnimationState("Idle");
-        }
+        
+        JumpBugFix();
+        FireDoubleJumpAnimation();
+        FireAttackAnimation();
+        FireAnimations();
+        
 
 
         if (jumpBufferCounter > 0 && coyoteTimeCounter > 0f)
         {
-            isIdle = false;
             isJumping = true;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             jumpBufferCounter = 0f;
@@ -292,15 +284,25 @@ public class PlayerController : MonoBehaviour
             availableJumps--;
         }
 
+        
+        if (unlockedDash)
+        {
+            if (playerControls.Player.Dash.triggered && canDash)
+            {
+                StartCoroutine(Dash());
+            }
+        }
+    }
+
+    private void FireAttackAnimation()
+    {
         if (playerControls.Player.Attack.triggered && !isDownwardAttacking)
         {
-            isIdle = false;
             isAttacking = true;
-            AudioPlayer.Instance.PlayAudioClip(weapon.currentWeapon.WeaponSFX);
 
 
             // Draw a debug circle
-           // Debug.DrawRay(attackPoint.position, Vector2.right * 1f, Color.red, 0.5f);
+            // Debug.DrawRay(attackPoint.position, Vector2.right * 1f, Color.red, 0.5f);
 
             //Collider2D[] hitColliders = Physics2D.OverlapCircleAll(attackPoint.position, 1f);
             //foreach (Collider2D collider in hitColliders)
@@ -318,12 +320,37 @@ public class PlayerController : MonoBehaviour
             //    }
             //}
         }
-        if (unlockedDash)
+    }
+
+    private void FireAnimations()
+    {
+        if (playerHealth.HealthAmount <= 0)
         {
-            if (playerControls.Player.Dash.triggered && canDash)
-            {
-                StartCoroutine(Dash());
-            }
+            ChangeAnimationState("Death");
+        }
+        else if (isDownwardAttacking)
+        {
+            ChangeAnimationState("DownwardAttack");
+        }
+        else if (isAttacking)
+        {
+            ChangeAnimationState("Attack");
+        }
+        else if (isDoubleJumping)
+        {
+            ChangeAnimationState("Jump2");
+        }
+        else if (isJumping && !isDoubleJumping)
+        {
+            ChangeAnimationState("Jump");
+        }
+        else if (isWalking)
+        {
+            ChangeAnimationState("Walk");
+        }
+        else if (isIdle)
+        {
+            ChangeAnimationState("Idle");
         }
     }
 
@@ -442,10 +469,14 @@ public class PlayerController : MonoBehaviour
     }
     private void ChangeAnimationState(String newState)
     {
+        Debug.Log(newState);
+        if(currentState == newState) { return; }
         if (currentState != newState)
         {
-            anim.Play(newState);
+            
+            anim.CrossFade(newState, 0.5f, 0);
             currentState = newState;
+
         }
     }
 
@@ -469,6 +500,40 @@ public class PlayerController : MonoBehaviour
         if(!isGrounded && direction.y == -1 && playerControls.Player.Attack.triggered)
         {
             isDownwardAttacking = true;
+        }
+    }
+    
+    private void FireDoubleJumpAnimation()
+    {
+        if(unlockedDoubleJump && airTimer > 0 && availableJumps > 0 && playerControls.Player.Jump.triggered)
+        {
+            isDoubleJumping = true;
+        }
+    }
+    void JumpBugFix()
+    {
+        if(airTimer > 0 || !isGrounded)
+        {
+            isWalking = false;
+        }
+    }
+    void FireIdelAnimation()
+    {
+        if(rb.velocity.x <= 0.1f && rb.velocity.x >= -0.1f && !isAttacking && !isJumping)
+        {
+            isIdle = true;
+        }
+        else if (rb.velocity.x <= 0.1f && rb.velocity.x >= -0.1f && !isJumping)
+        {
+            isIdle = true;
+        }
+        else if (rb.velocity.x <= 0.1f && rb.velocity.x >= -0.1f && !isAttacking)
+        {
+            isIdle= true;
+        }
+        else
+        {
+            isIdle = false;
         }
     }
 }

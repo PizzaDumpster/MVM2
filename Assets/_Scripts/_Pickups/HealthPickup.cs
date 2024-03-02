@@ -1,22 +1,16 @@
 using UnityEngine;
 
-public class HealthPickup : MonoBehaviour
+public class HealthPickup : PickUp
 {
-    private Collider2D collider2d;
-    [SerializeField] ObjectStringSO playerObject;
-
     [Header("")]
     [SerializeField] int healthAmount;
 
-    [Header("")]
-    [SerializeField] AudioClip pickupClip;
-
     private PlayerRestoreHealth restoreHealth = new PlayerRestoreHealth();
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         restoreHealth.restoreAmount = healthAmount;
-        collider2d = GetComponent<Collider2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)

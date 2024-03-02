@@ -8,16 +8,17 @@ public class PlayerStateMachine : MonoBehaviour
     private Rigidbody2D playerRigidbody;
     private Animator animator;
     private PlayerHealth playerHealth;
+
     public WeaponEquiped weapon;
     public PlayerGroundCheck groundCheck;
 
+    [Header("States")]
     public PlayerState currentState;
-
+    public PlayerState previousState;
     public PlayerState startState;
-
     public PlayerState deathState;
 
-    public Vector2 m_InputAxis;
+    private Vector2 m_InputAxis;
 
     private IPlayerInput m_Input;
     public Animator PlayerAnimator { get { return animator; } set { animator = value; } }
@@ -60,6 +61,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void TransitionToState(PlayerState nextState)
     {
+        previousState = currentState; // Update previous state before transitioning
         currentState = nextState;
 
         // Call EnterState method of the next state

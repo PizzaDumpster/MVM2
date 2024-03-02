@@ -5,16 +5,17 @@ using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
+    private PlayerGroundCheck groundCheck;
     private Rigidbody2D playerRigidbody;
     private Animator animator;
     private PlayerHealth playerHealth;
 
     public WeaponEquiped weapon;
-    public PlayerGroundCheck groundCheck;
+
+    public float speed = 2f;
 
     [Header("States")]
     public PlayerState currentState;
-    public PlayerState previousState;
     public PlayerState startState;
     public PlayerState deathState;
 
@@ -47,7 +48,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         m_InputAxis = m_Input.GetPrimaryAxis();
         currentState.UpdateState();
-
+        HandleMovement();
         CheckForDeath();
     }
 
@@ -61,10 +62,23 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void TransitionToState(PlayerState nextState)
     {
-        previousState = currentState; // Update previous state before transitioning
         currentState = nextState;
 
         // Call EnterState method of the next state
         currentState.EnterState(this);
+    }
+
+    public void HandleMovement()
+    {
+        if (PlayerInput.GetPrimaryAxis().x > 0)
+        {
+            Player.localScale = new Vector3(1, 1, 1);
+            PlayerRigidBody.velocity = new Vector2(speed, PlayerRigidBody.velocity.y + 0);
+        }
+        else if (PlayerInput.GetPrimaryAxis().x < 0)
+        {
+            Player.localScale = new Vector3(-1, 1, 1);
+            PlayerRigidBody.velocity = new Vector2(-speed, PlayerRigidBody.velocity.y + 0);
+        }
     }
 }

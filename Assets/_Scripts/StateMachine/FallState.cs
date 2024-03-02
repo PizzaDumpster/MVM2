@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerIdleState : PlayerState
+public class FallState : PlayerState
 {
-    public PlayerState jumpState;
+    public PlayerState idleState;
     public PlayerState attackState;
-    public PlayerState moveState;
+    public PlayerState jumpState;
 
     public TriggerStringSO animationTrigger;
     public float transitionDuration = 0.0f;
@@ -17,22 +17,12 @@ public class PlayerIdleState : PlayerState
 
         stateMachine.PlayerAnimator.CrossFade(animationTrigger.triggerString, transitionDuration);
     }
-
     public override void UpdateState()
     {
-        if (stateMachine.PlayerInput.GetPrimaryAxis().x != 0)
+        if (stateMachine.GroundCheck.IsGrounded())
         {
-            stateMachine.TransitionToState(moveState);
-        }
-
-        if (stateMachine.PlayerInput.isJumpPressed())
-        {
-            stateMachine.TransitionToState(jumpState);
-        }
-
-        if (stateMachine.PlayerInput.IsAttackPressed())
-        {
-            stateMachine.TransitionToState(attackState);
+            stateMachine.TransitionToState(idleState);
         }
     }
+
 }

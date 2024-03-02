@@ -30,7 +30,7 @@ public class PlayerJumpState : PlayerState
         {
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
         }
-        if (stateMachine.GroundCheck.IsGrounded())
+        if (stateMachine.GroundCheck.IsGrounded() && jumpBufferCounter <= 0)
         {
             stateMachine.TransitionToState(idleState);
         }

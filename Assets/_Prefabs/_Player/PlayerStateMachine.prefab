@@ -250,7 +250,7 @@ MonoBehaviour:
   attackState: {fileID: 2553992126910063999}
   moveState: {fileID: 7212933680641769224}
   animationTrigger: {fileID: 11400000, guid: cfb9d77d92cdf544d912030db85b8784, type: 2}
-  transitionDuration: 0.3
+  transitionDuration: 0
 --- !u!1 &3892279632224176270
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,6 +313,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7028258957920198225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4469614586546826091
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3377924794687022440}
+  - component: {fileID: 1933521439973259642}
+  m_Layer: 0
+  m_Name: FallState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3377924794687022440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4469614586546826091}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6904591512280302103}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1933521439973259642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4469614586546826091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f6728cb4ae0f354cbfd3c8c3bf8f3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleState: {fileID: 8162107902179375369}
+  attackState: {fileID: 2553992126910063999}
+  jumpState: {fileID: 4924108940238971351}
+  animationTrigger: {fileID: 11400000, guid: 6af2668a2c53aef469d6895c0b29738c, type: 2}
+  transitionDuration: 0
 --- !u!1 &4712516746930089777
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +407,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleState: {fileID: 8162107902179375369}
-  jumpForce: 20
+  jumpForce: 10
   jumpBufferTime: 0.2
   jumpBufferCounter: 0
   airTimer: 0
@@ -726,11 +775,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: -4649165196833554598}
-  groundCheck: {fileID: 0}
+  speed: 5
   currentState: {fileID: 0}
   startState: {fileID: 8162107902179375369}
   deathState: {fileID: 0}
-  m_InputAxis: {x: 0, y: 0}
 --- !u!114 &1423543906855090405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1138,7 +1186,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idleState: {fileID: 8162107902179375369}
-  jumpState: {fileID: 4924108940238971351}
+  fallState: {fileID: 1933521439973259642}
   animationTrigger: {fileID: 11400000, guid: 9bc1fce5748514a4da6b4bb9c61413e1, type: 2}
 --- !u!1 &8203306372918463649
 GameObject:
@@ -1187,7 +1235,6 @@ MonoBehaviour:
   idleState: {fileID: 8162107902179375369}
   jumpState: {fileID: 4924108940238971351}
   attackState: {fileID: 2553992126910063999}
-  speed: 5
   animationTrigger: {fileID: 11400000, guid: 07c3917bd29bdba47883fd3ea337443c, type: 2}
   transitionDuration: 0
 --- !u!1 &8826514570383539522
@@ -1224,5 +1271,6 @@ Transform:
   - {fileID: 3486802698642572079}
   - {fileID: 1947019165038806215}
   - {fileID: 3262197777408530246}
+  - {fileID: 3377924794687022440}
   m_Father: {fileID: 7028258957920198225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

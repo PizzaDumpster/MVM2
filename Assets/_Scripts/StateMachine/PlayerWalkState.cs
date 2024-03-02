@@ -8,14 +8,14 @@ public class PlayerWalkState : PlayerState
     public PlayerState jumpState;
     public PlayerState attackState;
 
-    public float speed = 2f;
-
     public TriggerStringSO animationTrigger;
     public float transitionDuration = 0.3f;
 
     public override void EnterState(PlayerStateMachine stateMachine)
     {
+
         base.EnterState(stateMachine);
+
         stateMachine.PlayerAnimator.CrossFade(animationTrigger.triggerString, transitionDuration);
     }
 
@@ -25,28 +25,15 @@ public class PlayerWalkState : PlayerState
         {
             stateMachine.TransitionToState(jumpState);
         }
-        else
+
+        if (stateMachine.PlayerInput.IsAttackPressed())
         {
-            float horizontalInput = stateMachine.PlayerInput.GetPrimaryAxis().x;
-            stateMachine.PlayerRigidBody.velocity = new Vector2(horizontalInput * speed, stateMachine.PlayerRigidBody.velocity.y);
+            stateMachine.TransitionToState(attackState);
+        }
 
-            if (horizontalInput > 0)
-            {
-                stateMachine.Player.localScale = new Vector3(1, 1, 1);
-            }
-            else if (horizontalInput < 0)
-            {
-                stateMachine.Player.localScale = new Vector3(-1, 1, 1);
-            }
-
-            if (Mathf.Abs(horizontalInput) > 0)
-            {
-                stateMachine.TransitionToState(this);
-            }
-            else
-            {
-                stateMachine.TransitionToState(idleState);
-            }
+        if(stateMachine.PlayerInput.GetPrimaryAxis().x == 0) 
+        {
+            stateMachine.TransitionToState(idleState);
         }
     }
 }

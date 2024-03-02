@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerAttackState : PlayerState
 {
     public PlayerState idleState;
-    public PlayerState jumpState;
+    public PlayerState fallState;
 
     public TriggerStringSO animationTrigger;
     private bool animationFinished = false;
@@ -29,7 +29,7 @@ public class PlayerAttackState : PlayerState
             }
             else
             {
-                stateMachine.TransitionToState(jumpState);
+                stateMachine.TransitionToState(fallState);
                 animationFinished = true;
             }
 

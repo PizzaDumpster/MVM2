@@ -21,7 +21,7 @@ public class CharacterInput : MonoBehaviour, IPlayerInput
 
     private void OnJump(InputValue value)
     {
-        m_AttackP.Process(value);
+        m_JumpP.Process(value);
     }
 
     private void OnDash(InputValue value)

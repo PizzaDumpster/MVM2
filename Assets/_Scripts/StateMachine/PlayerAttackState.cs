@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerState
 {
+    public PlayerState idleState;
+    public PlayerState jumpState;
+
     public TriggerStringSO animationTrigger;
     private bool animationFinished = false;
 
@@ -19,9 +22,17 @@ public class PlayerAttackState : PlayerState
     {
         if (!animationFinished && stateMachine.PlayerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
-            // Transition back to idle state when animation finishes playing
-            stateMachine.TransitionToState(stateMachine.idleState);
-            animationFinished = true;
+            if (stateMachine.GroundCheck.IsGrounded())
+            {
+                stateMachine.TransitionToState(idleState);
+                animationFinished = true;
+            }
+            else
+            {
+                stateMachine.TransitionToState(jumpState);
+                animationFinished = true;
+            }
+
         }
     }
 }

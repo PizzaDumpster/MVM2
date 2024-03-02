@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerState
 {
-    public float movementThreshold = 0.1f;
-
+    public PlayerState jumpState;
+    public PlayerState attackState;
+    public PlayerState moveState;
 
     public TriggerStringSO animationTrigger;
-    public float transitionDuration = 0.3f;
+    public float transitionDuration = 0.0f;
 
     public override void EnterState(PlayerStateMachine stateMachine)
     {
@@ -19,14 +20,19 @@ public class PlayerIdleState : PlayerState
 
     public override void UpdateState()
     {
-        //if (Input.GetButtonDown("Fire1"))
-        //{
-        //    stateMachine.TransitionToState(stateMachine.attackState);
-        //}
+        if (stateMachine.m_InputAxis.x != 0)
+        {
+            stateMachine.TransitionToState(moveState);
+        }
 
-        //if (stateMachine.Movement(movementThreshold) > 0)
-        //{
-        //    stateMachine.TransitionToState(stateMachine.movementState);
-        //}
+        if (stateMachine.PlayerInput.isJumpPressed())
+        {
+            stateMachine.TransitionToState(jumpState);
+        }
+
+        if (stateMachine.PlayerInput.IsAttackPressed())
+        {
+            stateMachine.TransitionToState(attackState);
+        }
     }
 }

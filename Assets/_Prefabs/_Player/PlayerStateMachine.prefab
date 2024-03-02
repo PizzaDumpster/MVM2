@@ -161,6 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 169145697224156681}
+  - component: {fileID: 4948183466385562282}
   m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
@@ -183,6 +184,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7028258957920198225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4948183466385562282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3019739454607092870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0fe9a231a3802f04cbdbbf2b9efc0417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrounded: 0
+  groundCheck: {fileID: 169145697224156681}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  groundCheckDistance: 0.025
 --- !u!1 &3702348154138974561
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,9 +246,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 303c8811fb6ce1f4a86be62cbcde9e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementThreshold: 0.1
+  jumpState: {fileID: 4924108940238971351}
+  attackState: {fileID: 2553992126910063999}
+  moveState: {fileID: 7212933680641769224}
   animationTrigger: {fileID: 11400000, guid: cfb9d77d92cdf544d912030db85b8784, type: 2}
   transitionDuration: 0.3
+--- !u!1 &3892279632224176270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3262197777408530246}
+  m_Layer: 0
+  m_Name: DeathState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3262197777408530246
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3892279632224176270}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6904591512280302103}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4242380341570508451
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,9 +357,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba48ce5b4c763f4e8df2dd32e0fa161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementThreshold: 0.1
+  idleState: {fileID: 8162107902179375369}
+  jumpForce: 20
+  jumpBufferTime: 0.2
+  jumpBufferCounter: 0
+  airTimer: 0
   animationTrigger: {fileID: 11400000, guid: 6af2668a2c53aef469d6895c0b29738c, type: 2}
-  transitionDuration: 0.3
+  transitionDuration: 0
 --- !u!1 &5252729496669648702
 GameObject:
   m_ObjectHideFlags: 0
@@ -323,10 +379,9 @@ GameObject:
   - component: {fileID: 1503080035105917354}
   - component: {fileID: 7029036092508543791}
   - component: {fileID: -3130995130034583241}
-  - component: {fileID: 3514343458974145630}
   - component: {fileID: 1423543906855090405}
-  - component: {fileID: -4649165196833554598}
   - component: {fileID: -4534679745111877200}
+  - component: {fileID: -4649165196833554598}
   - component: {fileID: 2168862733361309365}
   m_Layer: 0
   m_Name: PlayerStateMachine
@@ -465,7 +520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: 0}
+  m_Actions: {fileID: -944628639613478452, guid: a2b75c91d9e1dff4b9c212222dff73c9, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -480,7 +535,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!50 &3192305360280657140
@@ -671,65 +726,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: -4649165196833554598}
+  groundCheck: {fileID: 0}
   currentState: {fileID: 0}
-  idleState: {fileID: 8162107902179375369}
-  movementState: {fileID: 7212933680641769224}
-  attackState: {fileID: 2553992126910063999}
---- !u!114 &3514343458974145630
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5252729496669648702}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58938473a784e9440812c212f89e4fae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapon: {fileID: -4649165196833554598}
-  speed: 5
-  jumpForce: 14
-  movingRight: 0
-  isWalking: 0
-  isIdle: 1
-  unlockedDoubleJump: 0
-  unlockedDash: 0
-  wallClimbUnlocked: 0
-  wallSlidingUnlocked: 0
-  wallJumpingUnlocked: 0
-  isGrounded: 0
-  groundCheck: {fileID: 169145697224156681}
-  attackPoint: {fileID: 8190116055694505914}
-  isAttacking: 0
-  isDownwardAttacking: 0
-  noStick: {fileID: 6200000, guid: 89ae4ed359ebda148977305f81dcc3b1, type: 2}
-  groundTimer: 0
-  airTimer: 0
-  availableJumps: 2
-  isJumping: 0
-  isDoubleJumping: 0
-  canDash: 0
-  availableDash: 1
-  waitForNextDash: 1
-  dashSpeed: 30
-  dashTime: 0.15
-  tryToDash: 0
-  isDashing: 0
-  direction: {x: 1, y: 0}
-  wallCheck: {fileID: 8420679390204028224}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  initialGravityMultiplier: 0
-  coyoteTime: 0.2
-  coyoteTimeCounter: 0
-  jumpBufferTime: 0.2
-  jumpBufferCounter: 0
-  valueX: 0
-  valueY: 0
-  tryToJump: 0
-  tryToAttack: 0
+  startState: {fileID: 8162107902179375369}
+  deathState: {fileID: 0}
+  m_InputAxis: {x: 0, y: 0}
 --- !u!114 &1423543906855090405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,6 +776,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &-4534679745111877200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252729496669648702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4354f4e58a87fa24e85953f40c9cb23b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-4649165196833554598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -788,18 +801,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentWeapon: {fileID: 11400000, guid: 9d2384aebe81ac046ae9730670834553, type: 2}
---- !u!114 &-4534679745111877200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5252729496669648702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4354f4e58a87fa24e85953f40c9cb23b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2168862733361309365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1136,6 +1137,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e61f3f846322ef48a553bdbb908e10b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idleState: {fileID: 8162107902179375369}
+  jumpState: {fileID: 4924108940238971351}
   animationTrigger: {fileID: 11400000, guid: 9bc1fce5748514a4da6b4bb9c61413e1, type: 2}
 --- !u!1 &8203306372918463649
 GameObject:
@@ -1181,9 +1184,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e3667e984f9a2b4e9673b3af127b765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementThreshold: 0.1
+  idleState: {fileID: 8162107902179375369}
+  jumpState: {fileID: 4924108940238971351}
+  attackState: {fileID: 2553992126910063999}
+  speed: 5
   animationTrigger: {fileID: 11400000, guid: 07c3917bd29bdba47883fd3ea337443c, type: 2}
-  transitionDuration: 0.3
+  transitionDuration: 0
 --- !u!1 &8826514570383539522
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,5 +1223,6 @@ Transform:
   - {fileID: 1667848215700155151}
   - {fileID: 3486802698642572079}
   - {fileID: 1947019165038806215}
+  - {fileID: 3262197777408530246}
   m_Father: {fileID: 7028258957920198225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

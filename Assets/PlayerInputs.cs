@@ -141,6 +141,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PrimaryAxis"",
+                    ""type"": ""Value"",
+                    ""id"": ""03d1d965-1d52-4bb3-84c8-4b7b311de13c"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -407,6 +416,72 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""action"": ""VerticalMove"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""87faa858-401e-4c02-a9c0-ea3fb574299d"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrimaryAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""b2940752-0b5d-4529-94e8-1c55302cacc4"",
+                    ""path"": ""2DVector(mode=1)"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrimaryAxis"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""fbbe1c6f-f218-4257-acd2-01cd50071072"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrimaryAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""53e25adf-d846-4fd4-9c36-aab93ee508cd"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrimaryAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""8838d4f5-811f-4139-abdb-4cf070525c9c"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrimaryAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""eb148810-49ad-426a-bfd9-02da8663e545"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PrimaryAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -452,6 +527,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_Player_HorizontalMove = m_Player.FindAction("HorizontalMove", throwIfNotFound: true);
         m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_VerticalMove = m_Player.FindAction("VerticalMove", throwIfNotFound: true);
+        m_Player_PrimaryAxis = m_Player.FindAction("PrimaryAxis", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -572,6 +648,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_HorizontalMove;
     private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_VerticalMove;
+    private readonly InputAction m_Player_PrimaryAxis;
     public struct PlayerActions
     {
         private @PlayerInputs m_Wrapper;
@@ -581,6 +658,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @HorizontalMove => m_Wrapper.m_Player_HorizontalMove;
         public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @VerticalMove => m_Wrapper.m_Player_VerticalMove;
+        public InputAction @PrimaryAxis => m_Wrapper.m_Player_PrimaryAxis;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -605,6 +683,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @VerticalMove.started += instance.OnVerticalMove;
             @VerticalMove.performed += instance.OnVerticalMove;
             @VerticalMove.canceled += instance.OnVerticalMove;
+            @PrimaryAxis.started += instance.OnPrimaryAxis;
+            @PrimaryAxis.performed += instance.OnPrimaryAxis;
+            @PrimaryAxis.canceled += instance.OnPrimaryAxis;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -624,6 +705,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @VerticalMove.started -= instance.OnVerticalMove;
             @VerticalMove.performed -= instance.OnVerticalMove;
             @VerticalMove.canceled -= instance.OnVerticalMove;
+            @PrimaryAxis.started -= instance.OnPrimaryAxis;
+            @PrimaryAxis.performed -= instance.OnPrimaryAxis;
+            @PrimaryAxis.canceled -= instance.OnPrimaryAxis;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -671,5 +755,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnHorizontalMove(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnVerticalMove(InputAction.CallbackContext context);
+        void OnPrimaryAxis(InputAction.CallbackContext context);
     }
 }

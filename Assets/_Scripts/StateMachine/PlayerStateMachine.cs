@@ -6,6 +6,9 @@ public class PlayerStateMachine : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
     private Animator animator;
+    private PlayerHealth playerHealth;
+    public WeaponEquiped weapon;
+    private PlayerInputs playerControls;
 
     public PlayerState currentState;
 
@@ -15,8 +18,12 @@ public class PlayerStateMachine : MonoBehaviour
 
     public Animator PlayerAnimator { get { return animator; } set { animator = value; } }
     public Rigidbody PlayerRigidBody { get { return playerRigidbody; } set { playerRigidbody = value; } }
+
+    private IPlayerInput m_Input;
+
     void Start()
     {
+        m_Input = GetComponent<IPlayerInput>();
         PlayerAnimator = GetComponentInChildren<Animator>();
         PlayerRigidBody = GetComponent<Rigidbody>();
 

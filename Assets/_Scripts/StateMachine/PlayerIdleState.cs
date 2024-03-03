@@ -15,6 +15,8 @@ public class PlayerIdleState : PlayerState
     {
         base.EnterState(stateMachine);
 
+        stateMachine.PlayerRigidBody.sharedMaterial = null;
+
         stateMachine.PlayerAnimator.CrossFade(animationTrigger.triggerString, transitionDuration);
     }
 

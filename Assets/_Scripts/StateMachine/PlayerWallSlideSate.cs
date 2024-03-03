@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FallState : PlayerState
+public class PlayerWallSlideSate : PlayerState
 {
+    public PlayerState jumpState;
     public PlayerState idleState;
-    public PlayerState dashState;
-    public PlayerState wallSlideState;
 
     public TriggerStringSO animationTrigger;
     public float transitionDuration = 0.0f;
@@ -14,12 +13,11 @@ public class FallState : PlayerState
     public override void EnterState(PlayerStateMachine stateMachine)
     {
         base.EnterState(stateMachine);
-
         stateMachine.PlayerAnimator.CrossFade(animationTrigger.triggerString, transitionDuration);
     }
+
     public override void UpdateState()
     {
-
         CheckForChange();
     }
 
@@ -29,15 +27,14 @@ public class FallState : PlayerState
         {
             stateMachine.TransitionToState(idleState);
         }
-
-        if (stateMachine.PlayerInput.IsDashPressed() && stateMachine.CanDash())
+        if (stateMachine.PlayerInput.IsJumpPressed())
         {
-            stateMachine.TransitionToState(dashState);
+            stateMachine.TransitionToState(jumpState);
         }
+    }
 
-        if (stateMachine.IsWalled())
-        {
-            stateMachine.TransitionToState(wallSlideState);
-        }
+    public override bool CanWallJump()
+    {
+        return true;
     }
 }

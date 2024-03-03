@@ -20,10 +20,18 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerState startState;
     public PlayerState deathState;
 
+    [Header("WallSlide")]
+    public LayerMask wallLayer;
+    public Transform wallCheck;
+    
     private Vector2 m_InputAxis;
 
     private IPlayerInput m_Input;
+
+    [SerializeField] PhysicsMaterial2D noStick;
+
     public Animator PlayerAnimator { get { return animator; } set { animator = value; } }
+    
     public Rigidbody2D PlayerRigidBody { get { return playerRigidbody; } set { playerRigidbody = value; } }
 
     public IPlayerInput PlayerInput { get { return m_Input; } set { m_Input = value; } }
@@ -70,7 +78,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void HandleMovement()
     {
-        if (currentState.CanDash()) return;
+        if (currentState.CanDash() || currentState.CanWallJump()) return;
         if (PlayerInput.GetPrimaryAxis().x > 0)
         {
             Player.localScale = new Vector3(1, 1, 1);
@@ -82,6 +90,7 @@ public class PlayerStateMachine : MonoBehaviour
             PlayerRigidBody.velocity = new Vector2(-speed, PlayerRigidBody.velocity.y + 0);
         }
     }
+
 
     private void UpdateDashCooldown()
     {
@@ -103,5 +112,10 @@ public class PlayerStateMachine : MonoBehaviour
     public void StartDashCooldown(float coolDownTime)
     {
         currentDashCooldown = coolDownTime;
+    }
+
+    public bool IsWalled()
+    {
+        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
     }
 }

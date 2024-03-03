@@ -11,4 +11,10 @@ public abstract class PlayerState : MonoBehaviour
     {
         return false; // By default, assume that the player can always dash
     }
+
+    public virtual bool CanWallJump()
+    {
+        return false; // By default, assume that the player can always dash
+    }
+
 }

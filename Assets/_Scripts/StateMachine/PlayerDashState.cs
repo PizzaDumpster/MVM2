@@ -6,6 +6,7 @@ public class PlayerDashState : PlayerState
 {
     public PlayerState idleState;
     public PlayerState fallsState;
+    public PlayerState wallSlideState;
 
     [Header("Gravity Modifiers")]
     [SerializeField] float initialGravityMultiplier;
@@ -39,6 +40,7 @@ public class PlayerDashState : PlayerState
 
     public override void UpdateState()
     {
+
         if (!isDashing && stateMachine.GroundCheck.IsGrounded())
         {
             stateMachine.TransitionToState(idleState);
@@ -47,6 +49,11 @@ public class PlayerDashState : PlayerState
         if (!isDashing && !stateMachine.GroundCheck.IsGrounded())
         {
             stateMachine.TransitionToState(fallsState);
+        }
+
+        if (stateMachine.IsWalled())
+        {
+            stateMachine.TransitionToState(wallSlideState);
         }
     }
 

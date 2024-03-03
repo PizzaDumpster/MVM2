@@ -7,6 +7,7 @@ public class PlayerIdleState : PlayerState
     public PlayerState jumpState;
     public PlayerState attackState;
     public PlayerState moveState;
+    public PlayerState dashState;
 
     public TriggerStringSO animationTrigger;
     public float transitionDuration = 0.0f;
@@ -27,7 +28,7 @@ public class PlayerIdleState : PlayerState
             stateMachine.TransitionToState(moveState);
         }
 
-        if (stateMachine.PlayerInput.isJumpPressed())
+        if (stateMachine.PlayerInput.IsJumpPressed())
         {
             stateMachine.TransitionToState(jumpState);
         }
@@ -35,6 +36,11 @@ public class PlayerIdleState : PlayerState
         if (stateMachine.PlayerInput.IsAttackPressed())
         {
             stateMachine.TransitionToState(attackState);
+        }
+
+        if (stateMachine.PlayerInput.IsDashPressed() && stateMachine.CanDash())
+        {
+            stateMachine.TransitionToState(dashState);
         }
     }
 }

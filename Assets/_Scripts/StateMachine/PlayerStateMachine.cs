@@ -13,6 +13,7 @@ public class PlayerStateMachine : MonoBehaviour
     public WeaponEquiped weapon;
 
     public float speed = 2f;
+    public float currentDashCooldown = 0.0f;
 
     [Header("States")]
     public PlayerState currentState;
@@ -43,13 +44,13 @@ public class PlayerStateMachine : MonoBehaviour
         currentState.EnterState(this);
     }
 
-    // Update is called once per frame
     void Update()
     {
         m_InputAxis = m_Input.GetPrimaryAxis();
         currentState.UpdateState();
         HandleMovement();
         CheckForDeath();
+        UpdateDashCooldown();
     }
 
     private void CheckForDeath()
@@ -64,12 +65,12 @@ public class PlayerStateMachine : MonoBehaviour
     {
         currentState = nextState;
 
-        // Call EnterState method of the next state
         currentState.EnterState(this);
     }
 
     public void HandleMovement()
     {
+        if (currentState.CanDash()) return;
         if (PlayerInput.GetPrimaryAxis().x > 0)
         {
             Player.localScale = new Vector3(1, 1, 1);
@@ -80,5 +81,27 @@ public class PlayerStateMachine : MonoBehaviour
             Player.localScale = new Vector3(-1, 1, 1);
             PlayerRigidBody.velocity = new Vector2(-speed, PlayerRigidBody.velocity.y + 0);
         }
+    }
+
+    private void UpdateDashCooldown()
+    {
+        if (currentDashCooldown > 0)
+        {
+            currentDashCooldown -= Time.deltaTime;
+        }
+        else
+        {
+            currentDashCooldown = 0;
+        }
+    }
+
+    public bool CanDash()
+    {
+        return currentDashCooldown == 0; // Player can dash if the cooldown is over
+    }
+
+    public void StartDashCooldown(float coolDownTime)
+    {
+        currentDashCooldown = coolDownTime;
     }
 }

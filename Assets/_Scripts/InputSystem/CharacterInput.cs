@@ -26,7 +26,7 @@ public class CharacterInput : MonoBehaviour, IPlayerInput
 
     private void OnDash(InputValue value)
     {
-        m_AttackP.Process(value);
+        m_DashP.Process(value);
 
     }
 
@@ -52,7 +52,7 @@ public class CharacterInput : MonoBehaviour, IPlayerInput
         return m_JumpP.IsHeld();
     }
 
-    public bool isJumpPressed()
+    public bool IsJumpPressed()
     {
         return m_JumpP.IsDown();
     }

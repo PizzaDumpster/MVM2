@@ -5,8 +5,7 @@ using UnityEngine;
 public class FallState : PlayerState
 {
     public PlayerState idleState;
-    public PlayerState attackState;
-    public PlayerState jumpState;
+    public PlayerState dashState;
 
     public TriggerStringSO animationTrigger;
     public float transitionDuration = 0.0f;
@@ -22,6 +21,11 @@ public class FallState : PlayerState
         if (stateMachine.GroundCheck.IsGrounded())
         {
             stateMachine.TransitionToState(idleState);
+        }
+
+        if (stateMachine.PlayerInput.IsDashPressed() && stateMachine.CanDash())
+        {
+            stateMachine.TransitionToState(dashState);
         }
     }
 

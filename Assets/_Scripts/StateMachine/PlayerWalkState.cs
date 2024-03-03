@@ -7,6 +7,7 @@ public class PlayerWalkState : PlayerState
     public PlayerState idleState;
     public PlayerState jumpState;
     public PlayerState attackState;
+    public PlayerState dashState;
 
     public TriggerStringSO animationTrigger;
     public float transitionDuration = 0.3f;
@@ -21,7 +22,12 @@ public class PlayerWalkState : PlayerState
 
     public override void UpdateState()
     {
-        if (stateMachine.PlayerInput.isJumpPressed())
+        if (stateMachine.PlayerInput.IsDashPressed() && stateMachine.CanDash())
+        {
+            stateMachine.TransitionToState(dashState);
+        }
+
+        if (stateMachine.PlayerInput.IsJumpPressed())
         {
             stateMachine.TransitionToState(jumpState);
         }

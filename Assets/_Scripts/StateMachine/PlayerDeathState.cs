@@ -2,16 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDeathState : MonoBehaviour
+public class PlayerDeathState : PlayerState
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    public PlayerState idleState;
+
+    public TriggerStringSO animationTrigger;
+    public float transitionDuration = 0.0f;
+
+    public override void EnterState(PlayerStateMachine stateMachine)
+    {
+        base.EnterState(stateMachine);
+
+        stateMachine.PlayerAnimator.CrossFade(animationTrigger.triggerString, transitionDuration);
+    }
+    public override void UpdateState()
     {
         
     }

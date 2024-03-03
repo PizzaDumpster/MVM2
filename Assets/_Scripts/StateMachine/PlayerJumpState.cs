@@ -14,7 +14,12 @@ public class PlayerJumpState : PlayerState
     [SerializeField] float jumpForce = 0.5f;
     [SerializeField] float jumpBufferTime = 0.2f;
     [SerializeField] float jumpBufferCounter;
-    [SerializeField] float airTimer = 0.0f;
+    [SerializeField] int jumpCounter = 0;
+    [SerializeField] int maxJumps = 1;
+
+    [Header("Double Jump Variables")]
+    [SerializeField] bool canDoubleJump = false;
+    [SerializeField] float doubleJumpForce = 15f;
 
     [Header("Animation Transitions")]
     public TriggerStringSO animationTrigger;
@@ -37,12 +42,25 @@ public class PlayerJumpState : PlayerState
     public override void UpdateState()
     {
         jumpBufferCounter -= Time.deltaTime;
-        if(jumpBufferCounter > 0)
+
+        if (stateMachine.GroundCheck.IsGrounded())
+        {
+            jumpCounter = 0; 
+            canDoubleJump = true;
+        }
+
+        if (jumpBufferCounter > 0)
         {
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
         }
+        else if (stateMachine.PlayerInput.IsJumpPressed() && (jumpCounter < maxJumps || canDoubleJump))
+        {
+            jumpCounter++;
+            stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, doubleJumpForce);
+            canDoubleJump = false;
+        }
 
-        if(stateMachine.GroundCheck.IsGrounded() && stateMachine.PlayerInput.IsAttackPressed())
+        if (!stateMachine.GroundCheck.IsGrounded() && stateMachine.PlayerInput.IsAttackPressed())
         {
             stateMachine.TransitionToState(attackState);
         }
@@ -52,5 +70,9 @@ public class PlayerJumpState : PlayerState
             stateMachine.TransitionToState(idleState);
         }
 
+        if(stateMachine.PlayerInput.IsDashPressed() && stateMachine.CanDash())
+        {
+            stateMachine.TransitionToState(dashState);
+        }
     }
 }

@@ -63,7 +63,16 @@ public class PlayerDashState : PlayerState
 
         stateMachine.PlayerRigidBody.gravityScale = noGravityMultiplier;
 
-        Vector2 dashDirection = new Vector2(stateMachine.PlayerInput.GetPrimaryAxis().x, stateMachine.PlayerInput.GetPrimaryAxis().y).normalized;
+        Vector2 dashDirection;
+
+        if (Mathf.Approximately(stateMachine.PlayerInput.GetPrimaryAxis().sqrMagnitude, 0f))
+        {
+            dashDirection = new Vector2(stateMachine.Player.localScale.x, 0f);
+        }
+        else
+        {
+            dashDirection = new Vector2(stateMachine.PlayerInput.GetPrimaryAxis().x, stateMachine.PlayerInput.GetPrimaryAxis().y).normalized;
+        }
 
         stateMachine.PlayerRigidBody.velocity = dashDirection * dashSpeed;
         trailRenderer.emitting = true;
@@ -76,6 +85,7 @@ public class PlayerDashState : PlayerState
         isDashing = false;
         StartDashCooldown();
     }
+
 
     private void StartDashCooldown()
     {

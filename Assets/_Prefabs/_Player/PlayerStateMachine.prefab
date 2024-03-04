@@ -376,6 +376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idleState: {fileID: 8162107902179375369}
   dashState: {fileID: 1851236464432582984}
+  jumpState: {fileID: 4924108940238971351}
   wallSlideState: {fileID: 328071351524648335}
   animationTrigger: {fileID: 11400000, guid: 6af2668a2c53aef469d6895c0b29738c, type: 2}
   transitionDuration: 0
@@ -432,9 +433,6 @@ MonoBehaviour:
   jumpBufferCounter: 0
   jumpCounter: 0
   maxJumps: 1
-  outwardJumpForce: 15
-  wallJumpingCounter: 0
-  wallJumpingTime: 1
   canDoubleJump: 0
   doubleJumpForce: 15
   animationTrigger: {fileID: 11400000, guid: 6af2668a2c53aef469d6895c0b29738c, type: 2}
@@ -687,7 +685,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb3badec8f266e14d89b60127a9fb658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: -4649165196833554598}
   speed: 5
   currentDashCooldown: 0
   currentState: {fileID: 0}
@@ -1161,8 +1158,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1223992ed18fb244d807829f06619c09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpState: {fileID: 4924108940238971351}
+  fallState: {fileID: 1933521439973259642}
   idleState: {fileID: 8162107902179375369}
+  jumpForce: 5
+  outwardJumpForce: 10
+  wallJumpingTime: 0.15
   animationTrigger: {fileID: 11400000, guid: c2fa4edb69ce2be4db96689516d4ab9c, type: 2}
   transitionDuration: 0
 --- !u!1 &7349648980270907563

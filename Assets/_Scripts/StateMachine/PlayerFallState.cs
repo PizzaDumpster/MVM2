@@ -6,6 +6,7 @@ public class FallState : PlayerState
 {
     public PlayerState idleState;
     public PlayerState dashState;
+    public PlayerState jumpState;
     public PlayerState wallSlideState;
 
     public TriggerStringSO animationTrigger;
@@ -39,5 +40,15 @@ public class FallState : PlayerState
         {
             stateMachine.TransitionToState(wallSlideState);
         }
+
+        if (stateMachine.PlayerInput.IsJumpPressed())
+        {
+            stateMachine.TransitionToState(jumpState);
+        }
+    }
+
+    public override bool CanWallJump()
+    {
+        return true;
     }
 }

@@ -17,11 +17,6 @@ public class PlayerJumpState : PlayerState
     [SerializeField] int jumpCounter = 0;
     [SerializeField] int maxJumps = 1;
 
-    [Header("Wall Jumping Varialbles")]
-    [SerializeField] float outwardJumpForce = 15f;
-    [SerializeField] float wallJumpingCounter = 0;
-    [SerializeField] float wallJumpingTime = 1f;
-
     [Header("Double Jump Variables")]
     [SerializeField] bool canDoubleJump = false;
     [SerializeField] float doubleJumpForce = 15f;
@@ -41,7 +36,6 @@ public class PlayerJumpState : PlayerState
         stateMachine.PlayerRigidBody.sharedMaterial = noStick;
 
         jumpBufferCounter = jumpBufferTime;
-        wallJumpingCounter = wallJumpingTime;
 
         stateMachine.PlayerAnimator.CrossFade(animationTrigger.triggerString, transitionDuration);
     }
@@ -85,26 +79,23 @@ public class PlayerJumpState : PlayerState
             jumpCounter = 0;
             canDoubleJump = true;
         }
+        float horizontalInput = stateMachine.PlayerInput.GetPrimaryAxis().x;
 
-        if (jumpBufferCounter > 0 && stateMachine.GroundCheck.IsGrounded())
+        // Check if the horizontal input direction is opposite to the player's velocity direction
+        bool isOppositeDirection = Mathf.Sign(horizontalInput) != Mathf.Sign(stateMachine.PlayerRigidBody.velocity.x);
+
+        if (jumpBufferCounter > 0 && isOppositeDirection)
+        {
+            // Jump opposite to the input direction
+            stateMachine.PlayerRigidBody.velocity = new Vector2(-horizontalInput * jumpForce, jumpForce);
+        }
+        else if (jumpBufferCounter > 0 && stateMachine.GroundCheck.IsGrounded())
         {
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
         }
         else if (jumpBufferCounter > 0 && !stateMachine.IsWalled())
         {
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
-        }
-        else if (jumpBufferCounter > 0 && stateMachine.IsWalled() && !stateMachine.GroundCheck.IsGrounded())
-        {
-            wallJumpingCounter -= Time.deltaTime;
-            float outwardJumpDirection = -stateMachine.Player.localScale.x; // Determine the direction away from the wall
-            stateMachine.PlayerRigidBody.velocity = new Vector2(outwardJumpDirection * outwardJumpForce, jumpForce);
-            if (stateMachine.Player.localScale.x != outwardJumpDirection)
-            {
-                Vector3 localScale = stateMachine.Player.localScale;
-                localScale.x *= -1;
-                stateMachine.Player.localScale = localScale;
-            }
         }
         else if (stateMachine.PlayerInput.IsJumpPressed() && (jumpCounter < maxJumps || canDoubleJump) && !stateMachine.GroundCheck.IsGrounded())
         {
@@ -114,10 +105,4 @@ public class PlayerJumpState : PlayerState
         }
     }
 
-
-    public override bool CanWallJump()
-    {
-        if (wallJumpingCounter <= 0) return false;
-        else return true;
-    }
 }

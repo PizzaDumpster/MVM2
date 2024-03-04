@@ -56,6 +56,10 @@ public class CharacterInput : MonoBehaviour, IPlayerInput
     {
         return m_JumpP.IsDown();
     }
+    public bool IsJumpUp()
+    {
+        return m_JumpP.IsUp();
+    }
 
     private void Flush()
     {
@@ -63,5 +67,6 @@ public class CharacterInput : MonoBehaviour, IPlayerInput
         m_DashP.Clear();
         m_AttackP.Clear();
     }
+
 
 }

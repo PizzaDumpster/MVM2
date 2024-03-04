@@ -10,8 +10,6 @@ public class PlayerStateMachine : MonoBehaviour
     private Animator animator;
     private PlayerHealth playerHealth;
 
-    public WeaponEquiped weapon;
-
     public float speed = 2f;
     public float currentDashCooldown = 0.0f;
 

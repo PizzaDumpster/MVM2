@@ -12,6 +12,8 @@ public class PlayerWallSlideSate : PlayerState
     [SerializeField] float jumpForce = 10f;
     [SerializeField] float outwardJumpForce = 15f;
     [SerializeField] float wallJumpingTime = 1f;
+    [SerializeField] float gravity = 2;
+    [SerializeField] float originalGravity = 5;
 
     [Header("Animation")]
     public TriggerStringSO animationTrigger;
@@ -21,9 +23,14 @@ public class PlayerWallSlideSate : PlayerState
     private float wallJumpingCounter = 0;
     private bool isJumping = false;
 
+    [Header("Power Up")]
+    public PowerUpSO wallJump;
+
     public override void EnterState(PlayerStateMachine stateMachine)
     {
         base.EnterState(stateMachine);
+
+        stateMachine.PlayerRigidBody.gravityScale = gravity;
 
         wallJumpingCounter = 0;
         isJumping = false;
@@ -40,12 +47,14 @@ public class PlayerWallSlideSate : PlayerState
     {
         if (stateMachine.GroundCheck.IsGrounded())
         {
+            RestoreOriginalGravity();
             stateMachine.TransitionToState(idleState);
             return;
         }
 
-        if (stateMachine.PlayerInput.IsJumpPressed())
+        if (stateMachine.PlayerInput.IsJumpPressed() && stateMachine.unlockedAbilities.Contains(wallJump))
         {
+            RestoreOriginalGravity();
             WallJump();
         }
 
@@ -54,15 +63,25 @@ public class PlayerWallSlideSate : PlayerState
             wallJumpingCounter -= Time.deltaTime;
             if (wallJumpingCounter <= 0)
             {
+                RestoreOriginalGravity();
                 stateMachine.TransitionToState(fallState);
             }
         }
+
+        if (!stateMachine.IsWalled())
+        {
+            RestoreOriginalGravity();
+            stateMachine.TransitionToState(fallState);
+            return;
+        }
+
+
     }
 
     private void WallJump()
     {
         if (stateMachine.IsWalled() && !stateMachine.GroundCheck.IsGrounded())
-        {
+        {   
             stateMachine.PlayerAnimator.CrossFade(wallJumpTrigger.triggerString, transitionDuration);
             wallJumpingCounter = wallJumpingTime;
             float outwardJumpDirection = -stateMachine.Player.localScale.x;
@@ -76,9 +95,19 @@ public class PlayerWallSlideSate : PlayerState
             isJumping = true;
         }
     }
+    public override void ExitState()
+    {
+        RestoreOriginalGravity();
+    }
+    private void RestoreOriginalGravity()
+    {
+        stateMachine.PlayerRigidBody.gravityScale = originalGravity;
+    }
 
     public override bool CanWallJump()
     {
         return true;
     }
+
+
 }

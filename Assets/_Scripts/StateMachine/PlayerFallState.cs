@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class FallState : PlayerState
 {
+    [Header("States")]
     public PlayerState idleState;
     public PlayerState dashState;
     public PlayerState jumpState;
     public PlayerState wallSlideState;
 
+    [Header("Animations")]
     public TriggerStringSO animationTrigger;
     public float transitionDuration = 0.0f;
+
+    [Header("Power Up")]
+    public PowerUpSO wallslide;
+    public PowerUpSO dash;
 
     public override void EnterState(PlayerStateMachine stateMachine)
     {
@@ -31,12 +37,12 @@ public class FallState : PlayerState
             stateMachine.TransitionToState(idleState);
         }
 
-        if (stateMachine.PlayerInput.IsDashPressed() && stateMachine.CanDash())
+        if (stateMachine.PlayerInput.IsDashPressed() && stateMachine.CanDash() && stateMachine.unlockedAbilities.Contains(dash))
         {
             stateMachine.TransitionToState(dashState);
         }
 
-        if (stateMachine.IsWalled())
+        if (stateMachine.IsWalled() && stateMachine.unlockedAbilities.Contains(wallslide))
         {
             stateMachine.TransitionToState(wallSlideState);
         }

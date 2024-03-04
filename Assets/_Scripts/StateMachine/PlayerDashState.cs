@@ -25,6 +25,9 @@ public class PlayerDashState : PlayerState
     public TrailRenderer trailRenderer;
     public float coolDownTime = 3f;
 
+    [Header("Power Up")]
+    public PowerUpSO wallSlide;
+
     public override void EnterState(PlayerStateMachine stateMachine)
     {
         base.EnterState(stateMachine);
@@ -51,7 +54,7 @@ public class PlayerDashState : PlayerState
             stateMachine.TransitionToState(fallsState);
         }
 
-        if (stateMachine.IsWalled())
+        if (stateMachine.IsWalled() && stateMachine.unlockedAbilities.Contains(wallSlide))
         {
             stateMachine.TransitionToState(wallSlideState);
         }

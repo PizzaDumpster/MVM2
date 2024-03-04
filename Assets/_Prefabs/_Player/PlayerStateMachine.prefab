@@ -252,6 +252,7 @@ MonoBehaviour:
   dashState: {fileID: 1851236464432582984}
   animationTrigger: {fileID: 11400000, guid: cfb9d77d92cdf544d912030db85b8784, type: 2}
   transitionDuration: 0
+  dash: {fileID: 11400000, guid: 742ddc0acdb426e498778cdde01f6f20, type: 2}
 --- !u!1 &3892279632224176270
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,8 +379,10 @@ MonoBehaviour:
   dashState: {fileID: 1851236464432582984}
   jumpState: {fileID: 4924108940238971351}
   wallSlideState: {fileID: 328071351524648335}
-  animationTrigger: {fileID: 11400000, guid: 6af2668a2c53aef469d6895c0b29738c, type: 2}
+  animationTrigger: {fileID: 11400000, guid: 7782a215405b714428e61ac8c7473d50, type: 2}
   transitionDuration: 0
+  wallslide: {fileID: 11400000, guid: 0f0eb9402d8cda24ab95b043e3119b4f, type: 2}
+  dash: {fileID: 11400000, guid: 742ddc0acdb426e498778cdde01f6f20, type: 2}
 --- !u!1 &4712516746930089777
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,6 +441,9 @@ MonoBehaviour:
   animationTrigger: {fileID: 11400000, guid: 6af2668a2c53aef469d6895c0b29738c, type: 2}
   transitionDuration: 0
   noStick: {fileID: 6200000, guid: 89ae4ed359ebda148977305f81dcc3b1, type: 2}
+  doubleJump: {fileID: 11400000, guid: a1dc1a282d0a821469b58da61cfe29df, type: 2}
+  wallslide: {fileID: 11400000, guid: 0f0eb9402d8cda24ab95b043e3119b4f, type: 2}
+  dash: {fileID: 11400000, guid: 742ddc0acdb426e498778cdde01f6f20, type: 2}
 --- !u!1 &5252729496669648702
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +459,6 @@ GameObject:
   - component: {fileID: 1503080035105917354}
   - component: {fileID: -3130995130034583241}
   - component: {fileID: 1423543906855090405}
-  - component: {fileID: -4534679745111877200}
   - component: {fileID: -4649165196833554598}
   - component: {fileID: 2168862733361309365}
   m_Layer: 0
@@ -694,6 +699,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   wallCheck: {fileID: 8420679390204028224}
+  unlockedAbilities:
+  - {fileID: 11400000, guid: a27278ea458ccc747bde41a1444a5dc6, type: 2}
+  - {fileID: 11400000, guid: 0f0eb9402d8cda24ab95b043e3119b4f, type: 2}
 --- !u!114 &1423543906855090405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,18 +735,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &-4534679745111877200
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5252729496669648702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4354f4e58a87fa24e85953f40c9cb23b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-4649165196833554598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1000,6 +996,7 @@ MonoBehaviour:
   transitionDuration: 0
   trailRenderer: {fileID: 7963129121448691002}
   coolDownTime: 0.75
+  wallSlide: {fileID: 11400000, guid: 0f0eb9402d8cda24ab95b043e3119b4f, type: 2}
 --- !u!96 &7963129121448691002
 TrailRenderer:
   serializedVersion: 3
@@ -1162,9 +1159,11 @@ MonoBehaviour:
   jumpForce: 5
   outwardJumpForce: 10
   wallJumpingTime: 0.15
+  gravity: 0.5
   animationTrigger: {fileID: 11400000, guid: c2fa4edb69ce2be4db96689516d4ab9c, type: 2}
   wallJumpTrigger: {fileID: 11400000, guid: 6af2668a2c53aef469d6895c0b29738c, type: 2}
   transitionDuration: 0
+  wallJump: {fileID: 11400000, guid: a27278ea458ccc747bde41a1444a5dc6, type: 2}
 --- !u!1 &7349648980270907563
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,8 +1360,11 @@ MonoBehaviour:
   jumpState: {fileID: 4924108940238971351}
   attackState: {fileID: 2553992126910063999}
   dashState: {fileID: 1851236464432582984}
+  fallState: {fileID: 1933521439973259642}
+  wallSlideState: {fileID: 328071351524648335}
   animationTrigger: {fileID: 11400000, guid: 07c3917bd29bdba47883fd3ea337443c, type: 2}
   transitionDuration: 0
+  dash: {fileID: 11400000, guid: 742ddc0acdb426e498778cdde01f6f20, type: 2}
 --- !u!1 &8826514570383539522
 GameObject:
   m_ObjectHideFlags: 0

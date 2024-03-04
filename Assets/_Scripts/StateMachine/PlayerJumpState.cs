@@ -29,6 +29,11 @@ public class PlayerJumpState : PlayerState
     [SerializeField] PhysicsMaterial2D noStick;
 
 
+    [Header("Power Up")]
+    public PowerUpSO doubleJump;
+    public PowerUpSO wallslide;
+    public PowerUpSO dash;
+
     public override void EnterState(PlayerStateMachine stateMachine)
     {
         base.EnterState(stateMachine);
@@ -59,12 +64,12 @@ public class PlayerJumpState : PlayerState
             stateMachine.TransitionToState(idleState);
         }
 
-        if (stateMachine.PlayerInput.IsDashPressed() && stateMachine.CanDash())
+        if (stateMachine.PlayerInput.IsDashPressed() && stateMachine.CanDash() && stateMachine.unlockedAbilities.Contains(dash))
         {
             stateMachine.TransitionToState(dashState);
         }
 
-        if (stateMachine.IsWalled() && !stateMachine.GroundCheck.IsGrounded() && stateMachine.PlayerRigidBody.velocity.y < -0.1f)
+        if (stateMachine.IsWalled() && !stateMachine.GroundCheck.IsGrounded() && stateMachine.PlayerRigidBody.velocity.y < -0.1f && stateMachine.unlockedAbilities.Contains(wallslide))
         {
             stateMachine.TransitionToState(wallSlideState);
         }
@@ -97,7 +102,7 @@ public class PlayerJumpState : PlayerState
         {
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
         }
-        else if (stateMachine.PlayerInput.IsJumpPressed() && (jumpCounter < maxJumps || canDoubleJump) && !stateMachine.GroundCheck.IsGrounded())
+        else if (stateMachine.PlayerInput.IsJumpPressed() && (jumpCounter < maxJumps || canDoubleJump) && !stateMachine.GroundCheck.IsGrounded() && stateMachine.unlockedAbilities.Contains(doubleJump))
         {
             jumpCounter++;
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, doubleJumpForce);

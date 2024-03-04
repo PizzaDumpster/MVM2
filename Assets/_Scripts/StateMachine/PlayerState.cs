@@ -7,14 +7,16 @@ public abstract class PlayerState : MonoBehaviour
     public virtual void EnterState(PlayerStateMachine stateMachine) { this.stateMachine = stateMachine; }
     public abstract void UpdateState();
 
+    public virtual void ExitState() { }
+
     public virtual bool CanDash()
     {
-        return false; // By default, assume that the player can always dash
+        return false;
     }
 
     public virtual bool CanWallJump()
     {
-        return false; // By default, assume that the player can always dash
+        return false;
     }
 
 }

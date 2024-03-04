@@ -26,6 +26,9 @@ public class PlayerStateMachine : MonoBehaviour
 
     private IPlayerInput m_Input;
 
+    [Header("Abilities Unlocked")]
+    public List<PowerUpSO> unlockedAbilities;
+
     public Animator PlayerAnimator { get { return animator; } set { animator = value; } }
     
     public Rigidbody2D PlayerRigidBody { get { return playerRigidbody; } set { playerRigidbody = value; } }
@@ -38,6 +41,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Start()
     {
+        MessageBuffer<PickedUpPowerUp>.Subscribe(AddAbilitiy);
         MessageBuffer<PlayerRespawn>.Subscribe(RespawnCharacterIn);
         m_Input = GetComponent<IPlayerInput>();
         PlayerAnimator = GetComponentInChildren<Animator>();
@@ -47,6 +51,11 @@ public class PlayerStateMachine : MonoBehaviour
 
         currentState = startState;
         currentState.EnterState(this);
+    }
+
+    private void AddAbilitiy(PickedUpPowerUp obj)
+    {
+        unlockedAbilities.Add(obj.powerUp);
     }
 
     private void RespawnCharacterIn(PlayerRespawn obj)
@@ -74,6 +83,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void TransitionToState(PlayerState nextState)
     {
+        currentState.ExitState();
+
         currentState = nextState;
 
         currentState.EnterState(this);

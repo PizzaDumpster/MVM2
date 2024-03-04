@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,13 +27,14 @@ public class PlayerHealth : Health , IDamageable
     private Animator anim;
     private void Start()
     {
+        MessageBuffer<PlayerRespawn>.Subscribe(RespawnCharacterIn);
         MessageBuffer<PlayerRestoreHealth>.Subscribe(RestoreHealth);
         currentHealth.healthData.currentMaxHealth = maxHealth;
         HealthDispatch();
         anim = GetComponent<Animator>();
     }
 
-    public void OnEnable()
+    private void RespawnCharacterIn(PlayerRespawn obj)
     {
         HealthAmount = maxHealth;
         HealthDispatch();

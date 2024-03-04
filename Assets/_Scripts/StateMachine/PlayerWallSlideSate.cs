@@ -15,6 +15,7 @@ public class PlayerWallSlideSate : PlayerState
 
     [Header("Animation")]
     public TriggerStringSO animationTrigger;
+    public TriggerStringSO wallJumpTrigger;
     public float transitionDuration = 0.0f;
 
     private float wallJumpingCounter = 0;
@@ -62,6 +63,7 @@ public class PlayerWallSlideSate : PlayerState
     {
         if (stateMachine.IsWalled() && !stateMachine.GroundCheck.IsGrounded())
         {
+            stateMachine.PlayerAnimator.CrossFade(wallJumpTrigger.triggerString, transitionDuration);
             wallJumpingCounter = wallJumpingTime;
             float outwardJumpDirection = -stateMachine.Player.localScale.x;
             stateMachine.PlayerRigidBody.velocity = new Vector2(outwardJumpDirection * outwardJumpForce, jumpForce);

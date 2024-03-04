@@ -26,8 +26,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     private IPlayerInput m_Input;
 
-    [SerializeField] PhysicsMaterial2D noStick;
-
     public Animator PlayerAnimator { get { return animator; } set { animator = value; } }
     
     public Rigidbody2D PlayerRigidBody { get { return playerRigidbody; } set { playerRigidbody = value; } }
@@ -40,6 +38,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Start()
     {
+        MessageBuffer<PlayerRespawn>.Subscribe(RespawnCharacterIn);
         m_Input = GetComponent<IPlayerInput>();
         PlayerAnimator = GetComponentInChildren<Animator>();
         PlayerRigidBody = GetComponent<Rigidbody2D>();
@@ -48,6 +47,11 @@ public class PlayerStateMachine : MonoBehaviour
 
         currentState = startState;
         currentState.EnterState(this);
+    }
+
+    private void RespawnCharacterIn(PlayerRespawn obj)
+    {
+        TransitionToState(startState);
     }
 
     void Update()
@@ -63,6 +67,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         if(playerHealth.HealthAmount <= 0)
         {
+            PlayerRigidBody.velocity = Vector2.zero;
             TransitionToState(deathState);
         }
     }

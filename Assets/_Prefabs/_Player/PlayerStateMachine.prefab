@@ -694,7 +694,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   wallCheck: {fileID: 8420679390204028224}
-  noStick: {fileID: 6200000, guid: 89ae4ed359ebda148977305f81dcc3b1, type: 2}
 --- !u!114 &1423543906855090405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,6 +1163,7 @@ MonoBehaviour:
   outwardJumpForce: 10
   wallJumpingTime: 0.15
   animationTrigger: {fileID: 11400000, guid: c2fa4edb69ce2be4db96689516d4ab9c, type: 2}
+  wallJumpTrigger: {fileID: 11400000, guid: 6af2668a2c53aef469d6895c0b29738c, type: 2}
   transitionDuration: 0
 --- !u!1 &7349648980270907563
 GameObject:

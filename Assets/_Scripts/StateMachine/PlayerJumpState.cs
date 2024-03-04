@@ -69,7 +69,7 @@ public class PlayerJumpState : PlayerState
             stateMachine.TransitionToState(dashState);
         }
 
-        if (stateMachine.IsWalled() && !stateMachine.GroundCheck.IsGrounded() && stateMachine.PlayerRigidBody.velocity.y < -0.1f && stateMachine.unlockedAbilities.Contains(wallslide))
+        if (stateMachine.WallCheck.IsWalled() && !stateMachine.GroundCheck.IsGrounded() && stateMachine.PlayerRigidBody.velocity.y < -0.1f && stateMachine.unlockedAbilities.Contains(wallslide))
         {
             stateMachine.TransitionToState(wallSlideState);
         }
@@ -98,7 +98,7 @@ public class PlayerJumpState : PlayerState
         {
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
         }
-        else if (jumpBufferCounter > 0 && !stateMachine.IsWalled())
+        else if (jumpBufferCounter > 0 && !stateMachine.WallCheck.IsWalled())
         {
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
         }

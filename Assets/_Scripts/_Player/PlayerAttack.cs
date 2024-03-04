@@ -4,27 +4,21 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private PlayerController playerController;
+    private WeaponEquiped weaponEquiped;
 
     void Start()
     {
-        playerController = GetComponentInParent<PlayerController>();
+        weaponEquiped = GetComponentInParent<WeaponEquiped>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            
-                if (other.gameObject.CompareTag("Player"))
-                {
-                    return;
-                }
-
                 IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
                 if (damageable != null)
                 {
-                    damageable.Damage(playerController.weapon.currentWeapon.WeaponDamage);
+                    damageable.Damage(weaponEquiped.currentWeapon.WeaponDamage);
                     Debug.Log("Damageable object hit: " + other.gameObject.name);
                 }
             }

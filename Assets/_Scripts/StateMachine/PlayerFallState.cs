@@ -42,7 +42,7 @@ public class FallState : PlayerState
             stateMachine.TransitionToState(dashState);
         }
 
-        if (stateMachine.IsWalled() && stateMachine.unlockedAbilities.Contains(wallslide))
+        if (stateMachine.WallCheck.IsWalled() && stateMachine.unlockedAbilities.Contains(wallslide))
         {
             stateMachine.TransitionToState(wallSlideState);
         }

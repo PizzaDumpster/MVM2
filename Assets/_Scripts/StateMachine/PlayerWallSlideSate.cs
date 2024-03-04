@@ -68,7 +68,7 @@ public class PlayerWallSlideSate : PlayerState
             }
         }
 
-        if (!stateMachine.IsWalled())
+        if (!stateMachine.WallCheck.IsWalled())
         {
             RestoreOriginalGravity();
             stateMachine.TransitionToState(fallState);
@@ -80,7 +80,7 @@ public class PlayerWallSlideSate : PlayerState
 
     private void WallJump()
     {
-        if (stateMachine.IsWalled() && !stateMachine.GroundCheck.IsGrounded())
+        if (stateMachine.WallCheck.IsWalled() && !stateMachine.GroundCheck.IsGrounded())
         {   
             stateMachine.PlayerAnimator.CrossFade(wallJumpTrigger.triggerString, transitionDuration);
             wallJumpingCounter = wallJumpingTime;

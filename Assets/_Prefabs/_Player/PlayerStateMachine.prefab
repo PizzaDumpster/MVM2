@@ -136,6 +136,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 1
+        - m_Target: {fileID: 734558391414036663}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
   - eventName: {fileID: 11400000, guid: f894031fc2b3dfe4381a062e80ddd67e, type: 2}
     eventTrigger:
       m_PersistentCalls:
@@ -147,6 +159,22 @@ MonoBehaviour:
           m_Arguments:
             m_ObjectArgument: {fileID: 8300000, guid: 29f9a2c87a34d9c4e8952189ff2ca5c0, type: 3}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+  - eventName: {fileID: 11400000, guid: b6b00ea2aa8fe6a4099c410cfb0d1264, type: 2}
+    eventTrigger:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 734558391414036663}
+          m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+          m_MethodName: set_enabled
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -309,6 +337,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8420679390204028224}
+  - component: {fileID: 1316451452196062194}
   m_Layer: 0
   m_Name: WallCheck
   m_TagString: Untagged
@@ -331,6 +360,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7028258957920198225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1316451452196062194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4242380341570508451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 811505f8a4f31ab41a154e129b97594f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  wallCheck: {fileID: 8420679390204028224}
 --- !u!1 &4469614586546826091
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,6 +1205,7 @@ MonoBehaviour:
   outwardJumpForce: 10
   wallJumpingTime: 0.15
   gravity: 0.5
+  originalGravity: 5
   animationTrigger: {fileID: 11400000, guid: c2fa4edb69ce2be4db96689516d4ab9c, type: 2}
   wallJumpTrigger: {fileID: 11400000, guid: 6af2668a2c53aef469d6895c0b29738c, type: 2}
   transitionDuration: 0

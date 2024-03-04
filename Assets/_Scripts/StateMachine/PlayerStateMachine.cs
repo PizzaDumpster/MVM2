@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerStateMachine : MonoBehaviour
 {
+    private PlayerWallCheck wallCheck;
     private PlayerGroundCheck groundCheck;
     private Rigidbody2D playerRigidbody;
     private Animator animator;
@@ -18,9 +19,9 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerState startState;
     public PlayerState deathState;
 
-    [Header("WallSlide")]
-    public LayerMask wallLayer;
-    public Transform wallCheck;
+    //[Header("WallSlide")]
+    //public LayerMask wallLayer;
+    //public Transform wallCheck;
     
     private Vector2 m_InputAxis;
 
@@ -38,6 +39,7 @@ public class PlayerStateMachine : MonoBehaviour
     public Transform Player { get { return this.transform; } set { value = this.transform; } }
 
     public PlayerGroundCheck GroundCheck { get { return groundCheck; } }
+    public PlayerWallCheck WallCheck { get { return wallCheck; } }
 
     void Start()
     {
@@ -47,6 +49,7 @@ public class PlayerStateMachine : MonoBehaviour
         PlayerAnimator = GetComponentInChildren<Animator>();
         PlayerRigidBody = GetComponent<Rigidbody2D>();
         playerHealth = GetComponent<PlayerHealth>();
+        wallCheck = GetComponentInChildren<PlayerWallCheck>();
         groundCheck = GetComponentInChildren<PlayerGroundCheck>();
 
         currentState = startState;
@@ -128,8 +131,8 @@ public class PlayerStateMachine : MonoBehaviour
         currentDashCooldown = coolDownTime;
     }
 
-    public bool IsWalled()
-    {
-        return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
-    }
+    //public bool IsWalled()
+    //{
+    //    return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
+    //}
 }

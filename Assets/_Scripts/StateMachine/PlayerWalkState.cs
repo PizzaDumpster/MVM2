@@ -29,7 +29,7 @@ public class PlayerWalkState : PlayerState
 
     public override void UpdateState()
     {
-        if (!stateMachine.GroundCheck.IsGrounded() && stateMachine.IsWalled())
+        if (!stateMachine.GroundCheck.IsGrounded() && stateMachine.WallCheck.IsWalled())
         {
             stateMachine.TransitionToState(wallSlideState);
         }

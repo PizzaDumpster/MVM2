@@ -7,9 +7,11 @@ public class PlayerStateMachine : MonoBehaviour
 {
     private PlayerWallCheck wallCheck;
     private PlayerGroundCheck groundCheck;
+    private PlayerDashController dashController;
     private Rigidbody2D playerRigidbody;
     private Animator animator;
     private PlayerHealth playerHealth;
+    
 
     public float speed = 2f;
     public float currentDashCooldown = 0.0f;
@@ -18,10 +20,6 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerState currentState;
     public PlayerState startState;
     public PlayerState deathState;
-
-    //[Header("WallSlide")]
-    //public LayerMask wallLayer;
-    //public Transform wallCheck;
     
     private Vector2 m_InputAxis;
 
@@ -51,6 +49,7 @@ public class PlayerStateMachine : MonoBehaviour
         playerHealth = GetComponent<PlayerHealth>();
         wallCheck = GetComponentInChildren<PlayerWallCheck>();
         groundCheck = GetComponentInChildren<PlayerGroundCheck>();
+        dashController = GetComponent<PlayerDashController>();
 
         currentState = startState;
         currentState.EnterState(this);
@@ -121,18 +120,15 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
 
-    public bool CanDash()
-    {
-        return currentDashCooldown == 0; // Player can dash if the cooldown is over
-    }
-
     public void StartDashCooldown(float coolDownTime)
     {
-        currentDashCooldown = coolDownTime;
+        dashController.StartDashCooldown(coolDownTime);
     }
 
-    //public bool IsWalled()
-    //{
-    //    return Physics2D.OverlapCircle(wallCheck.position, 0.2f, wallLayer);
-    //}
+    public bool CanDash()
+    {
+        return dashController.CanDash;
+    }
+
+
 }

@@ -506,6 +506,7 @@ GameObject:
   - component: {fileID: 1423543906855090405}
   - component: {fileID: -4649165196833554598}
   - component: {fileID: 2168862733361309365}
+  - component: {fileID: 7841921585421974177}
   m_Layer: 0
   m_Name: PlayerStateMachine
   m_TagString: Player
@@ -740,13 +741,10 @@ MonoBehaviour:
   currentState: {fileID: 0}
   startState: {fileID: 8162107902179375369}
   deathState: {fileID: 3298787822415176727}
-  wallLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  wallCheck: {fileID: 8420679390204028224}
   unlockedAbilities:
   - {fileID: 11400000, guid: a27278ea458ccc747bde41a1444a5dc6, type: 2}
   - {fileID: 11400000, guid: 0f0eb9402d8cda24ab95b043e3119b4f, type: 2}
+  - {fileID: 11400000, guid: 742ddc0acdb426e498778cdde01f6f20, type: 2}
 --- !u!114 &1423543906855090405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,6 +801,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a25cf78662a79c4e996c1251e1441c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7841921585421974177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5252729496669648702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c89ef255da561b94f84ba0035176c4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5372175001349308956
@@ -1040,7 +1050,7 @@ MonoBehaviour:
   animationTrigger: {fileID: 11400000, guid: 07c3917bd29bdba47883fd3ea337443c, type: 2}
   transitionDuration: 0
   trailRenderer: {fileID: 7963129121448691002}
-  coolDownTime: 0.75
+  coolDownTime: 2
   wallSlide: {fileID: 11400000, guid: 0f0eb9402d8cda24ab95b043e3119b4f, type: 2}
 --- !u!96 &7963129121448691002
 TrailRenderer:

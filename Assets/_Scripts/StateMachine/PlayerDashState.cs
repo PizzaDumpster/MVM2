@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class DashMeter : BaseMessage { public float DashAmount; }
 public class PlayerDashState : PlayerState
 {
     public PlayerState idleState;
@@ -16,6 +17,8 @@ public class PlayerDashState : PlayerState
     [SerializeField] float dashTime = 0.5f;
     [SerializeField] float noGravityMultiplier = 0f;
     [SerializeField] bool isDashing = false;
+
+    DashMeter dashAmount = new DashMeter();
 
     [Header("")]
     public TriggerStringSO animationTrigger;
@@ -80,7 +83,23 @@ public class PlayerDashState : PlayerState
         stateMachine.PlayerRigidBody.velocity = dashDirection * dashSpeed;
         trailRenderer.emitting = true;
 
-        yield return new WaitForSeconds(dashTime);
+        float elapsedTime = 0f;
+
+        while (elapsedTime < dashTime)
+        {
+            float timePercentage = elapsedTime / dashTime;
+
+            dashAmount.DashAmount = Mathf.Lerp(100f, 0f, timePercentage);
+
+            MessageBuffer<DashMeter>.Dispatch(dashAmount);
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null;
+        }
+
+        dashAmount.DashAmount = 0;
+        MessageBuffer<DashMeter>.Dispatch(dashAmount);
 
         trailRenderer.emitting = false;
         stateMachine.PlayerRigidBody.velocity = Vector2.zero;
@@ -88,6 +107,7 @@ public class PlayerDashState : PlayerState
         isDashing = false;
         StartDashCooldown();
     }
+
 
 
     private void StartDashCooldown()

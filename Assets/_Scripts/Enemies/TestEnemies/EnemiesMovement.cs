@@ -7,16 +7,22 @@ public class EnemyMovement : MonoBehaviour
 
     private bool movingRight = true;
     public Transform groundCheck;
+    bool offGround;
 
     void Update()
     {
         RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, raycastDistance);
         Debug.DrawRay(groundCheck.position, Vector2.down * raycastDistance, Color.green);
 
-        if (hit.collider == null)
+        if (hit.collider == null && !offGround)
         {
             movingRight = !movingRight;
+            offGround = true;
             Debug.Log("Changing direction!");
+        }
+        else if(hit.collider != null)
+        {
+            offGround = false;
         }
 
         float movementDirection = movingRight ? 1 : -1;

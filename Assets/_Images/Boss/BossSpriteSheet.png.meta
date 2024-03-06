@@ -483,10 +483,10 @@ TextureImporter:
       name: BossSpriteSheet_17
       rect:
         serializedVersion: 2
-        x: 113
-        y: 136
-        width: 129
-        height: 104
+        x: 1047
+        y: 360
+        width: 79
+        height: 107
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -504,9 +504,9 @@ TextureImporter:
       name: BossSpriteSheet_18
       rect:
         serializedVersion: 2
-        x: 289
-        y: 135
-        width: 127
+        x: 113
+        y: 136
+        width: 129
         height: 104
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -525,9 +525,9 @@ TextureImporter:
       name: BossSpriteSheet_19
       rect:
         serializedVersion: 2
-        x: 474
+        x: 289
         y: 135
-        width: 122
+        width: 127
         height: 104
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -546,6 +546,27 @@ TextureImporter:
       name: BossSpriteSheet_20
       rect:
         serializedVersion: 2
+        x: 474
+        y: 135
+        width: 122
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79617d813de93d0438f0b5b5b7baee36
+      internalID: -1931727452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossSpriteSheet_21
+      rect:
+        serializedVersion: 2
         x: 678
         y: 159
         width: 76
@@ -557,8 +578,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79617d813de93d0438f0b5b5b7baee36
-      internalID: -1931727452
+      spriteID: 3280e77cc41325640899b4a5fb68d944
+      internalID: -1751523204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossSpriteSheet_22
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 216
+        width: 29
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c286aeff48d6fc843b4d1e5cb950430e
+      internalID: 80525300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossSpriteSheet_23
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 143
+        width: 88
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e134f021aaeea34bbef762b76e03c4b
+      internalID: -1921772110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BossSpriteSheet_24
+      rect:
+        serializedVersion: 2
+        x: 1050
+        y: 138
+        width: 78
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5aa2f61961e910245ab63d0bca066956
+      internalID: 1962013306
       vertices: []
       indices: 
       edges: []
@@ -588,6 +672,10 @@ TextureImporter:
       BossSpriteSheet_19: -802269495
       BossSpriteSheet_2: 1555071936
       BossSpriteSheet_20: -1931727452
+      BossSpriteSheet_21: -1751523204
+      BossSpriteSheet_22: 80525300
+      BossSpriteSheet_23: -1921772110
+      BossSpriteSheet_24: 1962013306
       BossSpriteSheet_3: 194156770
       BossSpriteSheet_4: -1062720409
       BossSpriteSheet_5: 1319565419

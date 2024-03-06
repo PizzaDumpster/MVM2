@@ -21,8 +21,8 @@ public class FallState : PlayerState
     public override void EnterState(PlayerStateMachine stateMachine)
     {
         base.EnterState(stateMachine);
-
-        stateMachine.PlayerAnimator.CrossFade(animationTrigger.triggerString, transitionDuration);
+        print(stateMachine.PlayerRigidBody.velocity);
+        if(stateMachine.PlayerRigidBody.velocity != Vector2.zero) stateMachine.PlayerAnimator.CrossFade(animationTrigger.triggerString, transitionDuration);
     }
     public override void UpdateState()
     {
@@ -32,7 +32,7 @@ public class FallState : PlayerState
 
     private void CheckForChange()
     {
-        if (stateMachine.GroundCheck.IsGrounded())
+        if (stateMachine.GroundCheck.IsGrounded() || stateMachine.PlayerRigidBody.velocity == Vector2.zero)
         {
             stateMachine.TransitionToState(idleState);
         }

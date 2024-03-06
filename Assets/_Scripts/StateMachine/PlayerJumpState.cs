@@ -9,6 +9,8 @@ public class PlayerJumpState : PlayerState
     public PlayerState attackState;
     public PlayerState dashState;
     public PlayerState wallSlideState;
+    public PlayerState fallState;
+
 
     [Header("Jump Variables")]
     [SerializeField] float jumpForce = 0.5f;
@@ -69,7 +71,7 @@ public class PlayerJumpState : PlayerState
             stateMachine.TransitionToState(dashState);
         }
 
-        if (stateMachine.WallCheck.IsWalled() && !stateMachine.GroundCheck.IsGrounded() && stateMachine.PlayerRigidBody.velocity.y < -0.1f && stateMachine.unlockedAbilities.Contains(wallslide))
+        if (stateMachine.WallCheck.IsWalled() && !stateMachine.GroundCheck.IsGrounded() && stateMachine.PlayerRigidBody.velocity.y < -0.1f && stateMachine.unlockedAbilities.Contains(wallslide) && stateMachine.m_InputAxis.x != 0)
         {
             stateMachine.TransitionToState(wallSlideState);
         }
@@ -86,28 +88,42 @@ public class PlayerJumpState : PlayerState
         }
         float horizontalInput = stateMachine.PlayerInput.GetPrimaryAxis().x;
 
-        // Check if the horizontal input direction is opposite to the player's velocity direction
         bool isOppositeDirection = Mathf.Sign(horizontalInput) != Mathf.Sign(stateMachine.PlayerRigidBody.velocity.x);
 
         if (jumpBufferCounter > 0 && isOppositeDirection)
         {
-            // Jump opposite to the input direction
+            //print("Jump While Moving OtherWay");
             stateMachine.PlayerRigidBody.velocity = new Vector2(-horizontalInput * jumpForce, jumpForce);
         }
         else if (jumpBufferCounter > 0 && stateMachine.GroundCheck.IsGrounded())
         {
+            //print("Jump With Nothing");
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
+        }
+        else if (jumpBufferCounter > 0 && stateMachine.WallCheck.IsWalled())
+        {
+            //print("Jump Facing Wall");
+            stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
+            return;
         }
         else if (jumpBufferCounter > 0 && !stateMachine.WallCheck.IsWalled())
         {
+            //print("Jump With Nothing");
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
         }
+
         else if (stateMachine.PlayerInput.IsJumpPressed() && (jumpCounter < maxJumps || canDoubleJump) && !stateMachine.GroundCheck.IsGrounded() && stateMachine.unlockedAbilities.Contains(doubleJump))
         {
+            //print("Double Jump");
             jumpCounter++;
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, doubleJumpForce);
             canDoubleJump = false;
         }
+    }
+
+    bool FallState()
+    {
+        return stateMachine.previousState == fallState;
     }
 
 }

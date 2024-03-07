@@ -476,6 +476,7 @@ MonoBehaviour:
   attackState: {fileID: 2553992126910063999}
   dashState: {fileID: 1851236464432582984}
   wallSlideState: {fileID: 328071351524648335}
+  fallState: {fileID: 1933521439973259642}
   jumpForce: 10
   jumpBufferTime: 0.2
   jumpBufferCounter: 0
@@ -739,8 +740,10 @@ MonoBehaviour:
   speed: 5
   currentDashCooldown: 0
   currentState: {fileID: 0}
+  previousState: {fileID: 0}
   startState: {fileID: 8162107902179375369}
   deathState: {fileID: 3298787822415176727}
+  m_InputAxis: {x: 0, y: 0}
   unlockedAbilities:
   - {fileID: 11400000, guid: a27278ea458ccc747bde41a1444a5dc6, type: 2}
   - {fileID: 11400000, guid: 0f0eb9402d8cda24ab95b043e3119b4f, type: 2}
@@ -1297,17 +1300,18 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.40250677, y: 0.675683}
-      - {x: -0.35327548, y: 0.79304796}
+    - - {x: 0.77584594, y: 0.9054301}
+      - {x: 0.1012184, y: 1.0552306}
+      - {x: -0.648388, y: 1.0410509}
       - {x: -1.304567, y: 0.5915793}
       - {x: -0.39727083, y: 0.6004715}
-      - {x: 0.12282711, y: 0.4195317}
-      - {x: 0.2653352, y: 0.16348433}
+      - {x: -0.1356383, y: 0.46260926}
+      - {x: -0.07928538, y: 0.17784353}
       - {x: -0.35626918, y: -0.2699096}
       - {x: -0.111955255, y: -0.376805}
       - {x: 0.83363056, y: -0.37680486}
-      - {x: 1.030878, y: -0.035347342}
-      - {x: 0.9510565, y: 0.30901712}
+      - {x: 1.1026741, y: -0.035347342}
+      - {x: 1.0946486, y: 0.36645392}
   m_UseDelaunayMesh: 0
 --- !u!114 &69808368673289509
 MonoBehaviour:

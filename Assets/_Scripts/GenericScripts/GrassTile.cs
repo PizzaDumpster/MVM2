@@ -53,4 +53,24 @@ public class GrassTile : MonoBehaviour, IDamageable
         }
         
     }
+
+    private void OnCollisionEnter2D(Collider2D other)
+    {
+        if (other.gameObject.gameObject.CompareTag("PlayerAttack"))
+        {
+
+            Vector3Int cellPosition = tilemap.WorldToCell(GetComponent<TilemapCollider2D>().ClosestPoint(other.gameObject.transform.position));
+            // Check if there's a tile at the cell position
+            if (tilemap.GetTile(cellPosition) != null)
+            {
+                // Remove the tile at the given position
+                tilemap.SetTile(cellPosition, null);
+            }
+            else
+            {
+                print("No tile found at cell position.");
+            }
+        }
+
+    }
 }

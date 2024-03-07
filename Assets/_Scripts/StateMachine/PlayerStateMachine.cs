@@ -18,10 +18,11 @@ public class PlayerStateMachine : MonoBehaviour
 
     [Header("States")]
     public PlayerState currentState;
+    public PlayerState previousState;
     public PlayerState startState;
     public PlayerState deathState;
     
-    private Vector2 m_InputAxis;
+    public Vector2 m_InputAxis;
 
     private IPlayerInput m_Input;
 
@@ -85,6 +86,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void TransitionToState(PlayerState nextState)
     {
+        previousState = currentState;
         currentState.ExitState();
 
         currentState = nextState;

@@ -7,8 +7,18 @@ public class PlayerAttackState : PlayerState
     public PlayerState idleState;
     public PlayerState fallState;
 
+    [Header("")]
     public TriggerStringSO animationTrigger;
     private bool animationFinished = false;
+
+
+    [Header("")]
+    public Transform attackPoint;
+    public float direction;
+
+    [Header("")]
+    public WeaponEquiped weapon;
+    
 
     public override void EnterState(PlayerStateMachine stateMachine)
     {
@@ -20,6 +30,26 @@ public class PlayerAttackState : PlayerState
 
     public override void UpdateState()
     {
+        direction = Mathf.Sign(stateMachine.Player.localScale.x);
+
+        Debug.DrawRay(attackPoint.position, Vector2.right * direction, Color.red, 0.5f);
+
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(attackPoint.position, 1f);
+        foreach (Collider2D collider in hitColliders)
+        {
+            if (collider.CompareTag("Player"))
+            {
+                continue;
+            }
+
+            IDamageable damageable = collider.GetComponent<IDamageable>();
+            if (damageable != null)
+            {
+                damageable.Damage(weapon.currentWeapon.WeaponDamage, attackPoint);
+            }
+        }
+
+
         if (!animationFinished && stateMachine.PlayerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
             if (stateMachine.GroundCheck.IsGrounded())

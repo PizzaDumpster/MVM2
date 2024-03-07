@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class EnemyHealth : Health, IDamageable
 {
     public UnityEvent onHit;
-    public void Damage(int damage = 0)
+    public void Damage(int damage = 0, Transform transform = null)
     {
         print("Damage");
         HealthAmount = HealthAmount - damage;

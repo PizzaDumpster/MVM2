@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activaterTrigger: {fileID: 11400000, guid: 045fc68858e37b14391dba56b74f098c, type: 2}
   playerObject: {fileID: 11400000, guid: 26a5fc9c4d4c22e42841618dec6261ac, type: 2}
+  checkpointActivatedAudio: {fileID: 8300000, guid: c147aa7e806a92842a0db5ba71f6ef28, type: 3}
 --- !u!58 &6820400873294551513
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -1,32 +1,79 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.Events;
+using System.Collections.Generic;
 
-public class TileDestroyer : MonoBehaviour
+[System.Serializable]
+public struct DestroyedTile
+{
+    public Tile tileDestroyed;
+    public UnityEvent OnDestroyed;
+}
+
+public class TileDestroyer : MonoBehaviour, IDamageable
 {
     public Tilemap tilemap;
+    public List<DestroyedTile> destroyedTiles;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    public void Damage(int amount)
     {
-        // Check if the collider belongs to the tilemap
-        if (collision.gameObject.CompareTag("Grass"))
+        Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
+
+
+        // Check if a collider tagged as "Player" hit the grass tile
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.1f);
+        foreach (Collider2D collider in colliders)
         {
-            // Output a message to the console
-            Debug.Log("Entered the tile collider!");
+            if (collider.CompareTag("Player"))
+            {
+                // Print the position of the player
+                print("Player hit the grass tile at position: " + collider.transform.position);
+                break;
+            }
+        }
 
-            // Get the position of the collision in world space
-            Vector3 collisionPosition = collision.transform.position;
-
-            // Draw a debug sphere at the collision position
-            Debug.DrawRay(collisionPosition, Vector3.up * 0.5f, Color.red, 1f);
-            Debug.DrawRay(collisionPosition, Vector3.down * 0.5f, Color.red, 1f);
-            Debug.DrawRay(collisionPosition, Vector3.left * 0.5f, Color.red, 1f);
-            Debug.DrawRay(collisionPosition, Vector3.right * 0.5f, Color.red, 1f);
-
-            // Get the position of the collision in tile coordinates
-            Vector3Int cellPosition = tilemap.WorldToCell(collisionPosition);
-
+        // Check if there's a tile at the cell position
+        if (tilemap.GetTile(cellPosition) != null)
+        {
             // Remove the tile at the given position
             tilemap.SetTile(cellPosition, null);
+        }
+        else
+        {
+            print("No tile found at cell position.");
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        DestroyTile(other);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        DestroyTile(other.collider);
+
+    }
+
+    private void DestroyTile(Collider2D other)
+    {
+        if (other.gameObject.gameObject.CompareTag("PlayerAttack"))
+        {
+
+            Vector3Int cellPosition = tilemap.WorldToCell(GetComponent<TilemapCollider2D>().ClosestPoint(other.gameObject.transform.position));
+            // Check if there's a tile at the cell position
+            if (tilemap.GetTile(cellPosition) != null)
+            {
+                DestroyedTile taggedEvent = destroyedTiles.Find(e => e.tileDestroyed == tilemap.GetTile(cellPosition));
+                print(taggedEvent.tileDestroyed);
+                taggedEvent.OnDestroyed?.Invoke();
+                tilemap.SetTile(cellPosition, null);
+            }
+            else
+            {
+                print("No tile found at cell position.");
+            }
         }
     }
 }

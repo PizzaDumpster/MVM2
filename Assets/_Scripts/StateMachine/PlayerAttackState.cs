@@ -30,10 +30,6 @@ public class PlayerAttackState : PlayerState
 
     public override void UpdateState()
     {
-        direction = Mathf.Sign(stateMachine.Player.localScale.x);
-
-        Debug.DrawRay(attackPoint.position, Vector2.right * direction, Color.red, 0.5f);
-
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(attackPoint.position, 1f);
         foreach (Collider2D collider in hitColliders)
         {

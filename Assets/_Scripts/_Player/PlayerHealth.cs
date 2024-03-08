@@ -40,7 +40,7 @@ public class PlayerHealth : Health , IDamageable
         HealthDispatch();
     }
 
-    public void Damage(int damage)
+    public void Damage(int damage, Transform transform)
     {
         HealthAmount = HealthAmount - damage;
 

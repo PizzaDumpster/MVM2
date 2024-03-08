@@ -1,11 +1,11 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class GrassTile : MonoBehaviour, IDamageable
+public class GrassTile : MonoBehaviour
 {
     public Tilemap tilemap;
 
-    public void Damage(int amount)
+    public void Damage(int amount, Transform transform)
     {
         Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
 
@@ -54,7 +54,7 @@ public class GrassTile : MonoBehaviour, IDamageable
         
     }
 
-    private void OnCollisionEnter2D(Collider2D other)
+    private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.gameObject.CompareTag("PlayerAttack"))
         {

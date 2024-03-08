@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public struct DestroyedTile
 {
     public Tile tileDestroyed;
+    public int tileHealth;
     public UnityEvent OnDestroyed;
 }
 
@@ -14,65 +15,36 @@ public class TileDestroyer : MonoBehaviour, IDamageable
 {
     public Tilemap tilemap;
     public List<DestroyedTile> destroyedTiles;
+    public float maxCollisionRadius; // Maximum radius for overlap circle
 
-
-    public void Damage(int amount)
+    public void Damage(int amount, Transform passedTranform)
     {
-        Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
+        Vector3Int cellPosition = tilemap.WorldToCell(passedTranform.position);
 
-
-        // Check if a collider tagged as "Player" hit the grass tile
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 0.1f);
-        foreach (Collider2D collider in colliders)
+        for (int x = -Mathf.CeilToInt(maxCollisionRadius); x <= Mathf.CeilToInt(maxCollisionRadius); x++)
         {
-            if (collider.CompareTag("Player"))
+            for (int y = -Mathf.CeilToInt(maxCollisionRadius); y <= Mathf.CeilToInt(maxCollisionRadius); y++)
             {
-                // Print the position of the player
-                print("Player hit the grass tile at position: " + collider.transform.position);
-                break;
-            }
-        }
+                float distance = Mathf.Sqrt(x * x + y * y);
 
-        // Check if there's a tile at the cell position
-        if (tilemap.GetTile(cellPosition) != null)
-        {
-            // Remove the tile at the given position
-            tilemap.SetTile(cellPosition, null);
-        }
-        else
-        {
-            print("No tile found at cell position.");
-        }
-    }
+                if (distance <= maxCollisionRadius)
+                {
+                    Vector3Int currentCell = new Vector3Int(cellPosition.x + x, cellPosition.y + y, cellPosition.z);
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        DestroyTile(other);
-    }
+                    TileBase tile = tilemap.GetTile(currentCell);
+                    if (tile != null)
+                    {
+                        print("Tile found at position: " + currentCell);
+                        DestroyedTile taggedEvent = destroyedTiles.Find(e => e.tileDestroyed == tile);
+                        taggedEvent.OnDestroyed?.Invoke();
+                        taggedEvent.tileHealth -= amount;
+                        if(taggedEvent.tileHealth <= 0)
+                        {
+                            tilemap.SetTile(currentCell, null);
+                        }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        DestroyTile(other.collider);
-
-    }
-
-    private void DestroyTile(Collider2D other)
-    {
-        if (other.gameObject.gameObject.CompareTag("PlayerAttack"))
-        {
-
-            Vector3Int cellPosition = tilemap.WorldToCell(GetComponent<TilemapCollider2D>().ClosestPoint(other.gameObject.transform.position));
-            // Check if there's a tile at the cell position
-            if (tilemap.GetTile(cellPosition) != null)
-            {
-                DestroyedTile taggedEvent = destroyedTiles.Find(e => e.tileDestroyed == tilemap.GetTile(cellPosition));
-                print(taggedEvent.tileDestroyed);
-                taggedEvent.OnDestroyed?.Invoke();
-                tilemap.SetTile(cellPosition, null);
-            }
-            else
-            {
-                print("No tile found at cell position.");
+                    }
+                }
             }
         }
     }

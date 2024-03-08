@@ -21,8 +21,7 @@ public class FallState : PlayerState
     public override void EnterState(PlayerStateMachine stateMachine)
     {
         base.EnterState(stateMachine);
-        print(stateMachine.PlayerRigidBody.velocity);
-        if(stateMachine.PlayerRigidBody.velocity != Vector2.zero) stateMachine.PlayerAnimator.CrossFade(animationTrigger.triggerString, transitionDuration);
+        stateMachine.PlayerAnimator.CrossFade(animationTrigger.triggerString, transitionDuration);
     }
     public override void UpdateState()
     {

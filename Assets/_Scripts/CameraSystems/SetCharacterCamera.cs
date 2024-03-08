@@ -21,7 +21,6 @@ public class SetCharacterCamera : MonoBehaviour
 
     private void SetPlayerToCamera(PlayerCameraSpawn obj)
     {
-        print(obj.character.transform);
         cmVirtualCamera.m_Follow = obj.character.transform;
     }
 }

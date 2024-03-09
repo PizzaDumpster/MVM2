@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class ReadableSign : MonoBehaviour
 {
-    UIInput uIInput;
+    public IUIInput uIInput;
 
     private void Start()
     {
-        if (uIInput == null)
-        {
-            uIInput = GetComponentInParent<UIInput>();
-        }
-
         this.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        
-        print(uIInput.IsSubmitDown());
+
+        if (uIInput == null)
+        {
+            uIInput = GetComponentInParent<IUIInput>();
+        }
 
         if (uIInput != null)
         {
+            print(uIInput.IsSubmitDown());
             if (uIInput.IsSubmitDown())
             {
                 print("Submit");

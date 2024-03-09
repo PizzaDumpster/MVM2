@@ -18,7 +18,6 @@ public class EnemyMovement : MonoBehaviour
         {
             movingRight = !movingRight;
             offGround = true;
-            Debug.Log("Changing direction!");
         }
         else if(hit.collider != null)
         {

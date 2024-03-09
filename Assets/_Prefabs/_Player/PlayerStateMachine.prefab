@@ -228,7 +228,7 @@ MonoBehaviour:
   groundCheck: {fileID: 169145697224156681}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 64
   groundCheckDistance: 0.025
 --- !u!1 &3702348154138974561
 GameObject:
@@ -1373,6 +1373,7 @@ MonoBehaviour:
   fallState: {fileID: 1933521439973259642}
   animationTrigger: {fileID: 11400000, guid: 9bc1fce5748514a4da6b4bb9c61413e1, type: 2}
   attackPoint: {fileID: 8190116055694505914}
+  direction: 0
   weapon: {fileID: -4649165196833554598}
 --- !u!1 &8203306372918463649
 GameObject:

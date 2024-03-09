@@ -68,6 +68,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Update()
     {
+        if (PauseController.Instance.IsPaused) return;
         m_InputAxis = m_Input.GetPrimaryAxis();
         currentState.UpdateState();
         HandleMovement();

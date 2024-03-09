@@ -33,7 +33,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""id"": ""6ac9adf2-55c7-402a-b70f-e8ac84ce14c7"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 },
                 {
@@ -42,7 +42,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""id"": ""f7de74c1-6a8b-459b-b98c-fd4abf7fae2a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -50,7 +50,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""ff2ca0d3-5556-4379-911a-15be47883b9f"",
-                    ""path"": ""<Keyboard>/enter"",
+                    ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -83,10 +83,10 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""cca09750-8d74-41a3-a62f-c93c097b8d47"",
-                    ""path"": ""<Gamepad>/{Submit}"",
+                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""GamePad"",
                     ""action"": ""Submit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -423,7 +423,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""path"": ""<Gamepad>/leftStick"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""GamePad"",
                     ""action"": ""PrimaryAxis"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

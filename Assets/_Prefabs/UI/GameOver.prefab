@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5793172653990353581}
   - component: {fileID: 9142079469865362449}
   - component: {fileID: 3960640589392457376}
+  - component: {fileID: 2329812414580465182}
   m_Layer: 0
   m_Name: Quit
   m_TagString: Untagged
@@ -119,6 +120,33 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 9142079469865362449}
   m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5998452963821720976}
+        m_TargetAssemblyTypeName: GameOverLoader, Assembly-CSharp
+        m_MethodName: QuitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2329812414580465182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163207894412763123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bfb7f3b09a18d643a955796aac83f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5998452963821720976}
@@ -357,6 +385,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e53f6160d37c057499169db86526d961, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttons:
+  - {fileID: 7994563563907959285}
+  - {fileID: 163207894412763123}
 --- !u!1 &3667593968159589609
 GameObject:
   m_ObjectHideFlags: 0
@@ -569,6 +600,7 @@ GameObject:
   - component: {fileID: 5377456600529478793}
   - component: {fileID: 6401066983568326427}
   - component: {fileID: 1584949209275152178}
+  - component: {fileID: 8835067498094362571}
   m_Layer: 0
   m_Name: Respawn
   m_TagString: Untagged
@@ -676,6 +708,33 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 6401066983568326427}
   m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5998452963821720976}
+        m_TargetAssemblyTypeName: GameOverLoader, Assembly-CSharp
+        m_MethodName: RestartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8835067498094362571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7994563563907959285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bfb7f3b09a18d643a955796aac83f05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 5998452963821720976}

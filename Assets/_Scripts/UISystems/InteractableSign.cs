@@ -13,7 +13,6 @@ public class InteractableSign : MonoBehaviour
 
     [Header("")]
     public SpriteRenderer buttonRenderer;
-    public GameObject signTextObject;
 
     [Header("")]
     public float fadeSpeed = 1f;
@@ -35,13 +34,12 @@ public class InteractableSign : MonoBehaviour
         if (other.CompareTag(playerTag.objectString))
         {
             isPlayerInside = true;
-            StartCoroutine(FadeIn(()=> signTextObject.SetActive(true)));
+            StartCoroutine(FadeIn());
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        signTextObject.SetActive(false);
         if (other.CompareTag(playerTag.objectString))
         {
             isPlayerInside = false;

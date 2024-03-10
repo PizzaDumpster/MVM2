@@ -11,6 +11,7 @@ public class PlayerStateMachine : MonoBehaviour
     private Rigidbody2D playerRigidbody;
     private Animator animator;
     private PlayerHealth playerHealth;
+    private InteractiveDetector interactiveDetector;
     
 
     public float speed = 2f;
@@ -21,6 +22,7 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerState previousState;
     public PlayerState startState;
     public PlayerState deathState;
+    public PlayerState interactionState;
     
     public Vector2 m_InputAxis;
 
@@ -51,6 +53,7 @@ public class PlayerStateMachine : MonoBehaviour
         wallCheck = GetComponentInChildren<PlayerWallCheck>();
         groundCheck = GetComponentInChildren<PlayerGroundCheck>();
         dashController = GetComponent<PlayerDashController>();
+        interactiveDetector = GetComponentInChildren<InteractiveDetector>();
 
         currentState = startState;
         currentState.EnterState(this);
@@ -70,6 +73,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         if (PauseController.Instance.IsPaused) return;
         m_InputAxis = m_Input.GetPrimaryAxis();
+        CheckForInteraction();
         currentState.UpdateState();
         HandleMovement();
         CheckForDeath();
@@ -82,6 +86,14 @@ public class PlayerStateMachine : MonoBehaviour
         {
             PlayerRigidBody.velocity = Vector2.zero;
             TransitionToState(deathState);
+        }
+    }
+    private void CheckForInteraction()
+    {
+        if(PlayerInput.IsJumpPressed() && interactiveDetector.interactiveObject != null && !PauseController.Instance.IsPaused && GroundCheck.IsGrounded())
+        {
+            TransitionToState(interactionState);
+            return;
         }
     }
 

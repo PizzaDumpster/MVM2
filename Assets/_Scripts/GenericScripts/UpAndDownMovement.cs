@@ -30,7 +30,7 @@ public class UpAndDownMovement : MonoBehaviour
                 // Interpolate between start and target positions using the animation curve
                 transform.position = Vector3.Lerp(startPos, targetPos, t);
 
-                time += Time.deltaTime;
+                time += Time.unscaledDeltaTime;
                 yield return null;
             }
 

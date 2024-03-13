@@ -13,5 +13,7 @@ public interface IPlayerInput
 
     bool IsDashPressed();
 
+    bool IsDashHeld();
+
     bool IsJumpUp();
 }

@@ -14,7 +14,7 @@ public class InteractiveDetector : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Collider entered: " + other.gameObject.name);
+        
         Interactive interactive = other.GetComponent<Interactive>();
         if (interactive != null)
         {
@@ -25,7 +25,7 @@ public class InteractiveDetector : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Collider exited: " + other.gameObject.name);
+
         Interactive interactive = other.GetComponent<Interactive>();
         if (interactive != null)
         {

@@ -134,6 +134,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootForce: 10
   damageAmount: 10
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 64
   rb: {fileID: 938448960730397818}
 --- !u!212 &1326603439237429020
 SpriteRenderer:

@@ -18,15 +18,33 @@ public class FallState : PlayerState
     public PowerUpSO wallslide;
     public PowerUpSO dash;
 
+    public float wallJumpCooldown = 0.25f; // Adjust the cooldown duration as needed
+    public float wallJumpTimer = 0.0f;
+    public bool isWallJumpCooldownActive = false;
+    public bool isWallCountDownDone = false;
+
     public override void EnterState(PlayerStateMachine stateMachine)
     {
+        wallJumpTimer = 0.0f;
+        isWallJumpCooldownActive = true;
+        isWallCountDownDone = false;
         base.EnterState(stateMachine);
         stateMachine.PlayerAnimator.CrossFade(animationTrigger.triggerString, transitionDuration);
     }
     public override void UpdateState()
     {
-
         CheckForChange();
+        print(wallJumpTimer);
+        // Update the wall jump timer if it's active
+        if (!isWallJumpCooldownActive)
+        {
+            wallJumpTimer -= Time.deltaTime;
+            if (wallJumpTimer <= 0.0f)
+            {
+                isWallCountDownDone = true;
+                
+            }
+        }
     }
 
     private void CheckForChange()
@@ -36,7 +54,7 @@ public class FallState : PlayerState
             stateMachine.TransitionToState(idleState);
         }
 
-        if (stateMachine.PlayerInput.IsDashPressed() && stateMachine.CanDash() && stateMachine.unlockedAbilities.Contains(dash))
+        if (stateMachine.PlayerInput.IsDashPressed() && stateMachine.CanDash() && stateMachine.unlockedAbilities.Contains(dash) )
         {
             stateMachine.TransitionToState(dashState);
         }
@@ -54,6 +72,23 @@ public class FallState : PlayerState
 
     public override bool CanWallJump()
     {
-        return true;
+        if (stateMachine.previousState == wallSlideState && isWallJumpCooldownActive)
+        {
+            StartWallJumpCooldown();
+            return true;
+        }
+        else if (!isWallCountDownDone)
+        {
+            return true;
+        }
+        else return false;
+    }
+
+
+    private void StartWallJumpCooldown()
+    {
+        isWallJumpCooldownActive = false;
+        wallJumpTimer = wallJumpCooldown;
+        Debug.Log("Wall jump cooldown started. Cooldown duration: " + wallJumpCooldown);
     }
 }

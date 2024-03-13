@@ -23,7 +23,7 @@ public class PlayerStateMachine : MonoBehaviour
     public PlayerState startState;
     public PlayerState deathState;
     public PlayerState interactionState;
-    
+
     public Vector2 m_InputAxis;
 
     private IPlayerInput m_Input;
@@ -46,7 +46,9 @@ public class PlayerStateMachine : MonoBehaviour
     {
         MessageBuffer<PickedUpPowerUp>.Subscribe(AddAbilitiy);
         MessageBuffer<PlayerRespawn>.Subscribe(RespawnCharacterIn);
+
         m_Input = GetComponent<IPlayerInput>();
+
         PlayerAnimator = GetComponentInChildren<Animator>();
         PlayerRigidBody = GetComponent<Rigidbody2D>();
         playerHealth = GetComponent<PlayerHealth>();
@@ -71,10 +73,14 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Update()
     {
+        print(CanDash());
         if (PauseController.Instance.IsPaused) return;
         m_InputAxis = m_Input.GetPrimaryAxis();
+        
         CheckForInteraction();
+        
         currentState.UpdateState();
+        
         HandleMovement();
         CheckForDeath();
         UpdateDashCooldown();
@@ -109,6 +115,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     public void HandleMovement()
     {
+        if (playerHealth.HealthAmount <= 0) return;
         if (currentState.CanDash() || currentState.CanWallJump()) return;
         if (PlayerInput.GetPrimaryAxis().x > 0)
         {

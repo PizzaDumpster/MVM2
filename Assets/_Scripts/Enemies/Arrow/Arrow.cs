@@ -1,11 +1,10 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class Arrow : MonoBehaviour
 {
     public float shootForce = 10f;
     public int damageAmount = 10;
-    
+    public LayerMask ignoreLayer; // Layer mask to ignore collisions with
 
     public Rigidbody2D rb;
 
@@ -18,8 +17,13 @@ public class Arrow : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Tilemap collidedTilemap = collision.gameObject.GetComponent<Tilemap>();
-        if (collidedTilemap != null)
+        if (collision.gameObject.CompareTag("EndPoint")) // Check for end point object
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        if (ignoreLayer == (ignoreLayer | (1 << collision.gameObject.layer))) // Ignore collisions with specified layer
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
             return;
@@ -33,7 +37,4 @@ public class Arrow : MonoBehaviour
 
         gameObject.SetActive(false);
     }
-
-
-
 }

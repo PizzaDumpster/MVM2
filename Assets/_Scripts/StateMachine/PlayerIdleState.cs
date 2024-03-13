@@ -22,7 +22,7 @@ public class PlayerIdleState : PlayerState
         base.EnterState(stateMachine);
 
         stateMachine.PlayerRigidBody.sharedMaterial = null;
-
+        stateMachine.PlayerRigidBody.velocity = Vector2.zero;
         stateMachine.PlayerAnimator.CrossFade(animationTrigger.triggerString, transitionDuration);
     }
 

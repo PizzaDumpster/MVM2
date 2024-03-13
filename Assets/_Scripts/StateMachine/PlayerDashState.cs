@@ -49,11 +49,13 @@ public class PlayerDashState : PlayerState
 
         if (!isDashing && stateMachine.GroundCheck.IsGrounded())
         {
+            stateMachine.PlayerRigidBody.gravityScale = initialGravityMultiplier;
             stateMachine.TransitionToState(idleState);
         }
 
         if (!isDashing && !stateMachine.GroundCheck.IsGrounded())
         {
+            stateMachine.PlayerRigidBody.gravityScale = initialGravityMultiplier;
             stateMachine.TransitionToState(fallsState);
         }
 
@@ -61,6 +63,9 @@ public class PlayerDashState : PlayerState
         {
             stateMachine.TransitionToState(wallSlideState);
         }
+
+
+
     }
 
     private IEnumerator Dash()

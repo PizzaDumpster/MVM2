@@ -17,23 +17,33 @@ public class UIInput : MonoBehaviour, IUIInput
         Flush();
     }
 
-    private void OnSubmit(InputAction value)
+    private void OnSubmit(InputValue value)
     {
-
+        m_SubmitP.Process(value);
     }
 
     private void OnPause(InputValue value)
     {
-        m_SubmitP.Process(value);
+        m_TogglePauseP.Process(value);
     }
 
     public bool IsTogglePauseDown()
     {
         return m_TogglePauseP.IsDown();
     }
+    public bool IsSubmitHeld()
+    {
+        return m_SubmitP.IsHeld();
+    }
+
     public bool IsSubmitDown()
     {
         return m_SubmitP.IsDown();
+    }
+
+    public bool IsSubmitUp()
+    {
+        return m_SubmitP.IsUp();
     }
     private void Flush()
     {

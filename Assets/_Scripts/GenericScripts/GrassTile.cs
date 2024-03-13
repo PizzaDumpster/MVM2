@@ -1,10 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.Events;
 
 public class GrassTile : MonoBehaviour
 {
     public Tilemap tilemap;
-
+    public List<DestroyedTile> destroyedTiles;
     public void Damage(int amount, Transform transform)
     {
         Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
@@ -25,7 +27,9 @@ public class GrassTile : MonoBehaviour
         // Check if there's a tile at the cell position
         if (tilemap.GetTile(cellPosition) != null)
         {
-            // Remove the tile at the given position
+            TileBase tile = tilemap.GetTile(cellPosition);
+            DestroyedTile taggedEvent = destroyedTiles.Find(e => e.tileDestroyed == tile);
+            taggedEvent.OnDestroyed?.Invoke();
             tilemap.SetTile(cellPosition, null);
         }
         else
@@ -43,7 +47,9 @@ public class GrassTile : MonoBehaviour
             // Check if there's a tile at the cell position
             if (tilemap.GetTile(cellPosition) != null)
             {
-                // Remove the tile at the given position
+                TileBase tile = tilemap.GetTile(cellPosition);
+                DestroyedTile taggedEvent = destroyedTiles.Find(e => e.tileDestroyed == tile);
+                taggedEvent.OnDestroyed?.Invoke();
                 tilemap.SetTile(cellPosition, null);
             }
             else
@@ -63,7 +69,9 @@ public class GrassTile : MonoBehaviour
             // Check if there's a tile at the cell position
             if (tilemap.GetTile(cellPosition) != null)
             {
-                // Remove the tile at the given position
+                TileBase tile = tilemap.GetTile(cellPosition);
+                DestroyedTile taggedEvent = destroyedTiles.Find(e => e.tileDestroyed == tile);
+                taggedEvent.OnDestroyed?.Invoke();
                 tilemap.SetTile(cellPosition, null);
             }
             else

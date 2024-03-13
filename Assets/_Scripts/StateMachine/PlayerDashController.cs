@@ -4,12 +4,13 @@ using UnityEngine;
 public class PlayerDashController : MonoBehaviour
 {
     private DashMeter dashMeter = new DashMeter();
-    private float currentDashCooldown = 0.0f;
+    private float currentDashCooldown = 100f;
 
-    public bool CanDash => currentDashCooldown == 0;
+    public bool CanDash => currentDashCooldown >= 95;
 
     public void StartDashCooldown(float cooldownTime)
     {
+        currentDashCooldown = dashMeter.DashAmount;
         StartCoroutine(DashCooldownRoutine(cooldownTime));
     }
 
@@ -22,7 +23,7 @@ public class PlayerDashController : MonoBehaviour
             float timePercentage = elapsedTime / cooldownTime;
 
             dashMeter.DashAmount = Mathf.Lerp(0f, 100f, timePercentage);
-
+            currentDashCooldown = dashMeter.DashAmount;
             MessageBuffer<DashMeter>.Dispatch(dashMeter);
 
             elapsedTime += Time.deltaTime;
@@ -32,6 +33,6 @@ public class PlayerDashController : MonoBehaviour
 
         currentDashCooldown = 100f;
         MessageBuffer<DashMeter>.Dispatch(dashMeter);
-        currentDashCooldown = 0f;
+
     }
 }

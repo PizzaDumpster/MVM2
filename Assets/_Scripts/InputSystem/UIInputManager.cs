@@ -19,7 +19,7 @@ public class UIInputManager : MonoBehaviour
             {
                 if (_UIInput.IsTogglePauseDown())
                 {
-                    print("Pause Pressed");
+
                     if (!pauseMenu)
                         pauseMenu = GetComponentInChildren<PauseMenu>(true);
 

@@ -47,6 +47,11 @@ public class CharacterInput : MonoBehaviour, IPlayerInput
         return m_DashP.IsDown();
     }
 
+    public bool IsDashHeld()
+    {
+        return m_DashP.IsHeld();
+    }
+
     public bool IsJumpHeld()
     {
         return m_JumpP.IsHeld();

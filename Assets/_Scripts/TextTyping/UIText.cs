@@ -14,13 +14,14 @@ using System.Collections.Generic;
 
         [SerializeField] private Text uiText;
         [SerializeField] private GameObject textPanel;
+        [SerializeField] private GameObject textBoarder;
 
         [Header("Typewriter Sound Settings")]
         [SerializeField] AudioClip typingSound;  
         [SerializeField] private float minPitch = 0.9f;
         [SerializeField] private float maxPitch = 1.1f;
         [SerializeField] private int charactersPerClick = 1;
-      
+        
 
         private Text_Data currentTextData;
         private int currentLineIndex = 0;
@@ -36,6 +37,7 @@ using System.Collections.Generic;
         private void Awake()
         {
             SingletonSetup();
+            if(textBoarder != null) textBoarder.SetActive(true);
             this.gameObject.SetActive(false);
         }
 

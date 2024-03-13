@@ -92,33 +92,34 @@ public class PlayerJumpState : PlayerState
 
         if (jumpBufferCounter > 0 && isOppositeDirection)
         {
-            //print("Jump While Moving OtherWay");
+            print("Jump While Moving OtherWay");
             stateMachine.PlayerRigidBody.velocity = new Vector2(-horizontalInput * jumpForce, jumpForce);
         }
         else if (jumpBufferCounter > 0 && stateMachine.GroundCheck.IsGrounded())
         {
-            //print("Jump With Nothing");
+            print("Jump With Nothing");
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
         }
         else if (jumpBufferCounter > 0 && stateMachine.WallCheck.IsWalled())
         {
-            //print("Jump Facing Wall");
+            print("Jump Facing Wall");
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
             return;
         }
-        else if (jumpBufferCounter > 0 && !stateMachine.WallCheck.IsWalled())
-        {
-            //print("Jump With Nothing");
-            stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
-        }
-
         else if (stateMachine.PlayerInput.IsJumpPressed() && (jumpCounter < maxJumps || canDoubleJump) && !stateMachine.GroundCheck.IsGrounded() && stateMachine.unlockedAbilities.Contains(doubleJump))
         {
-            //print("Double Jump");
+            print("Double Jump");
             jumpCounter++;
             stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, doubleJumpForce);
             canDoubleJump = false;
         }
+        else if (jumpBufferCounter > 0 && !stateMachine.WallCheck.IsWalled())
+        {
+            print("NotWalled");
+            stateMachine.PlayerRigidBody.velocity = new Vector2(stateMachine.PlayerRigidBody.velocity.x, jumpForce);
+        }
+
+
     }
 
     bool FallState()

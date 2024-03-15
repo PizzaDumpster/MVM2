@@ -61,6 +61,12 @@ public class PlayerStateMachine : MonoBehaviour
         currentState.EnterState(this);
     }
 
+    private void OnDestroy()
+    {
+        MessageBuffer<PickedUpPowerUp>.Unsubscribe(AddAbilitiy);
+        MessageBuffer<PlayerRespawn>.Unsubscribe(RespawnCharacterIn);
+    }
+
     private void AddAbilitiy(PickedUpPowerUp obj)
     {
         unlockedAbilities.Add(obj.powerUp);
@@ -73,7 +79,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Update()
     {
-        print(CanDash());
+        //print(CanDash());
         if (PauseController.Instance.IsPaused) return;
         m_InputAxis = m_Input.GetPrimaryAxis();
         

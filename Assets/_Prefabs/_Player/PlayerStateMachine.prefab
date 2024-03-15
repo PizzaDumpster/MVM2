@@ -157,7 +157,7 @@ MonoBehaviour:
           m_MethodName: PlayOneShot
           m_Mode: 2
           m_Arguments:
-            m_ObjectArgument: {fileID: 8300000, guid: 241b5f960e1a03446b57bdb3ffab0f72, type: 3}
+            m_ObjectArgument: {fileID: 8300000, guid: 7e50fa6d52c88de4ebddf749dcbd44aa, type: 3}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
@@ -571,6 +571,10 @@ MonoBehaviour:
   transitionDuration: 0
   wallslide: {fileID: 11400000, guid: 0f0eb9402d8cda24ab95b043e3119b4f, type: 2}
   dash: {fileID: 11400000, guid: 742ddc0acdb426e498778cdde01f6f20, type: 2}
+  wallJumpCooldown: 0.25
+  wallJumpTimer: 0
+  isWallJumpCooldownActive: 0
+  isWallCountDownDone: 0
 --- !u!1 &4712516746930089777
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,7 +896,6 @@ MonoBehaviour:
   unlockedAbilities:
   - {fileID: 11400000, guid: a27278ea458ccc747bde41a1444a5dc6, type: 2}
   - {fileID: 11400000, guid: 0f0eb9402d8cda24ab95b043e3119b4f, type: 2}
-  - {fileID: 11400000, guid: 742ddc0acdb426e498778cdde01f6f20, type: 2}
   - {fileID: 11400000, guid: a1dc1a282d0a821469b58da61cfe29df, type: 2}
 --- !u!114 &1423543906855090405
 MonoBehaviour:
@@ -910,7 +913,19 @@ MonoBehaviour:
   maxHealth: 100
   OnDeath:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -8349436425676798852}
+        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
+        m_MethodName: PlayOneShot
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: bc5092bcb59cea247a9894966bb461bb, type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   trigger: {fileID: 11400000, guid: 5acc0d73984440c4a82dcdef2ce27eb5, type: 2}
   onHit:
     m_PersistentCalls:

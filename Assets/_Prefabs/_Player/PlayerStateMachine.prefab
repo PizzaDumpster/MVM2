@@ -320,7 +320,7 @@ MonoBehaviour:
   groundCheck: {fileID: 169145697224156681}
   groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 576
   groundCheckDistance: 0.25
 --- !u!1 &3702348154138974561
 GameObject:
@@ -517,7 +517,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 576
   wallCheck: {fileID: 8420679390204028224}
 --- !u!1 &4469614586546826091
 GameObject:
@@ -897,6 +897,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a27278ea458ccc747bde41a1444a5dc6, type: 2}
   - {fileID: 11400000, guid: 0f0eb9402d8cda24ab95b043e3119b4f, type: 2}
   - {fileID: 11400000, guid: a1dc1a282d0a821469b58da61cfe29df, type: 2}
+  - {fileID: 11400000, guid: 742ddc0acdb426e498778cdde01f6f20, type: 2}
 --- !u!114 &1423543906855090405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1536,6 +1537,7 @@ MonoBehaviour:
   attackPoint: {fileID: 8190116055694505914}
   direction: 0
   weapon: {fileID: -4649165196833554598}
+  attackCooldown: 0.5
 --- !u!1 &8203306372918463649
 GameObject:
   m_ObjectHideFlags: 0

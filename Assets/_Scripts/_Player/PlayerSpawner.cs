@@ -41,6 +41,11 @@ public class PlayerSpawner : MonoBehaviour
         spawnLocation = obj.checkPoint;
     }
 
+    public void SetSpawnPoint(Transform transform)
+    {
+        spawnLocation = transform;
+    }
+
     private void RespawnCharacterIn(PlayerRespawn obj)
     {
         SpawnCharacterIn();

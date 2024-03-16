@@ -34,7 +34,6 @@ public class FallState : PlayerState
     public override void UpdateState()
     {
         CheckForChange();
-        print(wallJumpTimer);
         // Update the wall jump timer if it's active
         if (!isWallJumpCooldownActive)
         {

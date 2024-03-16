@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class SetPlayer : BaseMessage { public GameObject player; }
+
 public class PlayerStateMachine : MonoBehaviour
 {
     private PlayerWallCheck wallCheck;
@@ -12,7 +14,7 @@ public class PlayerStateMachine : MonoBehaviour
     private Animator animator;
     private PlayerHealth playerHealth;
     private InteractiveDetector interactiveDetector;
-    
+    private SetPlayer character = new SetPlayer();
 
     public float speed = 2f;
     public float currentDashCooldown = 0.0f;
@@ -44,6 +46,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     void Start()
     {
+        character.player = this.gameObject;
+
         MessageBuffer<PickedUpPowerUp>.Subscribe(AddAbilitiy);
         MessageBuffer<PlayerRespawn>.Subscribe(RespawnCharacterIn);
 
@@ -59,6 +63,8 @@ public class PlayerStateMachine : MonoBehaviour
 
         currentState = startState;
         currentState.EnterState(this);
+
+        MessageBuffer<SetPlayer>.Dispatch(character);
     }
 
     private void OnDestroy()

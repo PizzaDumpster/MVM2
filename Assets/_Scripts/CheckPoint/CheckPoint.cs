@@ -1,13 +1,19 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CheckPoint : MonoBehaviour
 {
     private Animator animator;
-
+    
+    [Header("")]
     public TriggerStringSO activaterTrigger;
     public ObjectStringSO playerObject;
     public SetCheckMark checkMark = new SetCheckMark();
+
+    [Header("")]
+    public UnityEvent onIgnited;
+
 
     private bool checkpointActivated;
 
@@ -23,12 +29,13 @@ public class CheckPoint : MonoBehaviour
     {
         if (collision.tag == playerObject.objectString)
         {
-            ChangeAnimationState(activaterTrigger.triggerString);
-            MessageBuffer<SetCheckMark>.Dispatch(checkMark);
+            ChangeAnimationState(activaterTrigger.triggerString);   
             if (!checkpointActivated)
             {
                 AudioPlayer.Instance.PlayAudioClip(checkpointActivatedAudio);
                 checkpointActivated = true;
+                CheckPointSet();
+                onIgnited?.Invoke();
             }
             
         }
@@ -37,5 +44,10 @@ public class CheckPoint : MonoBehaviour
     private void ChangeAnimationState(string newState)
     {
             animator.Play(newState);
+    }
+
+    public void CheckPointSet()
+    {
+        MessageBuffer<SetCheckMark>.Dispatch(checkMark);
     }
 }

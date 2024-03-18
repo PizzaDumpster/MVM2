@@ -53,7 +53,6 @@ public class PlayerHealth : Health , IDamageable
         }
 
         onHit?.Invoke();
-        print("Hit");
     }
 
     public void RestoreHealth(PlayerRestoreHealth msg)

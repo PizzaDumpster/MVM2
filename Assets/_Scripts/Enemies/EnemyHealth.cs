@@ -8,7 +8,7 @@ public class EnemyHealth : Health, IDamageable
     public UnityEvent onHit;
     public void Damage(int damage = 0, Transform transform = null)
     {
-        print("Damage");
+        print("Damage = " + damage);
         HealthAmount = HealthAmount - damage;
 
         onHit?.Invoke();

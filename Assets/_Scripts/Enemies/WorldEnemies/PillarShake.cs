@@ -18,6 +18,11 @@ public class PillarShake : MonoBehaviour
         originalPosition = transform.position;
     }
 
+    public void OnDestroy()
+    {
+        MessageBuffer<PlayerRespawn>.Unsubscribe(ResetPosition);
+    }
+
     private void ResetPosition(PlayerRespawn obj)
     {
         transform.DOKill();

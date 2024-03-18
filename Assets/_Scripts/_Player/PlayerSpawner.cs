@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SetCheckMark : BaseMessage { public Transform checkPoint; }
 public class PlayerRespawn : BaseMessage { }
@@ -19,14 +20,30 @@ public class PlayerSpawner : MonoBehaviour
 
     public void Start()
     {
-        MessageBuffer<SetCheckMark>.Subscribe(SetSpawenPoint);
+        MessageBuffer<SetCheckMark>.Subscribe(SetSpawnPoint);
         MessageBuffer<PlayerRespawn>.Subscribe(RespawnCharacterIn);
         SpawnCharacterIn();
     }
 
-    private void SetSpawenPoint(SetCheckMark obj)
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SpawnCharacterIn();
+    }
+
+    private void OnDestroy()
+    {
+        MessageBuffer<SetCheckMark>.Unsubscribe(SetSpawnPoint);
+        MessageBuffer<PlayerRespawn>.Unsubscribe(RespawnCharacterIn);
+    }
+
+    private void SetSpawnPoint(SetCheckMark obj)
     {
         spawnLocation = obj.checkPoint;
+    }
+
+    public void SetSpawnPoint(Transform transform)
+    {
+        spawnLocation = transform;
     }
 
     private void RespawnCharacterIn(PlayerRespawn obj)

@@ -34,7 +34,8 @@ public class InteractableSign : MonoBehaviour
         if (other.CompareTag(playerTag.objectString))
         {
             isPlayerInside = true;
-            StartCoroutine(FadeIn());
+            if (gameObject.activeInHierarchy) // Check if GameObject is active
+                StartCoroutine(FadeIn());
         }
     }
 
@@ -43,7 +44,8 @@ public class InteractableSign : MonoBehaviour
         if (other.CompareTag(playerTag.objectString))
         {
             isPlayerInside = false;
-            StartCoroutine(FadeOut());
+            if (gameObject.activeInHierarchy) // Check if GameObject is active
+                StartCoroutine(FadeOut());
         }
     }
 

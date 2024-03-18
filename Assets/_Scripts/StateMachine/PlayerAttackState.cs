@@ -28,8 +28,17 @@ public class PlayerAttackState : PlayerState
         animationFinished = false;
     }
 
+    private float lastAttackTime; // Time of the last attack
+
+    public float attackCooldown = 0.5f; // Cooldown duration in seconds
+
     public override void UpdateState()
     {
+        // Check if enough time has passed since the last attack
+        if (Time.time - lastAttackTime < attackCooldown)
+            return; // Exit the method if still in cooldown
+
+        // Perform attack logic
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(attackPoint.position, 1f);
         foreach (Collider2D collider in hitColliders)
         {
@@ -44,6 +53,9 @@ public class PlayerAttackState : PlayerState
                 damageable.Damage(weapon.currentWeapon.WeaponDamage, attackPoint);
             }
         }
+
+        // Update last attack time
+        lastAttackTime = Time.time;
 
 
         if (!animationFinished && stateMachine.PlayerAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)

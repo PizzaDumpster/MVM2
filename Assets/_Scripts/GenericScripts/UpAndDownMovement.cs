@@ -7,11 +7,18 @@ public class UpAndDownMovement : MonoBehaviour
     public float moveDistance = 1f; // Distance to move up and down
     public float duration = 1f; // Duration of each movement
 
+    private Coroutine movementCoroutine;
+
     private void Start()
     {
         // Start the coroutine for the movement
-        StartCoroutine(MoveUpDown());
+        movementCoroutine = StartCoroutine(MoveUpDown());
     }
+
+    //public void OnEnable()
+    //{
+    //    movementCoroutine = StartCoroutine(MoveUpDown());
+    //}
 
     private IEnumerator MoveUpDown()
     {
@@ -42,5 +49,20 @@ public class UpAndDownMovement : MonoBehaviour
             startPos = targetPos;
             targetPos = temp;
         }
+    }
+
+    // Disable movement during teleportation
+    public void DisableMovement()
+    {
+        if (movementCoroutine != null)
+        {
+            StopCoroutine(movementCoroutine);
+        }
+    }
+
+    // Enable movement after teleportation
+    public void EnableMovement()
+    {
+        movementCoroutine = StartCoroutine(MoveUpDown());
     }
 }

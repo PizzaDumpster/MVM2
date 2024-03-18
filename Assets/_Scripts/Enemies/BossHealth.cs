@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class EnemyHealthBar : BaseMessage { public HealthData healthData; }
 
-public class BossFightStarted : BaseMessage { }
+public class BossFightStarted : BaseMessage { public string BossName; }
 
 public class BossFightEnded : BaseMessage { }
 
@@ -14,11 +14,14 @@ public class BossHealth : Health, IDamageable
 {
     public UnityEvent onHit;
     public EnemyHealthBar bossHealth = new EnemyHealthBar();
+    public string bossName;
+    private BossFightStarted bossInfo = new BossFightStarted();
 
     public void Awake()
     {
         MessageBuffer<PlayerRespawn>.Subscribe(RespawnCharacterIn);
         bossHealth.healthData.currentMaxHealth = maxHealth;
+        bossInfo.BossName = bossName;
     }
 
     private void RespawnCharacterIn(PlayerRespawn obj)
@@ -31,7 +34,7 @@ public class BossHealth : Health, IDamageable
     {
         bossHealth.healthData.currentHealth = HealthAmount;
         HealthDispatch();
-        MessageBuffer<BossFightStarted>.Dispatch();
+        MessageBuffer<BossFightStarted>.Dispatch(bossInfo);
     }
     public void Damage(int damage = 0, Transform transform = null)
     {

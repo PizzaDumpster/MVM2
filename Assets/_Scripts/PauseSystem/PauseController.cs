@@ -21,15 +21,15 @@ public class PauseController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        //if (Instance == null)
-        //{
-        //      Instance = this;
-        //    //DontDestroyOnLoad(gameObject);
-        //}
-        //else if (Instance != this)
-        //{
-        //    Destroy(gameObject);
-        //}
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Pause()

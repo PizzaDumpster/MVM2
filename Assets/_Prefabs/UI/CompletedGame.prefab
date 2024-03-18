@@ -835,8 +835,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuScene: {fileID: 11400000, guid: b5f96058c27029f4ea73f36deb9594ca, type: 2}
   scoreBoard: {fileID: 7459458487423428069}
-  onQuit: {fileID: 542845445943560593}
-  onMainMenu: {fileID: 2637578519018880433}
+  onQuit: {fileID: 2637578519018880433}
+  onMainMenu: {fileID: 542845445943560593}
   deathCount: {fileID: 6590359348263984594}
   time: {fileID: 5942301829733774019}
 --- !u!1 &889070885005118643
@@ -1263,7 +1263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6762428242874440656
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1279,9 +1279,9 @@ RectTransform:
   - {fileID: 2689704607545834562}
   m_Father: {fileID: 6122403762494844681}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 469.65576, y: -130.6255}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &220250994614040441

@@ -55,11 +55,11 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator TransitionToScene(string sceneName)
     {
-        // Fade out before transitioning to the new scene
+        print("Start");
         Fade.Instance.DoFade(1f, .5f); // Fade out completely over 1 second
 
         // Wait for the fade out to complete
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSecondsRealtime(1f);
 
         // Load the new scene
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(startScene.sceneName);
@@ -67,15 +67,16 @@ public class MainMenu : MonoBehaviour
 
         while (!asyncLoad.isDone)
         {
+            print("waiting");
             if (asyncLoad.progress >= 0.9f)
             {
                 // Fade in after the scene is fully loaded
-                
+                print("Done");
                 asyncLoad.allowSceneActivation = true;
             }
             yield return null;
         }
-        
+        print("Should Start");
         Fade.Instance.DoFade(0f, 1f); // Fade in completely over 1 second
     }
 

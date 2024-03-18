@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,7 +8,7 @@ public class SetSelectedButton : MonoBehaviour
     public GameObject m_Quit;
 
     GameObject lastselect;
-    // Start is called before the first frame update
+
     void Start()
     {
         lastselect = new GameObject();
@@ -18,17 +16,25 @@ public class SetSelectedButton : MonoBehaviour
 
     private void OnEnable()
     {
-        EventSystem.current.SetSelectedGameObject(m_Yes);
-    }
-    private void OnDisable()
-    {
-        EventSystem.current.SetSelectedGameObject(m_Quit);
+        if (EventSystem.current != null && m_Yes != null)
+            EventSystem.current.SetSelectedGameObject(m_Yes);
     }
 
-    // Update is called once per frame
+    private void OnDisable()
+    {
+        if (EventSystem.current != null && m_Quit != null)
+            EventSystem.current.SetSelectedGameObject(m_Quit);
+    }
+
+    private void OnDestroy()
+    {
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
+    }
+
     void Update()
     {
-        if (EventSystem.current.currentSelectedGameObject == null)
+        if (EventSystem.current != null && EventSystem.current.currentSelectedGameObject == null)
         {
             EventSystem.current.SetSelectedGameObject(lastselect);
         }
